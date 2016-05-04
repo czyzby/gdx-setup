@@ -11,6 +11,11 @@ import com.github.czyzby.setup.data.project.Project
  */
 interface Template {
     val id: String
+    // Sizes are kept as strings so you can set the sizes to static values, for example: MainClass.WIDTH.
+    val width: String
+        get() = "640"
+    val height: String
+        get() = "480"
 
     /**
      * @param project is being created. Should contain sources provided by this template.
@@ -61,8 +66,8 @@ public class DesktopLauncher {
     private static LwjglApplicationConfiguration getDefaultConfiguration() {
         LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
         configuration.title = "${project.basic.name}";
-        configuration.width = 640;
-        configuration.height = 480;
+        configuration.width = ${width};
+        configuration.height = ${height};
         return configuration;
     }
 }"""
@@ -83,7 +88,7 @@ import ${project.basic.rootPackage}.${project.basic.mainClass};
 public class GwtLauncher extends GwtApplication {
     @Override
     public GwtApplicationConfiguration getConfig() {
-        GwtApplicationConfiguration configuration = new GwtApplicationConfiguration(640, 480);
+        GwtApplicationConfiguration configuration = new GwtApplicationConfiguration(${width}, ${height});
         return configuration;
     }
 
