@@ -48,6 +48,26 @@ class Overlap2D : ThirdPartyExtension() {
 }
 
 /**
+ * High performance Entity-Component-System framework.
+ * @author junkdog
+ */
+@Extension
+class ArtemisOdb : ThirdPartyExtension() {
+    override val id = "artemisOdb"
+    override val defaultVersion = "1.4.0"
+    override val url = "https://github.com/junkdog/artemis-odb"
+
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "net.onedaybeard.artemis:artemis-odb");
+
+        addDependency(project, GWT.ID, "net.onedaybeard.artemis:artemis-odb-gwt")
+        addDependency(project, GWT.ID, "net.onedaybeard.artemis:artemis-odb-gwt:sources")
+        addDependency(project, GWT.ID, "net.onedaybeard.artemis:artemis-odb:sources")
+        addGwtInherit(project, "com.artemis.backends.artemis_backends_gwt")
+    }
+}
+
+/**
  * UI toolkit.
  * @author Kotcrab
  */
@@ -83,10 +103,8 @@ class VisRuntime : ThirdPartyExtension() {
         addDependency(project, GWT.ID, "com.kotcrab.vis:vis-runtime:sources")
         addGwtInherit(project, "com.kotcrab.vis.vis-runtime")
 
-        project.properties["artemisVersion"] = "1.2.1"
-        addExternalDependency(project, GWT.ID, "net.onedaybeard.artemis:artemis-odb-gwt:\$artemisVersion")
-        addExternalDependency(project, GWT.ID, "net.onedaybeard.artemis:artemis-odb-gwt:\$artemisVersion:sources")
-        addExternalDependency(project, GWT.ID, "net.onedaybeard.artemis:artemis-odb:\$artemisVersion:sources")
+        ArtemisOdb().initiate(project)
+        project.properties["artemisOdbVersion"] = "1.3.1"
     }
 }
 
