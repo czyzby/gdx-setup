@@ -1,0 +1,19 @@
+Don't be afraid to create issues with requests and questions!
+
+All Kotlin sources ahouls bw formatted with the default Kotlin IntelliJ formatter.
+
+### Adding a new third-party extension
+
+Open `thirdPartyExtensions.kt`. Create a new class implementing `ThirdPartyExtension`. Annotate it with `@Extension` - it will be automatically scanned for and initiated, you don't have to register it anywhere else in Kotlin sources. Choose a unique ID, default version and contact URL. Override `initiateDependencies` to include libraries and GWT inherits of the extensions. Add `yourLibId` line in `nls.properties` (displayed name of the library) and `yourLibIdTip` in all other NLS files (tooltips with library description).
+
+### Adding a new JVM language support
+
+Open `langs` package. Create a new file with a new class implementing `Language`. Annotate it with `@JvmLanguage`. Choose a unique language ID and proposed runtime library version. Override `initiate` method to include language support in the project. Add `langId` line (official language name) and `langIdUrl` (official language website) in `nls.properties`.
+
+### Adding a new sources template
+
+Open `templates` package. Create a new file in `unofficial` package with a new class implementing `Template`. Annotate it with `@ProjectTemplate`. Choose a unique ID. Implement `getApplicationListenerContent` - provide source code of `ApplicationListener` implementation. If you need to add additional files or modify the project structure itself, override `apply` method. Add `templateId` line (default template name) in `nls.properties` and `templateIdTip` in every other NLS file (template description).
+
+### Providing a new translation
+
+Copy `nls_en.properties` file. Change `en` to the ID of your language. Translate all bundle lines. If you think any lines from the `nls.properties` should be translated as well (like template names), copy and translate them in your new file: they will be overridden. Find `availableLocales` variable in `configuration.kt` and add your language ID. Add line matching your language ID to `nls.properties` with the language's native name. Note that special characters should be escaped - for example, `ó` should be entered as `\u00F3` to ensure that it works without any problems on every platform. Eclipse IDE should automatically convert these characters as you type them in (sorry, IntelliJ users: it's just a single file though!).

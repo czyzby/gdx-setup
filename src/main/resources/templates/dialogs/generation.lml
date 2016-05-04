@@ -1,0 +1,3 @@
+<dialog title="@generationTitle">
+    <label id="prompt" color="vis-blue">@generationPrompt</label>
+</dialog>

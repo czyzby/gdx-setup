@@ -1,0 +1,43 @@
+<tab text="@advanced" closeable="false" defaultPad="3">
+    <:column column="1" growX="true"/>
+    <table colspan="2" row="true" defaultPad="2">
+        <label padRight="20">@localePrompt</label>
+        <:each locale="{locales}">
+            <:if test="{locale} != {currentLocale}">
+                <textButton onClick="locale:{locale}">@{locale}</textButton>
+            </:if>
+        </:each>
+        <label style="small" color="vis-blue" padLeft="20">@localeWarn</label>
+    </table>
+    @version
+    <textField id="version" tooltip="@versionTip" row="true">0.0.1-SNAPSHOT</textField>
+    @gdxVersion
+    <textField id="gdxVersion" tooltip="@gdxVersionTip|$gdxVersion" row="true">$gdxVersion</textField>
+    <table colspan="2" growX="true" defaultPad="3" row="true" pad="0">
+        <:column column="1" growX="true"/>
+        <:column column="3" growX="true"/>
+        @serverJavaVersion
+        <floatSpinner id="serverJavaVersion" min="1.1" max="1.9" value="1.8" step="0.1" precision="1"
+                      tooltip="@serverJavaVersionTip"/>
+        @javaVersion
+        <floatSpinner id="javaVersion" min="1.5" max="1.9" value="1.6" step="0.1" precision="1" row="true"
+                      tooltip="@javaVersionTip"/>
+        @sdkVersion
+        <intSpinner id="sdkVersion" min="8" max="23" value="$getSdkVersion" onChange="setSdkVersion" step="1"
+                    tooltip="@sdkVersionTip"/>
+        @toolsVersion
+        <textField id="toolsVersion" tooltip="@toolsVersionTip" value="$getToolsVersion"
+                   onChange="setToolsVersion" row="true"/>
+        @gwtVersion
+        <selectBox id="gwtVersion" tooltip="@gwtVersionTip" value="$getGwtVersion" onChange="setGwtVersion"
+                   minWidth="20">
+            <:for version="$gwtVersions">{version}
+            </:for>
+        </selectBox>
+        @gwtPlugin
+        <textField id="gwtPlugin" tooltip="@gwtPluginTip" growX="true">0.6</textField>
+    </table>
+    <table colspan="2" growX="true">
+        <checkBox id="generateSkin" tooltip="@generateSkinTip">@generateSkin</checkBox>
+    </table>
+</tab>

@@ -1,0 +1,50 @@
+apply plugin: 'kotlin'
+apply plugin: 'application'
+
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    classpath "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+  }
+}
+
+ext.libVersion = "1.7.$gdxVersion-SNAPSHOT"
+version = libVersion
+mainClassName = 'com.github.czyzby.setup.MainKt'
+
+jar {
+  manifest {
+    attributes 'Main-Class': mainClassName
+  }
+  from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+  maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+dependencies {
+  compile "org.jetbrains.kotlin:kotlin-runtime:$kotlinVersion"
+  compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
+
+  compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+  compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+  compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+
+  compile "com.github.czyzby:gdx-autumn-mvc:$libVersion"
+  compile "com.github.czyzby:gdx-autumn-fcs:$libVersion"
+  compile "com.github.czyzby:gdx-lml-vis:$libVersion"
+}
+
+task pack << {
+  com.badlogic.gdx.tools.texturepacker.TexturePacker.process(
+    file("raw").absolutePath,
+    file("src/main/resources/skin").absolutePath,
+    "tinted"
+  )
+}

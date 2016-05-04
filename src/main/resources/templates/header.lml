@@ -1,0 +1,4 @@
+<table toTitleTable="true" growX="true">
+    <image style="libgdx" fill="false" onClick="showSite" expandX="true" padLeft="30" />
+    <imageButton style="close-window" onChange="app:exit" toTitleTable="true" fill="false" align="topRight"/>
+</table>

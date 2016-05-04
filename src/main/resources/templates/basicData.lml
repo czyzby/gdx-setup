@@ -1,0 +1,31 @@
+<:root>
+    <validatable id="name" message="@namePrompt" textAlign="center" textFilter="fileNameFilter" tooltip="@nameTip">
+        <isNotEmpty error="@notEmpty|@name"/>
+        <validator check="isValidFile" error="@nameNotValid"/>
+    </validatable>
+    <validatable id="package" message="@packagePrompt" textAlign="center" textFilter="javaPackageFilter" tooltip="@packageTip"
+            text="$getPackage" onChange="setPackage">
+        <isNotEmpty error="@notEmpty|@package"/>
+        <validator check="isValidPackage" error="@packageNotValid"/>
+    </validatable>
+    <validatable id="class" message="@classPrompt" textAlign="center" textFilter="javaClassFilter" tooltip="@classTip"
+            text="$getMainClass" onChange="setMainClass">
+        <isNotEmpty error="@notEmpty|@class"/>
+        <validator check="isValidClass" error="@classNotValid"/>
+    </validatable>
+    <table>
+        <validatable id="destination" growX="true" message="@destinationPrompt" tooltip="@destinationTip">
+            <isDirectory error="@notDirectory"/>
+            <isDirectoryEmpty error="@notEmptyDirectory"/>
+        </validatable>
+        <imageButton padLeft="3" size="27" directoryChooser="chooseDirectory"/>
+    </table>
+    <table>
+        <validatable id="androidSdk" growX="true" message="@androidSdkPrompt" disabled="true" tooltip="@sdkTip"
+                text="$getAndroidSdk" onChange="setAndroidSdk">
+            <isDirectory error="@sdkNotDirectory"/>
+        </validatable>
+        <imageButton id="androidSdkButton" disabled="true" padLeft="3" size="27" directoryChooser="chooseSdkDirectory"/>
+    </table>
+    <label errorLabel="true" style="small" fill="false"/>
+</:root>
