@@ -1,6 +1,6 @@
 Don't be afraid to create issues with requests and questions!
 
-All Kotlin sources ahouls bw formatted with the default Kotlin IntelliJ formatter.
+All Kotlin sources should be formatted with the default Kotlin IntelliJ formatter.
 
 ### Adding a new third-party extension
 
