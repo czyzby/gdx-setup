@@ -25,8 +25,8 @@ import com.kotcrab.vis.ui.widget.file.FileChooser
 @Component
 class Configuration {
     companion object {
-        const val WIDTH = 520
-        const val HEIGHT = 620
+        const val WIDTH = 600
+        const val HEIGHT = 640
         const val PREFERENCES_PATH = "gdx-setup-prefs"
     }
 
