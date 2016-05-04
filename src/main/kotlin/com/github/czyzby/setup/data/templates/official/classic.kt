@@ -13,7 +13,7 @@ import com.github.czyzby.setup.views.ProjectTemplate
  * @author Original gdx-setup maintainers
  */
 @ProjectTemplate
-class ClassicTemplate : Template {
+open class ClassicTemplate : Template {
     override val id = "classic"
 
     override fun apply(project: Project) {
