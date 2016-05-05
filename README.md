@@ -17,7 +17,13 @@ Currently missing:
 - Gradle wrapper, running Gradle tasks after generation. Gradle wrapper is meant to be optional in this `gdx-setup` - the option to add it to the generated project is planned, and will be available through advanced options tab.
 - iOS platform support. Delayed until it becomes stable (the whole RoboVM to MOE transition thing).
 
-### Running from sources
+
+
+### Running the application
+
+You can download the latest runnable jar [here](https://dl.kotcrab.com/libgdx/gdx-setup-latest.jar). Stable application archives will be eventually uploaded to the [releases section](https://github.com/czyzby/gdx-setup/releases).
+
+#### Running from sources
 
 ```
 git clone https://github.com/czyzby/gdx-setup.git
