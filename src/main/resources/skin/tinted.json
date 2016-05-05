@@ -105,7 +105,8 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	window: {name: t-window, color: t-dark },
 	window-bg: {name: t-dot, color: t-dark },
 	window-noborder: {name: t-window-border, color: t-dark },
-	window-resizable: {name: t-window-resize, color: t-dark }
+	window-resizable: {name: t-window-resize, color: t-dark },
+	icon-folder-disabled: {name: icon-folder, color: grey }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: {down: button-down, up: button },
@@ -173,7 +174,7 @@ com.kotcrab.vis.ui.Sizes: {
 	x2: {scaleFactor: 2, spacingBottom: 8, spacingRight: 6, buttonBarSpacing: 10, menuItemIconSize: 44, spinnerButtonSize: 24, spinnerButtonsWidth: 20, spinnerFieldSize: 80, spinnerFieldRightPadding: 5 }
 },
 com.kotcrab.vis.ui.widget.VisTextField$VisTextFieldStyle: {
-	default: {focusBorder: border, font: default-font, fontColor: white, disabledFontColor: t-dark, selection: selection, background: textfield, backgroundOver: textfield-over, disabledBackground: button-over, errorBorder: border-error, cursor: cursor },
+	default: {focusBorder: border, font: default-font, fontColor: white, disabledFontColor: grey, selection: selection, background: textfield, backgroundOver: textfield-over, disabledBackground: button-window-bg, errorBorder: border-error, cursor: cursor },
 	small: {focusBorder: border, font: small-font, fontColor: white, disabledFontColor: grey, selection: selection, background: textfield, backgroundOver: textfield-over, errorBorder: border-error, cursor: cursor }
 },
 com.kotcrab.vis.ui.widget.VisTextButton$VisTextButtonStyle: {
@@ -183,7 +184,7 @@ com.kotcrab.vis.ui.widget.VisTextButton$VisTextButtonStyle: {
 	menu-bar: {over: button-down, font: default-font, fontColor: white, down: button-down, up: button, disabled: button, disabledFontColor: grey }
 },
 com.kotcrab.vis.ui.widget.VisImageButton$VisImageButtonStyle: {
-	default: {down: button-down, up: button, over: button-over, disabled: button-over, focusBorder: border, imageUp: icon-folder },
+	default: {down: button-down, up: button, over: button-over, disabled: button-window-bg, focusBorder: border, imageUp: icon-folder, imageDisabled: icon-folder-disabled },
 	blue: {down: button-blue-down, up: button-blue, over: button-blue-over, disabled: button-blue, focusBorder: border-dark-blue },
 	toggle: {checked: button-down, focusBorder: border, down: button-down, up: button, over: button-over, disabled: button },
 	close: {down: button-red, up: button, over: button-over, imageUp: icon-close, disabled: button },
