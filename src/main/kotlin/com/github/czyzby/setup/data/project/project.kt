@@ -13,6 +13,10 @@ import com.github.czyzby.setup.views.ExtensionsData
 import com.github.czyzby.setup.views.LanguagesData
 import java.io.File
 
+/**
+ * Contains data about the generated project.
+ * @author MJ
+ */
 class Project(val basic: BasicProjectData, val platforms: Map<String, Platform>, val advanced: AdvancedData,
               val languages: LanguagesData, val extensions: ExtensionsData, val template: Template) {
     private val gradleFiles: Map<String, GradleFile>
@@ -34,17 +38,14 @@ class Project(val basic: BasicProjectData, val platforms: Map<String, Platform>,
 
     fun hasPlatform(id: String): Boolean = platforms.containsKey(id)
 
-    @Suppress("UNCHECKED_CAST")
-    fun <P : Platform> getPlatform(id: String): P = platforms.get(id)!! as P
-
     fun getGradleFile(id: String): GradleFile = gradleFiles.get(id)!!
 
     fun generate() {
         addBasicFiles()
         addJvmLanguagesSupport()
         addExtensions()
-        addPlatforms()
         template.apply(this)
+        addPlatforms()
         addSkinAssets()
         saveProperties()
         saveFiles()
