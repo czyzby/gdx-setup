@@ -25,7 +25,7 @@
                 text="$getAndroidSdk" onChange="setAndroidSdk">
             <isDirectory error="@sdkNotDirectory"/>
         </validatable>
-        <imageButton id="androidSdkButton" disabled="true" padLeft="3" size="27" directoryChooser="chooseSdkDirectory"/>
+        <imageButton id="androidSdkButton" disabled="true" generateDisabledImage="true" padLeft="3" size="27" directoryChooser="chooseSdkDirectory"/>
     </table>
     <label errorLabel="true" style="small" fill="false"/>
 </:root>

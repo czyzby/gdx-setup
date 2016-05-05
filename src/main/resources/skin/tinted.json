@@ -40,6 +40,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	button-down: {name: t-base, color: t-highlight },
 	button-over: {name: t-base, color: t-light },
 	button-red: {name: t-base, color: t-warn },
+	button-disabled: {name: t-base, color: t-medium-dark }
 	button-window-bg: {name: t-base, color: t-dark },
 	check-down: {name: t-check-off, color: t-highlight },
 	check-down-on: {name: t-check-on, color: t-highlight },
@@ -106,7 +107,6 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	window-bg: {name: t-dot, color: t-dark },
 	window-noborder: {name: t-window-border, color: t-dark },
 	window-resizable: {name: t-window-resize, color: t-dark },
-	icon-folder-disabled: {name: icon-folder, color: grey }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: {down: button-down, up: button },
@@ -184,7 +184,7 @@ com.kotcrab.vis.ui.widget.VisTextButton$VisTextButtonStyle: {
 	menu-bar: {over: button-down, font: default-font, fontColor: white, down: button-down, up: button, disabled: button, disabledFontColor: grey }
 },
 com.kotcrab.vis.ui.widget.VisImageButton$VisImageButtonStyle: {
-	default: {down: button-down, up: button, over: button-over, disabled: button-window-bg, focusBorder: border, imageUp: icon-folder, imageDisabled: icon-folder-disabled },
+	default: {down: button-down, up: button, over: button-over, disabled: button-disabled, focusBorder: border, imageUp: icon-folder },
 	blue: {down: button-blue-down, up: button-blue, over: button-blue-over, disabled: button-blue, focusBorder: border-dark-blue },
 	toggle: {checked: button-down, focusBorder: border, down: button-down, up: button, over: button-over, disabled: button },
 	close: {down: button-red, up: button, over: button-over, imageUp: icon-close, disabled: button },
