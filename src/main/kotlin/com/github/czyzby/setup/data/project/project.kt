@@ -163,17 +163,9 @@ task pack << {
 
     private fun determineGradleCommand(): Array<String> {
         return if (OsUtils.isWindows()) {
-            if (advanced.addGradleWrapper) {
-                arrayOf(basic.destination.file().absolutePath + "\\gradlew.bat")
-            } else {
-                arrayOf("cmd", "/c", "gradle")
-            }
+            arrayOf("cmd", "/c", if (advanced.addGradleWrapper) "gradlew" else "gradle")
         } else {
-            if (advanced.addGradleWrapper) {
-                arrayOf("./gradlew")
-            } else {
-                arrayOf("gradle")
-            }
+            arrayOf(if (advanced.addGradleWrapper) "./gradlew" else "gradle")
         }
     }
 }
