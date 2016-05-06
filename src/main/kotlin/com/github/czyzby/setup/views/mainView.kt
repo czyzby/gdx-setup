@@ -56,6 +56,9 @@ class MainView : ActionContainer {
         }
     }
 
+    @LmlAction("toggleClients") fun toggleClientPlatforms() = platformsData.toggleClientPlatforms()
+    @LmlAction("toggleAll") fun toggleAllPlatforms() = platformsData.togglePlatforms()
+
     @LmlAfter fun initiateVersions(parser: LmlParser) {
         languagesData.assignVersions(parser)
         extensionsData.assignVersions(parser)

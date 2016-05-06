@@ -15,6 +15,7 @@ class Shared : Platform {
     }
 
     override val id = ID
+    override val isGraphical = false
 
     override fun createGradleFile(project: Project): GradleFile = SharedGradleFile(project)
 

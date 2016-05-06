@@ -13,11 +13,11 @@ class Assets : Platform {
     }
 
     override val id = ID
-    override fun createGradleFile(project: Project): GradleFile {
-        throw UnsupportedOperationException("This is a mock-up project with no Gradle file.")
-    }
+    override val isGraphical = false
 
-    override fun initiate(project: Project) {
-        throw UnsupportedOperationException("This is a mock-up project which should not be initiated.")
-    }
+    override fun createGradleFile(project: Project): GradleFile =
+            throw UnsupportedOperationException("This is a mock-up project with no Gradle file.")
+
+    override fun initiate(project: Project) =
+            throw UnsupportedOperationException("This is a mock-up project which should not be initiated.")
 }

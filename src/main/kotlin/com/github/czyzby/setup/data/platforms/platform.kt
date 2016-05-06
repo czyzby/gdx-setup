@@ -20,6 +20,12 @@ interface Platform {
     val id: String
 
     /**
+     * This value is set to true if the platform is a standard graphical LibGDX backend. False otherwise.
+     */
+    val isGraphical: Boolean
+        get() = true
+
+    /**
      * Creates a new gradle file used to manage this project's dependencies.
      * @param project requests the creation of file.
      */

@@ -13,6 +13,7 @@ import com.github.czyzby.lml.parser.tag.LmlAttribute
 import com.github.czyzby.lml.parser.tag.LmlTag
 import com.github.czyzby.lml.vis.parser.impl.VisLmlSyntax
 import com.github.czyzby.lml.vis.parser.impl.nongwt.ExtendedVisLml
+import com.github.czyzby.setup.views.widgets.ScrollableTextArea
 import com.kotcrab.vis.ui.VisUI
 import com.kotcrab.vis.ui.widget.Tooltip
 import com.kotcrab.vis.ui.widget.VisLabel
@@ -47,6 +48,8 @@ class Configuration {
         // Adding tags and attributes related to the file chooser:
         ExtendedVisLml.registerFileChooser(syntax)
         ExtendedVisLml.registerFileValidators(syntax)
+        // Adding custom ScrollableTextArea widget:
+        syntax.addTagProvider(ScrollableTextArea.ScrollableTextAreaLmlTagProvider(), "console")
 
         // Adding custom tooltip tag attribute:
         interfaceService.parser.syntax.addAttributeProcessor(object : LmlAttribute<Actor> {

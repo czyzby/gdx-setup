@@ -58,4 +58,9 @@ class GlobalActionContainer : ActionContainer {
         }
         return true
     }
+
+    @LmlAction("close")
+    fun noOp() {
+        // Empty dialog closing utility.
+    }
 }
