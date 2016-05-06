@@ -20,6 +20,7 @@ fun main(args: Array<String>) {
     config.height = Configuration.HEIGHT
     LwjglApplicationConfiguration.disableAudio = true
     // TODO config.decorated = false // (LibGDX 1.9.3)
+    System.setProperty("org.lwjgl.opengl.Window.undecorated", "true")
     arrayOf(256, 128, 64, 32, 16).forEach { config.addIcon("icons/libgdx$it.png", Files.FileType.Classpath) }
     LwjglApplication(object : AutumnApplication(DesktopClassScanner(), Root::class.java) {
         override fun registerDefaultComponentAnnotations(initializer: ContextInitializer) {
