@@ -1,5 +1,6 @@
 package com.github.czyzby.setup.data.project
 
+import com.badlogic.gdx.utils.GdxRuntimeException
 import com.github.czyzby.setup.data.files.*
 import com.github.czyzby.setup.data.gradle.GradleFile
 import com.github.czyzby.setup.data.gradle.RootGradleFile
@@ -11,7 +12,10 @@ import com.github.czyzby.setup.views.AdvancedData
 import com.github.czyzby.setup.views.BasicProjectData
 import com.github.czyzby.setup.views.ExtensionsData
 import com.github.czyzby.setup.views.LanguagesData
+import com.kotcrab.vis.ui.util.OsUtils
+import java.io.BufferedReader
 import java.io.File
+import java.io.InputStreamReader
 
 /**
  * Contains data about the generated project.
@@ -140,7 +144,33 @@ task pack << {
         }
         val gradleTasks = advanced.gradleTasks
         if (gradleTasks.isNotEmpty()) {
-            // TODO run gradle tasks
+            logger.logNls("runningGradleTasks")
+            val gradleCommand = determineGradleCommand()
+            val commands = arrayOf(gradleCommand) + advanced.gradleTasks
+            logger.log(commands.joinToString(separator = " "))
+            val process = ProcessBuilder(*commands).directory(basic.destination.file()).redirectErrorStream(true).start()
+            val stream = BufferedReader(InputStreamReader(process.inputStream))
+            var line = stream.readLine();
+            while (line != null) {
+                logger.log(line)
+                line = stream.readLine();
+            }
+            process.waitFor()
+            if (process.exitValue() != 0) {
+                throw GdxRuntimeException("Gradle process ended with non-zero value.")
+            }
+        }
+    }
+
+    private fun determineGradleCommand(): String {
+        return if (advanced.addGradleWrapper) {
+            if (OsUtils.isWindows()) {
+                "gradlew.bat"
+            } else {
+                "./gradlew"
+            }
+        } else {
+            "gradle"
         }
     }
 }
