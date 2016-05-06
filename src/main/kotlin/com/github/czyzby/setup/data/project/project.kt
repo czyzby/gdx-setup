@@ -127,4 +127,25 @@ task pack << {
             })
         }
     }
+
+    fun includeGradleWrapper(logger: ProjectLogger) {
+        if (advanced.addGradleWrapper) {
+            arrayOf("gradlew", "gradlew.bat", path("gradle", "wrapper", "gradle-wrapper.jar"),
+                    path("gradle", "wrapper", "gradle-wrapper.properties")).forEach {
+                CopiedFile(path = it, original = path("generator", it)).save(basic.destination)
+            }
+            basic.destination.child("gradlew").file().setExecutable(true)
+            basic.destination.child("gradlew.bat").file().setExecutable(true)
+            logger.logNls("copyGradle")
+        }
+        val gradleTasks = advanced.gradleTasks
+        if (gradleTasks.isNotEmpty()) {
+            // TODO run gradle tasks
+        }
+    }
+}
+
+interface ProjectLogger {
+    fun log(message: String)
+    fun logNls(bundleLine: String)
 }

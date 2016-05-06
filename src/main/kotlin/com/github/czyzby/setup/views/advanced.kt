@@ -1,6 +1,7 @@
 package com.github.czyzby.setup.views
 
 import com.badlogic.gdx.scenes.scene2d.ui.Button
+import com.github.czyzby.kiwi.util.common.Strings
 import com.github.czyzby.lml.annotation.LmlActor
 import com.kotcrab.vis.ui.widget.VisSelectBox
 import com.kotcrab.vis.ui.widget.VisTextField
@@ -20,6 +21,8 @@ class AdvancedData {
     @LmlActor("gwtPlugin") private lateinit var gwtPluginVersionField: VisTextField
     @LmlActor("serverJavaVersion") private lateinit var serverJavaVersionField: Spinner
     @LmlActor("generateSkin") private lateinit var generateSkinButton: Button
+    @LmlActor("gradleWrapper") private lateinit var gradleWrapperButton: Button
+    @LmlActor("gradleTasks") private lateinit var gradleTasksField: VisTextField
 
     val version: String
         get() = versionField.text
@@ -47,6 +50,13 @@ class AdvancedData {
 
     val generateSkin: Boolean
         get() = generateSkinButton.isChecked
+
+    val addGradleWrapper: Boolean
+        get() = gradleWrapperButton.isChecked
+
+    val gradleTasks: List<String>
+        get() = if (gradleTasksField.isEmpty) listOf<String>()
+        else gradleTasksField.text.split(Regex(Strings.WHITESPACE_SPLITTER_REGEX)).filter { it.isNotBlank() }
 
     fun forceSkinGeneration() {
         generateSkinButton.isChecked = true

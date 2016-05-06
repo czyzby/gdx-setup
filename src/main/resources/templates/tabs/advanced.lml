@@ -1,6 +1,6 @@
 <tab text="@advanced" closeable="false" defaultPad="3">
     <:column column="1" growX="true"/>
-    <table colspan="2" row="true" defaultPad="2">
+    <table colspan="2" row="true" defaultPad="2" pad="0">
         <label padRight="20">@localePrompt</label>
         <:each locale="{locales}">
             <:if test="{locale} != {currentLocale}">
@@ -37,7 +37,12 @@
         @gwtPlugin
         <textField id="gwtPlugin" tooltip="@gwtPluginTip" growX="true">0.6</textField>
     </table>
-    <table colspan="2" growX="true">
+    <table colspan="2" growX="true" row="true" defaultPad="2" padTop="-2" padBottom="-2">
         <checkBox id="generateSkin" tooltip="@generateSkinTip">@generateSkin</checkBox>
+        <checkBox id="gradleWrapper" tooltip="@gradleWrapperTip" checked="$getGradleWrapper" onChange="setGradleWrapper">
+            @gradleWrapper
+        </checkBox>
     </table>
+    <textField id="gradleTasks" message="@gradleTasksPrompt" tooltip="@gradleTasksTip" growX="true" colspan="2"
+        value="$getGradleTasks" onChange="setGradleTasks"/>
 </tab>

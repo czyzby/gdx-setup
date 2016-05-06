@@ -11,13 +11,11 @@ Additionally to supporting most official `gdx-setup` features, you might want to
 - More third-party extensions.
 - Preferences, favorites. Basic data of your application is saved, so you don't have to fill it each time you generate a project. File chooser allows you to add your "favorite" workspace folders.
 - Internationalization! The application can be translated to different languages. It's currently available in English and Polish.
+- Gradle wrapper and running Gradle tasks after generation is entirely optional. This can significantly speed up the generation process and limit the project size if you'd prefer to use a globally installed Gradle application.
 
 Currently missing:
-- Success screen. After generation, you're just sort of left with the same screen that you were initially on.
-- Gradle wrapper, running Gradle tasks after generation. Gradle wrapper is meant to be optional in this `gdx-setup` - the option to add it to the generated project is planned, and will be available through advanced options tab.
 - iOS platform support. Delayed until it becomes stable (the whole RoboVM to MOE transition thing).
-
-
+- Gradle tasks are currently not run after the generation. Gradle wrapper can be properly included, though.
 
 ### Running the application
 

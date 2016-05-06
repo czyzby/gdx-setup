@@ -14,6 +14,7 @@ import com.github.czyzby.autumn.mvc.component.ui.controller.ViewDialogShower
 import com.github.czyzby.autumn.mvc.stereotype.ViewDialog
 import com.github.czyzby.kiwi.util.gdx.collection.pooled.PooledList
 import com.github.czyzby.lml.annotation.LmlActor
+import com.github.czyzby.setup.data.project.ProjectLogger
 import com.github.czyzby.setup.views.MainView
 import com.kotcrab.vis.ui.widget.VisDialog
 import com.kotcrab.vis.ui.widget.VisTextArea
@@ -26,8 +27,7 @@ import java.util.concurrent.Executors
  * @author MJ
  */
 @ViewDialog(id = "generation", value = "templates/dialogs/generation.lml", cacheInstance = false)
-class GenerationPrompt : ViewDialogShower {
-    @Inject private lateinit var interfaceService: InterfaceService;
+class GenerationPrompt : ViewDialogShower, ProjectLogger {
     @Inject private lateinit var locale: LocaleService;
     @Inject private lateinit var mainView: MainView
 
@@ -41,22 +41,32 @@ class GenerationPrompt : ViewDialogShower {
 
     override fun doBeforeShow(dialog: Window) {
         executor.execute {
-            logNls("copyStart")
-            mainView.createProject().generate()
-            logNls("copyEnd")
-            mainView.revalidateForm()
-            // TODO check if Gradle wrapper was included, run gradle tasks
-            logNls("generationEnd")
-            buttons.forEach { it.isDisabled = false }
+            try {
+                logNls("copyStart")
+                val project = mainView.createProject()
+                project.generate()
+                logNls("copyEnd")
+                mainView.revalidateForm()
+                project.includeGradleWrapper(this)
+                logNls("generationEnd")
+            } catch(exception: Exception) {
+                log(exception.javaClass.name + ": " + exception.message)
+                exception.stackTrace.forEach { log("- at $it") }
+                exception.printStackTrace()
+                logNls("generationFail")
+            } finally {
+                buttons.forEach { it.isDisabled = false }
+            }
         }
     }
 
-    fun logNls(bundleLine: String) = log(locale.i18nBundle.get(bundleLine))
-    fun log(message: String) {
+    override fun logNls(bundleLine: String) = log(locale.i18nBundle.get(bundleLine))
+    override fun log(message: String) {
         loggingBuffer.offer(message)
         Gdx.app.postRunnable {
             while (loggingBuffer.isNotEmpty()) {
-                console.text += loggingBuffer.poll() + "\n"
+                if (console.text.isNotBlank()) console.text += '\n'
+                console.text += loggingBuffer.poll()
             }
             scrollPane.invalidateHierarchy()
             scrollPane.addAction(Actions.run { scrollPane.scrollPercentY = 1f })
