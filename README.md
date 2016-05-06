@@ -15,11 +15,10 @@ Additionally to supporting most official `gdx-setup` features, you might want to
 
 Currently missing:
 - iOS platform support. Delayed until it becomes stable (the whole RoboVM to MOE transition thing).
-- Gradle tasks are currently not run after the generation. Gradle wrapper can be properly included, though.
 
 ### Running the application
 
-You can download the latest runnable jar [here](https://dl.kotcrab.com/libgdx/gdx-setup-latest.jar). Stable application archives will be eventually uploaded to the [releases section](https://github.com/czyzby/gdx-setup/releases).
+You can download the latest runnable jar [here](https://dl.kotcrab.com/libgdx/gdx-setup-latest.jar). Stable application versions are uploaded to the [releases section](https://github.com/czyzby/gdx-setup/releases).
 
 #### Running from sources
 

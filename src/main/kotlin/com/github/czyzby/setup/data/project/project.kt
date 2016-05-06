@@ -145,8 +145,7 @@ task pack << {
         val gradleTasks = advanced.gradleTasks
         if (gradleTasks.isNotEmpty()) {
             logger.logNls("runningGradleTasks")
-            val gradleCommand = determineGradleCommand()
-            val commands = arrayOf(gradleCommand) + advanced.gradleTasks
+            val commands = determineGradleCommand() + advanced.gradleTasks
             logger.log(commands.joinToString(separator = " "))
             val process = ProcessBuilder(*commands).directory(basic.destination.file()).redirectErrorStream(true).start()
             val stream = BufferedReader(InputStreamReader(process.inputStream))
@@ -162,15 +161,19 @@ task pack << {
         }
     }
 
-    private fun determineGradleCommand(): String {
-        return if (advanced.addGradleWrapper) {
-            if (OsUtils.isWindows()) {
-                "gradlew.bat"
+    private fun determineGradleCommand(): Array<String> {
+        return if (OsUtils.isWindows()) {
+            if (advanced.addGradleWrapper) {
+                arrayOf(basic.destination.file().absolutePath + "\\gradlew.bat")
             } else {
-                "./gradlew"
+                arrayOf("cmd", "/c", "gradle")
             }
         } else {
-            "gradle"
+            if (advanced.addGradleWrapper) {
+                arrayOf("./gradlew")
+            } else {
+                arrayOf("gradle")
+            }
         }
     }
 }
