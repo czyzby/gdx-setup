@@ -15,6 +15,8 @@ import com.github.czyzby.setup.views.MainView
 import com.kotcrab.vis.ui.widget.VisTextArea
 import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.Executors
+import java.util.concurrent.ThreadFactory
+import java.util.concurrent.atomic.AtomicLong
 
 /**
  * Displayed after generation request was sent.
@@ -29,7 +31,7 @@ class GenerationPrompt : ViewDialogShower, ProjectLogger {
     @LmlActor("console") private lateinit var console: VisTextArea
     @LmlActor("scroll") private lateinit var scrollPane: ScrollPane
 
-    private val executor = Executors.newSingleThreadExecutor()
+    private val executor = Executors.newSingleThreadExecutor(PrefixedThreadFactory("ProjectGenerator"))
     private val loggingBuffer = ConcurrentLinkedQueue<String>()
 
     override fun doBeforeShow(dialog: Window) {
@@ -68,5 +70,25 @@ class GenerationPrompt : ViewDialogShower, ProjectLogger {
                 scrollPane.scrollPercentY = 1f
             }
         }
+    }
+}
+
+/**
+ * Generates sane thread names for [Executors]. Threads are running in daemon mode.
+ * @author Kotcrab
+ */
+private class PrefixedThreadFactory(threadPrefix: String) : ThreadFactory {
+    private val count = AtomicLong(0)
+    private val threadPrefix: String
+
+    init {
+        this.threadPrefix = threadPrefix + "-"
+    }
+
+    override fun newThread(runnable: Runnable): Thread {
+        val thread = Executors.defaultThreadFactory().newThread(runnable)
+        thread.name = threadPrefix + count.andIncrement
+        thread.isDaemon = true
+        return thread
     }
 }
