@@ -3,8 +3,6 @@
     <:import path="templates/header.lml"/>
     <table>@prompt0 <:logo/> @prompt1</table>
 
-    <separator/>
-
     <:import path="templates/basicData.lml"/>
 
     <separator/>
