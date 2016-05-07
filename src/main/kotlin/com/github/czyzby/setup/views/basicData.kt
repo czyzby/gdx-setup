@@ -2,6 +2,7 @@ package com.github.czyzby.setup.views
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.files.FileHandle
+import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.github.czyzby.lml.annotation.LmlActor
 import com.kotcrab.vis.ui.widget.VisTextField
 import javax.print.attribute.standard.Destination
@@ -16,6 +17,9 @@ class BasicProjectData {
     @LmlActor("class") private lateinit var mainClassField: VisTextField
     @LmlActor("destination") private lateinit var destinationField: VisTextField
     @LmlActor("androidSdk") private lateinit var androidSdkPathField: VisTextField
+
+    @LmlActor("mkdirs") private lateinit var mkdirsButton: Button
+    @LmlActor("clearFolder") private lateinit var clearButton: Button
 
     val name: String
         get() = nameField.text
@@ -34,5 +38,26 @@ class BasicProjectData {
 
     fun setAndroidSdkPath(path: String) {
         androidSdkPathField.text = path
+    }
+
+    fun revalidateDirectoryUtilityButtons() {
+        try {
+            val folder = destination
+            if (folder.exists()) {
+                mkdirsButton.isDisabled = true
+                if (folder.isDirectory && folder.list().size > 0) {
+                    clearButton.isDisabled = false
+                } else {
+                    clearButton.isDisabled = true
+                }
+            } else {
+                mkdirsButton.isDisabled = false
+                clearButton.isDisabled = true
+            }
+        } catch(exception: Exception) {
+            // Somewhat expected for invalid input.
+            clearButton.isDisabled = true
+            mkdirsButton.isDisabled = true
+        }
     }
 }

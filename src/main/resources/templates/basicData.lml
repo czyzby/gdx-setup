@@ -13,12 +13,17 @@
         <isNotEmpty error="@notEmpty|@class"/>
         <validator check="isValidClass" error="@classNotValid"/>
     </validatable>
-    <table>
-        <validatable id="destination" growX="true" message="@destinationPrompt" tooltip="@destinationTip">
+    <table defaultPadLeft="3">
+        <validatable id="destination" growX="true" message="@destinationPrompt" tooltip="@destinationTip" padLeft="0"
+                onChange="checkProjectDir">
             <isDirectory error="@notDirectory"/>
             <isDirectoryEmpty error="@notEmptyDirectory"/>
         </validatable>
-        <imageButton padLeft="3" size="27" directoryChooser="chooseDirectory"/>
+        <imageButton id="mkdirs" image="icon-folder-new" generateDisabledImage="true" size="27" disabled="true"
+            onChange="mkdirs" tooltip="@mkdirsTip"/>
+        <imageButton id="clearFolder" image="icon-trash" generateDisabledImage="true" size="27" disabled="true"
+            onChange="show:deletePrompt" tooltip="@clearFolderTip"/>
+        <imageButton size="27" directoryChooser="chooseDirectory"/>
     </table>
     <table>
         <validatable id="androidSdk" growX="true" message="@androidSdkPrompt" disabled="true" tooltip="@sdkTip"

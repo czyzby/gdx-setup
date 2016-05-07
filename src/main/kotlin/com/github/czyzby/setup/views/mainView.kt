@@ -59,6 +59,16 @@ class MainView : ActionContainer {
     @LmlAction("toggleClients") fun toggleClientPlatforms() = platformsData.toggleClientPlatforms()
     @LmlAction("toggleAll") fun toggleAllPlatforms() = platformsData.togglePlatforms()
 
+    @LmlAction("mkdirs") fun createDestinationDirectory() {
+        basicData.destination.mkdirs()
+        revalidateForm()
+    }
+
+    @LmlAction("checkProjectDir")
+    fun checkProjectDirectory() {
+        basicData.revalidateDirectoryUtilityButtons()
+    }
+
     @LmlAfter fun initiateVersions(parser: LmlParser) {
         languagesData.assignVersions(parser)
         extensionsData.assignVersions(parser)
@@ -66,6 +76,7 @@ class MainView : ActionContainer {
 
     fun revalidateForm() {
         form.formValidator.validate()
+        basicData.revalidateDirectoryUtilityButtons()
     }
 
     @LmlAction("platforms") fun getPlatforms(): Iterable<*> = platformsData.platforms.keys.sorted()
@@ -95,6 +106,8 @@ class MainView : ActionContainer {
     @LmlAction("initTabs") fun initiateTabbedPane(tabbedPane: TabbedPane.TabbedPaneTable) {
         tabbedPane.tabbedPane.tabsPane.horizontalFlowGroup.spacing = 2f
     }
+
+    fun getDestination() : FileHandle = basicData.destination
 
     fun createProject(): Project = Project(basicData, platformsData.getSelectedPlatforms(),
             advancedData, languagesData, extensionsData, templatesData.getSelectedTemplate())

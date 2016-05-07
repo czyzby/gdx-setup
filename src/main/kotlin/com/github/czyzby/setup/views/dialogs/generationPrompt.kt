@@ -51,7 +51,7 @@ class GenerationPrompt : ViewDialogShower, ProjectLogger {
                 logNls("generationEnd")
             } catch(exception: Exception) {
                 log(exception.javaClass.name + ": " + exception.message)
-                exception.stackTrace.forEach { log("- at $it") }
+                exception.stackTrace.forEach { log("  at $it") }
                 exception.printStackTrace()
                 logNls("generationFail")
             } finally {
