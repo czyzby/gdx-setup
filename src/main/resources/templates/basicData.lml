@@ -20,17 +20,23 @@
             <isDirectoryEmpty error="@notEmptyDirectory"/>
         </validatable>
         <imageButton id="mkdirs" image="icon-folder-new" generateDisabledImage="true" size="27" disabled="true"
-            onChange="mkdirs" tooltip="@mkdirsTip"/>
+            onChange="mkdirs" visTooltip="@mkdirsTip"/>
         <imageButton id="clearFolder" image="icon-trash" generateDisabledImage="true" size="27" disabled="true"
-            onChange="show:deletePrompt" tooltip="@clearFolderTip"/>
+            onChange="show:deletePrompt" visTooltip="@clearFolderTip"/>
         <imageButton size="27" directoryChooser="chooseDirectory"/>
     </table>
     <table>
         <validatable id="androidSdk" growX="true" message="@androidSdkPrompt" disabled="true" tooltip="@sdkTip"
-                text="$getAndroidSdk" onChange="setAndroidSdk">
+                text="$getAndroidSdk" onChange="setAndroidSdk" change="reloadSdkButtons">
             <isDirectory error="@sdkNotDirectory"/>
+            <validator check="isSdk" error="@invalidSdkDirectory"/>
         </validatable>
-        <imageButton id="androidSdkButton" disabled="true" generateDisabledImage="true" padLeft="3" size="27" directoryChooser="chooseSdkDirectory"/>
+        <imageButton id="useOldestSdk" disabled="true" generateDisabledImage="true" padLeft="3" size="27"
+                     image="icon-arrow-down" onChange="useOldestSdk" tooltip="@useOldestSdkTip"/>
+        <imageButton id="useLatestSdk" disabled="true" generateDisabledImage="true" padLeft="3" size="27"
+                     image="icon-arrow-up" onChange="useLatestSdk" tooltip="@useLatestSdkTip"/>
+        <imageButton id="androidSdkButton" disabled="true" generateDisabledImage="true" padLeft="3" size="27"
+                     directoryChooser="chooseSdkDirectory"/>
     </table>
     <label errorLabel="true" style="small" fill="false"/>
 </:root>

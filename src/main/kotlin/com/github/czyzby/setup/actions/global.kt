@@ -2,6 +2,7 @@ package com.github.czyzby.setup.actions
 
 import com.badlogic.gdx.Gdx
 import com.github.czyzby.autumn.mvc.stereotype.ViewActionContainer
+import com.github.czyzby.kiwi.util.common.Exceptions
 import com.github.czyzby.kiwi.util.common.Strings
 import com.github.czyzby.lml.annotation.LmlAction
 import com.github.czyzby.lml.parser.action.ActionContainer
@@ -22,6 +23,19 @@ class GlobalActionContainer : ActionContainer {
 
     @LmlAction("isValidFile")
     fun isValidFileName(input: String): Boolean = Strings.isNotBlank(input) && input.matches(Regex("[-\\w]+"))
+
+    @LmlAction("isSdk")
+    fun isAndroidSdkDirectory(path: String): Boolean {
+        try {
+            val file = Gdx.files.absolute(path)
+            if (file.isDirectory) {
+                return file.child("tools").isDirectory && file.child("platforms").isDirectory
+            }
+        } catch(exception: Exception) {
+            Exceptions.ignore(exception) // Probably not the Android SDK.
+        }
+        return false
+    }
 
     @LmlAction("javaClassFilter")
     fun isValidJavaCharacter(character: Char): Boolean = Character.isJavaIdentifierPart(character)
