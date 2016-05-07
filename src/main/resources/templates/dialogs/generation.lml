@@ -1,7 +1,7 @@
 <dialog title="@generationTitle" style="resizable" oneColumn="true" resizable="true" tablePadLeft="10">
     <label id="prompt" color="vis-blue">@generationPrompt</label>
     <scrollPane id="scroll" fadeBars="false" grow="true" minSize="300"
-                disabledX="true" overscroll="false" flickScroll="false">
+                disabledX="true" overscroll="false" flickScroll="false" barsOnTop="true">
         <console id="console" style="read-only" focusBorder="false" readOnly="true" />
     </scrollPane>
     <:column column="0" toButtonTable="true" padRight="10" padLeft="10" padBottom="10"/>

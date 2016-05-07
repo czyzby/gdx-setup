@@ -1,6 +1,5 @@
 package com.github.czyzby.setup.views.widgets
 
-import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.github.czyzby.kiwi.util.common.Strings
 import com.github.czyzby.lml.parser.LmlParser
 import com.github.czyzby.lml.parser.impl.tag.builder.TextLmlActorBuilder
@@ -16,22 +15,12 @@ import com.kotcrab.vis.ui.widget.VisTextField
  * @author Kotcrab
  */
 class ScrollableTextArea(text: String, styleName: String) : VisTextArea(text, styleName) {
-    private lateinit var prefSizeLayout: GlyphLayout
-    private var lastText: String? = null
-
-    override protected fun initialize() {
-        super.initialize()
-        prefSizeLayout = GlyphLayout()
+    override fun getPrefWidth(): Float {
+        return width
     }
 
     override fun getPrefHeight(): Float {
-        updatePrefSizeLayoutIfNeeded()
-        return prefSizeLayout.height + super.getPrefHeight()
-    }
-
-    override fun getPrefWidth(): Float {
-        updatePrefSizeLayoutIfNeeded()
-        return prefSizeLayout.width + super.getPrefHeight()
+        return lines * style.font.lineHeight
     }
 
     override fun setText(str: String) {
@@ -39,15 +28,6 @@ class ScrollableTextArea(text: String, styleName: String) : VisTextArea(text, st
         // lines. Although example templates files are using '\n', Git (when cloning the repository) may replace them
         // with '\r\n' on Windows.
         super.setText(Strings.stripCharacter(str, '\r'))
-    }
-
-    private fun updatePrefSizeLayoutIfNeeded() {
-        val text = getText()
-        // not using equals here because we only care if text has changed and strings are immutable
-        if (lastText !== text) {
-            prefSizeLayout.setText(getStyle().font, text)
-            lastText = text
-        }
     }
 
     /** Provides [CodeTextArea] tags.
