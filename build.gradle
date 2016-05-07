@@ -33,7 +33,7 @@ dependencies {
   compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 
   compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-  compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+  compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
   compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 
   compile "com.github.czyzby:gdx-autumn-mvc:$libVersion"

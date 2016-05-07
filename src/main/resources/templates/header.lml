@@ -1,4 +1,6 @@
 <table toTitleTable="true" growX="true">
-    <image style="libgdx" fill="false" onClick="showSite" expandX="true" padLeft="30" />
-    <imageButton style="close-window" onChange="app:exit" toTitleTable="true" fill="false" align="topRight"/>
+    <image style="libgdx" fill="false" onClick="showSite" expandX="true" padLeft="55" />
+    <imageButton style="close-window" image="icon-minus" onChange="minimize" toTitleTable="true" fill="false" align="topRight"/>
+    <imageButton style="close-window" onChange="app:exit" toTitleTable="true" fill="false" expandX="false"
+                 padLeft="3" align="topRight"/>
 </table>

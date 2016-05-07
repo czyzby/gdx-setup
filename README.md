@@ -15,7 +15,6 @@ Additionally to supporting most official `gdx-setup` features, you might want to
 
 Currently missing:
 - iOS platform support. Delayed until it becomes stable (the whole RoboVM to MOE transition thing).
-- `TextArea` widget is a bit clunky when it comes to displaying generation data. It wasn't really prepared to be embedded in a `ScrollPane`. We're working on it.
 
 ### Running the application
 

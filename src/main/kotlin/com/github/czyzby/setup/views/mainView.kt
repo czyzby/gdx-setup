@@ -1,6 +1,8 @@
 package com.github.czyzby.setup.views
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Version
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.scenes.scene2d.Action
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
@@ -22,6 +24,7 @@ import com.github.czyzby.setup.data.project.Project
 import com.github.czyzby.setup.prefs.SdkVersionPreference
 import com.github.czyzby.setup.prefs.ToolsVersionPreference
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane
+import org.lwjgl.glfw.GLFW
 
 /**
  * Main application's view. Displays application's menu.
@@ -132,6 +135,8 @@ class MainView : ActionContainer {
 
     fun createProject(): Project = Project(basicData, platformsData.getSelectedPlatforms(),
             advancedData, languagesData, extensionsData, templatesData.getSelectedTemplate())
+
+    @LmlAction("minimize") fun iconify() = GLFW.glfwIconifyWindow(GLFW.glfwGetCurrentContext())
 
     /**
      * Explicitly forces saving of Android SDK versions. They might not be properly updated as change events are not
