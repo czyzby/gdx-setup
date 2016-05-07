@@ -4,9 +4,13 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Version
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
 import com.badlogic.gdx.files.FileHandle
+import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.Action
+import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Button
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener
 import com.github.czyzby.autumn.annotation.Destroy
 import com.github.czyzby.autumn.annotation.Inject
 import com.github.czyzby.autumn.mvc.config.AutumnActionPriority
@@ -24,7 +28,10 @@ import com.github.czyzby.setup.data.project.Project
 import com.github.czyzby.setup.prefs.SdkVersionPreference
 import com.github.czyzby.setup.prefs.ToolsVersionPreference
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane
+import org.lwjgl.BufferUtils
 import org.lwjgl.glfw.GLFW
+import java.nio.ByteBuffer
+import java.nio.DoubleBuffer
 
 /**
  * Main application's view. Displays application's menu.
@@ -137,6 +144,39 @@ class MainView : ActionContainer {
             advancedData, languagesData, extensionsData, templatesData.getSelectedTemplate())
 
     @LmlAction("minimize") fun iconify() = GLFW.glfwIconifyWindow(GLFW.glfwGetCurrentContext())
+
+    @LmlAction("initTitleTable")
+    fun addWindowDragListener(actor: Actor) {
+
+        actor.addListener(object : DragListener() {
+            private val context = GLFW.glfwGetCurrentContext()
+            private var startX = 0
+            private var startY = 0
+            private var offsetX = 0
+            private var offsetY = 0
+            private val cursorX = BufferUtils.createDoubleBuffer(1)
+            private val cursorY = BufferUtils.createDoubleBuffer(1)
+            private val windowX = BufferUtils.createIntBuffer(1)
+            private val windowY = BufferUtils.createIntBuffer(1)
+
+            override fun dragStart(event: InputEvent?, x: Float, y: Float, pointer: Int) {
+                GLFW.glfwGetCursorPos(context, cursorX, cursorY)
+                startX = getX()
+                startY = getY()
+            }
+
+            override fun drag(event: InputEvent?, x: Float, y: Float, pointer: Int) {
+                GLFW.glfwGetCursorPos(context, cursorX, cursorY)
+                offsetX = getX() - startX
+                offsetY = getY() - startY
+                GLFW.glfwGetWindowPos(context, windowX, windowY)
+                GLFW.glfwSetWindowPos(context, windowX.get(0) + offsetX, windowY.get(0) + offsetY)
+            }
+
+            private fun getX(): Int = MathUtils.floor(cursorX.get(0).toFloat())
+            private fun getY(): Int = MathUtils.floor(cursorY.get(0).toFloat())
+        })
+    }
 
     /**
      * Explicitly forces saving of Android SDK versions. They might not be properly updated as change events are not

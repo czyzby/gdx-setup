@@ -1,4 +1,4 @@
-<form id="form" style="smooth" fillParent="true" background="menu-bg" align="top" tablePad="10"
+<form id="form" style="smooth" fillParent="true" background="menu-bg" align="top" tablePad="1"
        oneColumn="true" defaultGrowX="true" defaultPad="2" success="@formValid">
     <:import path="templates/header.lml"/>
     <table>@prompt0 <:logo/> @prompt1</table>
