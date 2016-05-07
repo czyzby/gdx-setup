@@ -29,6 +29,8 @@ cd gdx-setup
 gradle run
 ```
 
+*Pro tip*: check the `Generate skin assets` option in `Advanced` tab and `Desktop` in `Platforms` tab. Enter `pack desktop:run --daemon` Gradle tasks in `Advanced` tab. Delete project directory with the trash icon after each run. Now you can easily test all templates one by one.
+
 ## Contributing
 
 You can start with creating an issue: if that's something trivial like adding a new extension or updating some version, it will most likely be quickly resolved. If you want to modify the sources and pull a request, check out [contribution guide](CONTRIBUTING.md).

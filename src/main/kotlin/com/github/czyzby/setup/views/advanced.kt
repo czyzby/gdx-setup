@@ -5,6 +5,7 @@ import com.github.czyzby.kiwi.util.common.Strings
 import com.github.czyzby.lml.annotation.LmlActor
 import com.kotcrab.vis.ui.widget.VisSelectBox
 import com.kotcrab.vis.ui.widget.VisTextField
+import com.kotcrab.vis.ui.widget.spinner.IntSpinnerModel
 import com.kotcrab.vis.ui.widget.spinner.Spinner
 
 /**
@@ -33,11 +34,19 @@ class AdvancedData {
     val javaVersion: String
         get() = javaVersionField.model.text
 
-    val androidSdkVersion: String
+    var androidSdkVersion: String
         get() = sdkVersionField.model.text
+        set(value) {
+            val model = sdkVersionField.model as IntSpinnerModel
+            model.value = value.toInt()
+            sdkVersionField.notifyValueChanged(false)
+        }
 
-    val androidToolsVersion: String
+    var androidToolsVersion: String
         get() = toolsVersionField.text
+        set(value) {
+            toolsVersionField.text = value
+        }
 
     val gwtVersion: String
         get() = gwtVersionField.selected
