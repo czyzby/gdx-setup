@@ -32,6 +32,8 @@ dependencies {
   compile "org.jetbrains.kotlin:kotlin-runtime:$kotlinVersion"
   compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 
+  compile "org.apache.commons:commons-exec:1.3"
+
   compile "com.badlogicgames.gdx:gdx:$gdxVersion"
   compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
   compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
