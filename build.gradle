@@ -11,8 +11,7 @@ buildscript {
   }
 }
 
-ext.libVersion = "1.7.$gdxVersion-SNAPSHOT"
-version = libVersion
+version = "$gdxVersion-SNAPSHOT"
 mainClassName = 'com.github.czyzby.setup.MainKt'
 
 jar {
@@ -38,9 +37,9 @@ dependencies {
   compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
   compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 
-  compile "com.github.czyzby:gdx-autumn-mvc:$libVersion"
-  compile "com.github.czyzby:gdx-autumn-fcs:$libVersion"
-  compile "com.github.czyzby:gdx-lml-vis:$libVersion"
+  compile "com.github.czyzby:gdx-autumn-mvc:$autumnVersion"
+  compile "com.github.czyzby:gdx-autumn-fcs:$autumnVersion"
+  compile "com.github.czyzby:gdx-lml-vis:$autumnVersion"
 }
 
 task pack << {
