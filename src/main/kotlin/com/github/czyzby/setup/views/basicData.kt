@@ -56,7 +56,7 @@ class BasicProjectData {
                     clearButton.isDisabled = true
                 }
             } else {
-                mkdirsButton.isDisabled = false
+                mkdirsButton.isDisabled = destinationField.text.isBlank()
                 clearButton.isDisabled = true
             }
         } catch(exception: Exception) {
