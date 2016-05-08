@@ -30,7 +30,7 @@ fun main(args: Array<String>) {
         }, config)
     } catch(error: ExceptionInInitializerError) {
         if (OsUtils.isMac() && error.cause is IllegalStateException) {
-            if (error.stackTraceToString().contains("Please run the JVM with -XstartOnFirstThread.")) {
+            if (error.stackTraceToString().contains("XstartOnFirstThread")) {
                 System.out.println("Application was not launched on first thread. Restarting with -XstartOnFirstThread." +
                         "Add VM argument -XstartOnFirstThread to avoid this.");
                 Application.startNewInstance();
