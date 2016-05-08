@@ -127,6 +127,8 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
         addSourceFile(project = project, platform = Core.ID, packageName = project.basic.rootPackage,
                 fileName = "TestWindow.java", content = """package ${project.basic.rootPackage};
 
+import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -140,8 +142,6 @@ import com.kotcrab.vis.ui.util.dialog.Dialogs;
 import com.kotcrab.vis.ui.widget.*;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerAdapter;
-import com.kotcrab.vis.ui.widget.file.FileChooser;
-import com.kotcrab.vis.ui.widget.file.SingleFileChooserListener;
 import com.kotcrab.vis.ui.widget.spinner.ArraySpinnerModel;
 import com.kotcrab.vis.ui.widget.spinner.IntSpinnerModel;
 import com.kotcrab.vis.ui.widget.spinner.SimpleFloatSpinnerModel;
@@ -163,8 +163,8 @@ public class TestWindow extends VisWindow {
         add(createProgressBars()).row();
         add(createSpinners()).row();
         add(createSelectBox()).row();
-        add(createFileChooser()).row();
-        add(createColorPicker()).padBottom(3).row();
+        if (Gdx.app.getType() == ApplicationType.Desktop) add(createFileChooser()).row();
+        add(createColorPicker()).padBottom(3f);
 
         pack();
         centerWindow();
@@ -282,6 +282,13 @@ public class TestWindow extends VisWindow {
     }
 
     private VisTable createFileChooser () {
+        // The following example can't be used on GWT, feel free to uncomment if you are not targeting GWT.
+
+        // These imports must be added:
+        //import com.kotcrab.vis.ui.widget.file.FileChooser;
+        //import com.kotcrab.vis.ui.widget.file.SingleFileChooserListener;
+
+        /*
         FileChooser.setFavoritesPrefsName("${project.basic.mainClass}");
         final FileChooser chooser = new FileChooser(FileChooser.Mode.OPEN);
         VisTextButton showButton = new VisTextButton("show file chooser");
@@ -307,6 +314,8 @@ public class TestWindow extends VisWindow {
         fileChooserTable.add(showButton);
         fileChooserTable.add(selectedFileLabel).width(100);
         return fileChooserTable;
+        */
+        return new VisTable();
     }
 
     private VisTable createColorPicker () {
