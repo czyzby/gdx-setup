@@ -5,10 +5,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Window
 import com.badlogic.gdx.utils.ObjectSet
+import com.github.czyzby.autumn.annotation.Destroy
 import com.github.czyzby.autumn.annotation.Inject
 import com.github.czyzby.autumn.mvc.component.i18n.LocaleService
 import com.github.czyzby.autumn.mvc.component.ui.controller.ViewDialogShower
 import com.github.czyzby.autumn.mvc.stereotype.ViewDialog
+import com.github.czyzby.kiwi.util.common.Exceptions
 import com.github.czyzby.lml.annotation.LmlActor
 import com.github.czyzby.setup.data.project.ProjectLogger
 import com.github.czyzby.setup.views.MainView
@@ -71,6 +73,15 @@ class GenerationPrompt : ViewDialogShower, ProjectLogger {
             }
         }
     }
+
+    @Destroy()
+    fun shutdownExecutor() {
+        try {
+            executor.shutdownNow()
+        } catch(exception: Exception) {
+            Exceptions.ignore(exception)
+        }
+    }
 }
 
 /**
@@ -88,7 +99,6 @@ private class PrefixedThreadFactory(threadPrefix: String) : ThreadFactory {
     override fun newThread(runnable: Runnable): Thread {
         val thread = Executors.defaultThreadFactory().newThread(runnable)
         thread.name = threadPrefix + count.andIncrement
-        thread.isDaemon = true
         return thread
     }
 }
