@@ -85,7 +85,7 @@ class GenerationPrompt : ViewDialogShower, ProjectLogger {
 }
 
 /**
- * Generates sane thread names for [Executors]. Threads are running in daemon mode.
+ * Generates sane thread names for [Executors].
  * @author Kotcrab
  */
 private class PrefixedThreadFactory(threadPrefix: String) : ThreadFactory {
