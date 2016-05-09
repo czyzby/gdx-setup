@@ -106,11 +106,13 @@ class Project(val basic: BasicProjectData, val platforms: Map<String, Platform>,
             // Adding JSON file:
             files.add(CopiedFile(projectName = Assets.ID, path = path("ui", "skin.json"),
                     original = path("generator", "assets", "ui", "skin.json")))
-            // Android does not support classpath fonts. Explicitly copying Arial if Android is not included:
+            // Android does not support classpath fonts loading through skins.
+            // Explicitly copying Arial font if Android platform is included:
             if (hasPlatform(Android.ID)) {
                 arrayOf("png", "fnt").forEach {
                     val path = path("com", "badlogic", "gdx", "utils", "arial-15.$it")
-                    files.add(CopiedFile(projectName = Assets.ID, path = path, original = path, fileType = Files.FileType.Classpath))
+                    files.add(CopiedFile(projectName = Assets.ID, path = path, original = path,
+                            fileType = Files.FileType.Classpath))
                 }
             }
 
@@ -156,7 +158,8 @@ task pack << {
             logger.logNls("runningGradleTasks")
             val commands = determineGradleCommand() + advanced.gradleTasks
             logger.log(commands.joinToString(separator = " "))
-            val process = ProcessBuilder(*commands).directory(basic.destination.file()).redirectErrorStream(true).start()
+            val process = ProcessBuilder(*commands).directory(basic.destination.file())
+                    .redirectErrorStream(true).start()
             val stream = BufferedReader(InputStreamReader(process.inputStream))
             var line = stream.readLine();
             while (line != null) {

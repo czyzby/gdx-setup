@@ -28,8 +28,7 @@ repositories {
 }
 
 dependencies {
-  compile "org.jetbrains.kotlin:kotlin-runtime:$kotlinVersion"
-  compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
   compile "org.apache.commons:commons-exec:1.3"
 
