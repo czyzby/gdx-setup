@@ -1,10 +1,12 @@
 package com.github.czyzby.setup.data.project
 
+import com.badlogic.gdx.Files
 import com.badlogic.gdx.utils.GdxRuntimeException
 import com.github.czyzby.setup.data.files.*
 import com.github.czyzby.setup.data.gradle.GradleFile
 import com.github.czyzby.setup.data.gradle.RootGradleFile
 import com.github.czyzby.setup.data.langs.Java
+import com.github.czyzby.setup.data.platforms.Android
 import com.github.czyzby.setup.data.platforms.Assets
 import com.github.czyzby.setup.data.platforms.Platform
 import com.github.czyzby.setup.data.templates.Template
@@ -104,6 +106,13 @@ class Project(val basic: BasicProjectData, val platforms: Map<String, Platform>,
             // Adding JSON file:
             files.add(CopiedFile(projectName = Assets.ID, path = path("ui", "skin.json"),
                     original = path("generator", "assets", "ui", "skin.json")))
+            // Android does not support classpath fonts. Explicitly copying Arial if Android is not included:
+            if (hasPlatform(Android.ID)) {
+                arrayOf("png", "fnt").forEach {
+                    val path = path("com", "badlogic", "gdx", "utils", "arial-15.$it")
+                    files.add(CopiedFile(projectName = Assets.ID, path = path, original = path, fileType = Files.FileType.Classpath))
+                }
+            }
 
             // Copying raw assets - internal files listing doesn't work, so we're hard-coding raw/ui content:
             arrayOf("check.png", "check-on.png", "dot.png", "knob-h.png", "knob-v.png", "line-h.png", "line-v.png",

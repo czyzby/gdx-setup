@@ -1,5 +1,6 @@
 package com.github.czyzby.setup.data.files
 
+import com.badlogic.gdx.Files
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.files.FileHandle
 import com.github.czyzby.kiwi.util.common.Strings
@@ -80,20 +81,20 @@ fun toRelativePath(projectName: String, sourceFolderPath: String, packageName: S
  * Base class for copied project resources.
  * @author MJ
  */
-open class CopiedFile private constructor(override val path: String, val original: String) : ProjectFile {
+open class CopiedFile private constructor(override val path: String, val original: String, val fileType: Files.FileType) : ProjectFile {
     /**
      * @param projectName name of the project which should contain the file.
      * @param path relative path inside the project with the exact file location.
      * @param original internal path to the resource.
      */
-    constructor(projectName: String = "", path: String, original: String) :
+    constructor(projectName: String = "", path: String, original: String, fileType: Files.FileType = Files.FileType.Internal) :
     this(if (projectName.isNotEmpty()) {
         projectName + File.separator
     } else {
         ""
-    } + path, original)
+    } + path, original, fileType)
 
     override fun save(destination: FileHandle) {
-        Gdx.files.internal(original).copyTo(destination.child(path))
+        Gdx.files.getFileHandle(original, fileType).copyTo(destination.child(path))
     }
 }
