@@ -19,9 +19,9 @@
             <isDirectory error="@notDirectory"/>
             <isDirectoryEmpty error="@notEmptyDirectory"/>
         </validatable>
-        <imageButton id="mkdirs" image="icon-folder-new" generateDisabledImage="true" size="27" disabled="true"
+        <imageButton id="mkdirs" style="dark" image="icon-folder-new" generateDisabledImage="true" size="27" disabled="true"
             onChange="mkdirs" visTooltip="@mkdirsTip"/>
-        <imageButton id="clearFolder" image="icon-trash" generateDisabledImage="true" size="27" disabled="true"
+        <imageButton id="clearFolder" style="dark" image="icon-trash" generateDisabledImage="true" size="27" disabled="true"
             onChange="show:deletePrompt" visTooltip="@clearFolderTip"/>
         <imageButton size="27" directoryChooser="chooseDirectory"/>
     </table>
@@ -31,11 +31,11 @@
             <isDirectory error="@sdkNotDirectory"/>
             <validator check="isSdk" error="@invalidSdkDirectory"/>
         </validatable>
-        <imageButton id="useOldestSdk" disabled="true" generateDisabledImage="true" padLeft="3" size="27"
+        <imageButton id="useOldestSdk" style="dark" disabled="true" generateDisabledImage="true" padLeft="3" size="27"
                      image="icon-arrow-down" onChange="useOldestSdk" tooltip="@useOldestSdkTip"/>
-        <imageButton id="useLatestSdk" disabled="true" generateDisabledImage="true" padLeft="3" size="27"
+        <imageButton id="useLatestSdk" style="dark" disabled="true" generateDisabledImage="true" padLeft="3" size="27"
                      image="icon-arrow-up" onChange="useLatestSdk" tooltip="@useLatestSdkTip"/>
-        <imageButton id="androidSdkButton" disabled="true" generateDisabledImage="true" padLeft="3" size="27"
+        <imageButton id="androidSdkButton" style="dark" disabled="true" generateDisabledImage="true" padLeft="3" size="27"
                      directoryChooser="chooseSdkDirectory"/>
     </table>
     <label errorLabel="true" style="small" fill="false"/>

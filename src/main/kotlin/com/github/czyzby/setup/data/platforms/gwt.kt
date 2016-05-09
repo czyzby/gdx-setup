@@ -15,17 +15,15 @@ class GWT : Platform {
     companion object {
         const val ID = "gwt"
         const val BASIC_INHERIT = "com.badlogic.gdx.backends.gdx_backends_gwt"
-        val INHERIT_COMPARATOR = object : Comparator<String> {
-            override fun compare(a: String, b: String): Int {
-                // Basic GWT inherit has to be first
-                if (a == BASIC_INHERIT) {
-                    return -1
-                } else if (b == BASIC_INHERIT) {
-                    return 1
-                }
-                return a.compareTo(b)
+        val INHERIT_COMPARATOR = Comparator<kotlin.String> { a, b ->
+            // Basic GWT inherit has to be first:
+            if (a == BASIC_INHERIT) {
+                -1
+            } else if (b == BASIC_INHERIT) {
+                1
+            } else {
+                a.compareTo(b)
             }
-
         }
     }
 
@@ -44,7 +42,7 @@ class GWT : Platform {
                 fileName = "${project.basic.mainClass}.gwt.xml", content = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit ${project.advanced.gwtVersion}//EN" "https://gwt.googlesource.com/gwt/+/${project.advanced.gwtVersion}/distro-source/core/src/gwt-module.dtd">
 <module>
-    <source path="" />${project.reflected.joinToString(separator = "\n", prefix = "\n") { "	<extend-configuration-property name=\"gdx.reflect.include\" value=\"$it\" />" }}
+    <source path="" />${project.reflected.joinToString(separator = "\n", prefix = "\n") { "    <extend-configuration-property name=\"gdx.reflect.include\" value=\"$it\" />" }}
 </module>"""))
         project.gwtInherits.add("${project.basic.rootPackage}.${project.basic.mainClass}")
 
@@ -64,8 +62,8 @@ class GWT : Platform {
                 fileName = "GdxDefinition.gwt.xml", content = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit ${project.advanced.gwtVersion}//EN" "https://gwt.googlesource.com/gwt/+/${project.advanced.gwtVersion}/distro-source/core/src/gwt-module.dtd">
 <module rename-to="html">
-	<source path="" />
-${project.gwtInherits.sortedWith(INHERIT_COMPARATOR).joinToString(separator = "\n") { "	<inherits name=\"$it\" />" }}
+    <source path="" />
+${project.gwtInherits.sortedWith(INHERIT_COMPARATOR).joinToString(separator = "\n") { "    <inherits name=\"$it\" />" }}
     <entry-point class="${project.basic.rootPackage}.gwt.GwtLauncher" />
     <set-configuration-property name="gdx.assetpath" value="../assets" />
 </module>"""))

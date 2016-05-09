@@ -8,5 +8,6 @@
         </buttonTable>
     </scrollPane>
     <label style="small">@templatesTip</label>
+    <label style="small" padTop="-3">@templatesStar</label>
     <linkLabel url="@issues">@templatesLink</linkLabel>
 </tab>

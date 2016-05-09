@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.github.czyzby.autumn.annotation.Component
 import com.github.czyzby.autumn.annotation.Initiate
+import com.github.czyzby.autumn.mvc.component.i18n.LocaleService
 import com.github.czyzby.autumn.mvc.component.ui.InterfaceService
 import com.github.czyzby.autumn.mvc.component.ui.SkinService
 import com.github.czyzby.autumn.mvc.config.AutumnActionPriority
@@ -14,6 +15,7 @@ import com.github.czyzby.lml.parser.tag.LmlTag
 import com.github.czyzby.lml.vis.parser.impl.VisLmlSyntax
 import com.github.czyzby.lml.vis.parser.impl.nongwt.ExtendedVisLml
 import com.github.czyzby.setup.views.widgets.ScrollableTextArea
+import com.kotcrab.vis.ui.Locales
 import com.kotcrab.vis.ui.VisUI
 import com.kotcrab.vis.ui.widget.Tooltip
 import com.kotcrab.vis.ui.widget.VisLabel
@@ -40,7 +42,7 @@ class Configuration {
     @Preference val preferencesPath = PREFERENCES_PATH;
 
     @Initiate(priority = AutumnActionPriority.TOP_PRIORITY)
-    fun initiate(skinService: SkinService, interfaceService: InterfaceService) {
+    fun initiate(skinService: SkinService, interfaceService: InterfaceService, localeService: LocaleService) {
         VisUI.load(Gdx.files.internal("skin/tinted.json"))
         skinService.addSkin("default", VisUI.getSkin())
         FileChooser.setFavoritesPrefsName(PREFERENCES_PATH)
@@ -50,6 +52,11 @@ class Configuration {
         ExtendedVisLml.registerFileValidators(syntax)
         // Adding custom ScrollableTextArea widget:
         syntax.addTagProvider(ScrollableTextArea.ScrollableTextAreaLmlTagProvider(), "console")
+
+        // Changing FileChooser locale bundle:
+        interfaceService.setActionOnBundlesReload {
+            Locales.setFileChooserBundle(localeService.i18nBundle)
+        }
 
         // Adding custom tooltip tag attribute:
         interfaceService.parser.syntax.addAttributeProcessor(object : LmlAttribute<Actor> {
