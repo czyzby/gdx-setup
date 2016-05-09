@@ -471,6 +471,6 @@ class SquidLib : ThirdPartyExtension() {
         addDependency(project, GWT.ID, "com.squidpony:squidlib:sources")
         addGwtInherit(project, "squidlib")
 
-        RegExodus().initiate(project)
+        SquidLibUtil().initiate(project)
     }
 }
