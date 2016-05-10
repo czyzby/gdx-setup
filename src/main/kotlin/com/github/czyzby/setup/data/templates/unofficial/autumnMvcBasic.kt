@@ -27,21 +27,21 @@ open class AutumnMvcBasicTemplate : Template {
         AutumnMVC().initiate(project)
 
         // Adding example LML template file:
-        addFirstView(project)
+        addViews(project)
     }
 
     protected open fun getReflectedClasses(project: Project): Array<String> =
             arrayOf("${project.basic.rootPackage}.${project.basic.mainClass}")
 
 
-    protected open fun addFirstView(project: Project) =
-            project.files.add(SourceFile(projectName = Assets.ID, sourceFolderPath = "ui", packageName = "templates",
-                    fileName = "first.lml", content = """<!-- Note: you can get content assist thanks to DTD schema files. See the official LML page. -->
+    protected open fun addViews(project: Project) {
+        project.files.add(SourceFile(projectName = Assets.ID, sourceFolderPath = "ui", packageName = "templates",
+                fileName = "first.lml", content = """<!-- Note: you can get content assist thanks to DTD schema files. See the official LML page. -->
 <window title="Example" style="border" defaultPad="4" oneColumn="true">
     This is a simple Autumn MVC view constructed with LML.
     <textButton onClick="setClicked" tablePad="8">Click me!</textButton>
 </window>"""))
-
+    }
 
     override fun getApplicationListenerContent(project: Project): String = """package ${project.basic.rootPackage};
 
