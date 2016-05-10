@@ -11,7 +11,7 @@ buildscript {
   }
 }
 
-version = "$gdxVersion-beta2"
+version = "$gdxVersion-SNAPSHOT"
 mainClassName = 'com.github.czyzby.setup.MainKt'
 
 jar {
