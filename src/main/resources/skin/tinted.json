@@ -260,6 +260,9 @@ com.kotcrab.vis.ui.util.form.SimpleFormValidator$FormValidatorStyle: {
 },
 com.kotcrab.vis.ui.util.adapter.SimpleListAdapter$SimpleListAdapterStyle: {
 	default: {background: window-bg, selection: list-selection }
+},
+com.kotcrab.vis.ui.widget.toast.Toast$ToastStyle: {
+	default: {background: window-bg, closeButtonStyleName: "close-window" }
 }
 
 }

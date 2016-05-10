@@ -14,6 +14,7 @@
     </tabbedPane>
 
     <separator/>
+    <:import path="templates/toast.lml"/>
 
     <textButton disableOnError="true" onChange="show:generation">@generate</textButton>
 </form>

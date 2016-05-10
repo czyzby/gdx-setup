@@ -1,5 +1,7 @@
 package com.github.czyzby.setup.views
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Net
 import com.badlogic.gdx.Version
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.math.MathUtils
@@ -20,11 +22,14 @@ import com.github.czyzby.lml.annotation.LmlInject
 import com.github.czyzby.lml.parser.LmlParser
 import com.github.czyzby.lml.parser.action.ActionContainer
 import com.github.czyzby.lml.vis.ui.VisFormTable
+import com.github.czyzby.setup.config.Configuration
 import com.github.czyzby.setup.data.platforms.Android
 import com.github.czyzby.setup.data.project.Project
 import com.github.czyzby.setup.prefs.SdkVersionPreference
 import com.github.czyzby.setup.prefs.ToolsVersionPreference
+import com.kotcrab.vis.ui.util.ToastManager
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane
+import com.kotcrab.vis.ui.widget.toast.ToastTable
 import org.lwjgl.BufferUtils
 import org.lwjgl.glfw.GLFW
 
@@ -34,6 +39,11 @@ import org.lwjgl.glfw.GLFW
  */
 @View(id = "main", value = "templates/main.lml", first = true)
 class MainView : ActionContainer {
+    val toastManager: Lazy<ToastManager> = lazy {
+        val manager = ToastManager(form.stage)
+        manager.screenPadding = 30
+        manager
+    }
     @LmlInject private lateinit var basicData: BasicProjectData
     @LmlInject private lateinit var advancedData: AdvancedData
     @LmlInject @Inject private lateinit var platformsData: PlatformsData
@@ -41,6 +51,7 @@ class MainView : ActionContainer {
     @LmlInject @Inject private lateinit var extensionsData: ExtensionsData
     @LmlInject @Inject private lateinit var templatesData: TemplatesData
     @LmlActor("form") private lateinit var form: VisFormTable
+    @LmlActor("notLatestVersion") private lateinit var notUpToDateToast: ToastTable
 
     @LmlAction("chooseDirectory")
     fun chooseDirectory(file: FileHandle?) {
@@ -97,6 +108,31 @@ class MainView : ActionContainer {
     @LmlAfter fun initiateVersions(parser: LmlParser) {
         languagesData.assignVersions(parser)
         extensionsData.assignVersions(parser)
+    }
+
+    @LmlAfter fun checkSetupVersion() {
+        // When using snapshots, we don't care if the version matches latest stable.
+        if (Configuration.VERSION.endsWith("SNAPSHOT")) return;
+
+        val request = Net.HttpRequest(Net.HttpMethods.GET)
+        request.url = "https://raw.githubusercontent.com/czyzby/gdx-setup/master/version.txt"
+        val listener = object : Net.HttpResponseListener {
+            override fun handleHttpResponse(httpResponse: Net.HttpResponse) {
+                val latestStable = httpResponse.resultAsString.trim()
+                if (Configuration.VERSION != latestStable) {
+                    Gdx.app.postRunnable { toastManager.value.show(notUpToDateToast) }
+                }
+            }
+
+            override fun cancelled() {
+                // Never cancelled.
+            }
+
+            override fun failed(t: Throwable?) {
+                // Ignored. The user might not be connected.
+            }
+        }
+        Gdx.net.sendHttpRequest(request, listener)
     }
 
     fun revalidateForm() {
