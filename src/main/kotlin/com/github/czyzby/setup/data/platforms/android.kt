@@ -80,7 +80,9 @@ class AndroidGradleFile(val project: Project) : GradleFile(Android.ID) {
         addDependency("com.badlogicgames.gdx:gdx-backend-android:\$gdxVersion")
         addNativeDependency("com.badlogicgames.gdx:gdx-platform:\$gdxVersion:natives-armeabi")
         addNativeDependency("com.badlogicgames.gdx:gdx-platform:\$gdxVersion:natives-armeabi-v7a")
+        addNativeDependency("com.badlogicgames.gdx:gdx-platform:\$gdxVersion:natives-arm64-v8a")
         addNativeDependency("com.badlogicgames.gdx:gdx-platform:\$gdxVersion:natives-x86")
+        addNativeDependency("com.badlogicgames.gdx:gdx-platform:\$gdxVersion:natives-x86_64")
         plugins.add("android")
     }
 
