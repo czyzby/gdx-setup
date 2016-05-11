@@ -240,6 +240,23 @@ class JaciGwt : ThirdPartyExtension() {
     }
 }
 
+/**
+ * Simple map generators.
+ * @author MJ
+ */
+@Extension
+class Noise4J : ThirdPartyExtension() {
+    override val id = "noise4j"
+    override val defaultVersion = "0.1.0"
+    override val url = "https://github.com/czyzby/noise4j"
+
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:noise4j")
+
+        addDependency(project, GWT.ID, "com.github.czyzby:noise4j:sources")
+        addGwtInherit(project, "com.github.czyzby.noise4j.Noise4J")
+    }
+}
 
 /**
  * Version of Czyzby's libraries.

@@ -50,7 +50,7 @@ import com.kotcrab.vis.ui.widget.VisWindow;
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class ${project.basic.mainClass} extends ApplicationAdapter {
     /** Default screen size. */
-    public static int WIDTH = 640, HEIGHT = 480;
+    public static final int WIDTH = 640, HEIGHT = 480;
 
     private Stage stage;
     private WebSocket webSocket;
