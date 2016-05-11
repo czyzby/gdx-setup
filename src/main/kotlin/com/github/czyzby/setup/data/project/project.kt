@@ -34,6 +34,7 @@ class Project(val basic: BasicProjectData, val platforms: Map<String, Platform>,
             "org.gradle.configureondemand" to "true")
     val postGenerationTasks = mutableListOf<(Project) -> Unit>()
     val gwtInherits = mutableSetOf<String>()
+    val androidPermissions = mutableSetOf<String>()
     val reflected = mutableSetOf<String>()
 
     init {

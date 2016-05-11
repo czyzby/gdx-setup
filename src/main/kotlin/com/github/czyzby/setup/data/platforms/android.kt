@@ -60,6 +60,7 @@ class Android : Platform {
             </intent-filter>
         </activity>
     </application>
+${project.androidPermissions.joinToString(separator = "\n") { "    <uses-permission android:name=\"${it}\" />" }}
 </manifest>
 """))
     }
@@ -74,6 +75,7 @@ class Android : Platform {
 class AndroidGradleFile(val project: Project) : GradleFile(Android.ID) {
     val plugins = mutableListOf<String>()
     val nativeDependencies = mutableSetOf<String>()
+    val permissions = mutableSetOf<String>()
 
     init {
         dependencies.add("project(':${Core.ID}')")

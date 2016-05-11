@@ -38,4 +38,10 @@ interface Library {
             project.gwtInherits.add(inherit)
         }
     }
+
+    fun addAndroidPermission(project: Project, permissionName: String) {
+        if (project.hasPlatform(Android.ID)) {
+            project.androidPermissions.add(permissionName)
+        }
+    }
 }
