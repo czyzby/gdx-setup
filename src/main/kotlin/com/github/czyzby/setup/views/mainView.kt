@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Button
+import com.badlogic.gdx.utils.Align
 import com.github.czyzby.autumn.annotation.Destroy
 import com.github.czyzby.autumn.annotation.Inject
 import com.github.czyzby.autumn.mvc.config.AutumnActionPriority
@@ -41,7 +42,8 @@ import org.lwjgl.glfw.GLFW
 class MainView : ActionContainer {
     val toastManager: Lazy<ToastManager> = lazy {
         val manager = ToastManager(form.stage)
-        manager.screenPadding = 30
+        manager.screenPadding = 40
+        manager.alignment = Align.bottomRight
         manager
     }
     @LmlInject private lateinit var basicData: BasicProjectData
