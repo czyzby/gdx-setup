@@ -1,11 +1,13 @@
 package com.github.czyzby.setup
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration
 import com.github.czyzby.autumn.context.ContextInitializer
 import com.github.czyzby.autumn.fcs.scanner.DesktopClassScanner
 import com.github.czyzby.autumn.mvc.application.AutumnApplication
 import com.github.czyzby.setup.config.Configuration
+import com.github.czyzby.setup.util.GLFWIconSetter
 import com.github.czyzby.setup.views.Extension
 import com.github.czyzby.setup.views.GdxPlatform
 import com.github.czyzby.setup.views.JvmLanguage
@@ -26,6 +28,15 @@ fun main(args: Array<String>) {
                 super.registerDefaultComponentAnnotations(initializer)
                 initializer.scanFor(Extension::class.java, ProjectTemplate::class.java, JvmLanguage::class.java,
                         GdxPlatform::class.java)
+            }
+
+            override fun create() {
+                super.create()
+                try {
+                    GLFWIconSetter.newInstance().setIcon(Gdx.files.internal("icons/libgdx128.ico"), Gdx.files.internal("icons/libgdx128.png"));
+                } catch(throwable: Throwable) {
+                    throwable.printStackTrace()
+                }
             }
         }, config)
     } catch(error: ExceptionInInitializerError) {

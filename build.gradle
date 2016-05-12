@@ -31,6 +31,8 @@ dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
   compile "org.apache.commons:commons-exec:$commonsExecVersion"
+  compile "net.java.dev.jna:jna:$jnaVersion"
+  compile "net.java.dev.jna:platform:$jnaPlatformVersion"
 
   compile "com.badlogicgames.gdx:gdx:$gdxVersion"
   compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
