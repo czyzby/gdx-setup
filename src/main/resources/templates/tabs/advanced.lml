@@ -1,4 +1,4 @@
-<tab text="@advanced" closeable="false" oneColumn="true">
+<tab text="@advanced" closeable="false" oneColumn="true" tablePadTop="4">
     <table defaultPad="2">
         <label padRight="20">@localePrompt</label>
         <:each locale="{locales}">
@@ -37,11 +37,12 @@
         <textField id="gwtPlugin" tooltip="@gwtPluginTip" growX="true">0.6</textField>
     </table>
     <table growX="true" defaultPad="2" >
-        <checkBox id="generateSkin" tooltip="@generateSkinTip">@generateSkin</checkBox>
+        <checkBox id="generateSkin" tooltip="@generateSkinTip" padRight="20">@generateSkin</checkBox>
         <checkBox id="gradleWrapper" tooltip="@gradleWrapperTip" checked="$getGradleWrapper" onChange="setGradleWrapper">
             @gradleWrapper
         </checkBox>
     </table>
     <textField id="gradleTasks" message="@gradleTasksPrompt" tooltip="@gradleTasksTip" growX="true"
                value="$getGradleTasks" onChange="setGradleTasks" pad="2"/>
+    <linkLabel url="https://github.com/czyzby/gdx-skins" expandY="true" align="bottom">@gdxSkinsPrompt</linkLabel>
 </tab>

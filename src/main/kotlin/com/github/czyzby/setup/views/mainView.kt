@@ -150,7 +150,11 @@ class MainView : ActionContainer {
     @LmlAction("gwtVersions") fun getGwtVersions(): Array<String> = arrayOf("2.6.0", "2.6.1", "2.7.0", "2.8.0-beta1")
     @LmlAction("jvmLanguages") fun getLanguages(): Array<String> = languagesData.languages
     @LmlAction("jvmLanguagesVersions") fun getLanguagesVersions(): Array<String> = languagesData.versions
-    @LmlAction("templates") fun getTemplates(): Array<String> = templatesData.templates.map { it.id }.sorted().toTypedArray()
+    @LmlAction("templates") fun getOfficialTemplates(): Array<String> =
+            templatesData.officialTemplates.map { it.id }.sorted().toTypedArray()
+
+    @LmlAction("thirdPartyTemplates") fun getThirdPartyTemplates(): Array<String> =
+            templatesData.thirdPartyTemplates.map { it.id }.sorted().toTypedArray()
 
     @LmlAction("officialExtensions") fun getOfficialExtensions(): Array<String> =
             extensionsData.official.map { it.id }.sorted().toTypedArray()

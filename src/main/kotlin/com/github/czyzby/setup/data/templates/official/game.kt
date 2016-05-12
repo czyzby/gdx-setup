@@ -9,7 +9,7 @@ import com.github.czyzby.setup.views.ProjectTemplate
  * Uses Game as ApplicationListener. Provides an example (empty) Screen implementation.
  * @author MJ
  */
-@ProjectTemplate
+@ProjectTemplate(official = true)
 class GameTemplate : Template {
     override val id = "gameTemplate"
 

@@ -1,4 +1,10 @@
-Don't be afraid to create issues with requests and questions!
+Don't be afraid to create issues with requests and questions! It's OK to create an issue if:
+
+- Some extension version is outdated.
+- We're too lazy to update to the latest LibGDX.
+- A (somewhat stable) third-party extension is missing.
+- You'd like to propose a new project template, but you don't want to bother with pull requests.
+- You've found a bug or just got a general question.
 
 All Kotlin sources should be formatted with the default Kotlin IntelliJ formatter.
 

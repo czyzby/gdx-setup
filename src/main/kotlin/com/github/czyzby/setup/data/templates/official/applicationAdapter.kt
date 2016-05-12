@@ -8,7 +8,7 @@ import com.github.czyzby.setup.views.ProjectTemplate
  * Extends ApplicationAdapter, overriding no methods. Application does nothing.
  * @author MJ
  */
-@ProjectTemplate
+@ProjectTemplate(official = true)
 class ApplicationAdapterTemplate : Template {
     override val id = "applicationAdapter"
 

@@ -16,7 +16,9 @@ import com.github.czyzby.setup.data.templates.official.*
  */
 @Processor
 class TemplatesData : AbstractAnnotationProcessor<ProjectTemplate>() {
-    val templates = mutableListOf<Template>()
+    private val templates = mutableListOf<Template>()
+    val officialTemplates = mutableListOf<Template>()
+    val thirdPartyTemplates = mutableListOf<Template>()
     @LmlActor("templatesTable") private lateinit var templatesTable: ButtonTable
 
     fun getSelectedTemplate(): Template = templates.first { it.id == templatesTable.buttonGroup.checked.name }
@@ -27,14 +29,20 @@ class TemplatesData : AbstractAnnotationProcessor<ProjectTemplate>() {
     override fun isSupportingTypes(): Boolean = true
     override fun processType(type: Class<*>, annotation: ProjectTemplate, component: Any, context: Context,
                              initializer: ContextInitializer, contextDestroyer: ContextDestroyer) {
-        templates.add(component as Template)
+        val template = component as Template
+        templates.add(template)
+        if (annotation.official) {
+            officialTemplates
+        } else {
+            thirdPartyTemplates
+        }.add(template)
     }
 }
 
 /**
- * Should annotate all project templates.
+ * Should annotate all project templates. Marks if the template is official.
  * @author MJ
  */
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class ProjectTemplate
+annotation class ProjectTemplate(val official: Boolean = false)

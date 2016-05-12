@@ -8,7 +8,7 @@ import com.github.czyzby.setup.views.ProjectTemplate
  * Generates no source files.
  * @author MJ
  */
-@ProjectTemplate
+@ProjectTemplate(official = true)
 class EmptyTemplate : Template {
     override val id = "emptyTemplate"
 
