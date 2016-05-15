@@ -15,6 +15,8 @@ import com.github.czyzby.setup.views.ProjectTemplate
 open class AutumnMvcBasicTemplate : Template {
     override val id: String = "autumnMvcBasicTemplate"
     protected open val generateSkin = true
+    override val description: String
+        get() = "Project template included launchers with [Autumn](https://github.com/czyzby/gdx-lml/tree/master/autumn) class scanners and a single [Autumn MVC](https://github.com/czyzby/gdx-lml/tree/master/mvc) view."
 
     override fun apply(project: Project) {
         super.apply(project)

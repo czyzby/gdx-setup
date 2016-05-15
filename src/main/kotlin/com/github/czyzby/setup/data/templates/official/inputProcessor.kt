@@ -11,6 +11,9 @@ import com.github.czyzby.setup.views.ProjectTemplate
 @ProjectTemplate(official = true)
 class InputProcessorTemplate : Template {
     override val id = "inputProcessor"
+    override val description: String
+        get() = "Project template included simple launchers and an empty `ApplicationListener` implementation, that also listened to user input."
+
 
     override fun getApplicationListenerContent(project: Project): String = """package ${project.basic.rootPackage};
 

@@ -16,6 +16,11 @@ interface Template {
         get() = "640"
     val height: String
         get() = "480"
+    /**
+     * Used as project description in README file. Optional.
+     */
+    val description: String
+        get() = ""
 
     /**
      * @param project is being created. Should contain sources provided by this template.
@@ -29,6 +34,7 @@ interface Template {
         addHeadlessLauncher(project)
         addIOSLauncher(project)
         addServerLauncher(project)
+        project.readmeDescription = description
     }
 
     fun addApplicationListener(project: Project) {

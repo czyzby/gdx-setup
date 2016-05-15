@@ -15,6 +15,8 @@ import com.github.czyzby.setup.views.ProjectTemplate
 @ProjectTemplate(official = true)
 open class ClassicTemplate : Template {
     override val id = "classic"
+    override val description: String
+        get() = "Project template includes simple launchers and an `ApplicationAdapter` extension that draws BadLogic logo."
 
     override fun apply(project: Project) {
         super.apply(project)

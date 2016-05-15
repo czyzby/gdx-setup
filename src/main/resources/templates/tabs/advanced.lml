@@ -36,9 +36,10 @@
         @gwtPlugin
         <textField id="gwtPlugin" tooltip="@gwtPluginTip" growX="true">0.6</textField>
     </table>
-    <table growX="true" defaultPad="2" >
-        <checkBox id="generateSkin" tooltip="@generateSkinTip" padRight="20">@generateSkin</checkBox>
-        <checkBox id="gradleWrapper" tooltip="@gradleWrapperTip" checked="$getGradleWrapper" onChange="setGradleWrapper">
+    <table growX="true" defaultPad="2" defaultSpaceRight="10" defaultSpaceLeft="10">
+        <checkBox id="generateSkin" style="small" tooltip="@generateSkinTip">@generateSkin</checkBox>
+        <checkBox id="generateReadme" style="small" tooltip="@generateReadmeTip">@generateReadme</checkBox>
+        <checkBox id="gradleWrapper" style="small" tooltip="@gradleWrapperTip" checked="$getGradleWrapper" onChange="setGradleWrapper">
             @gradleWrapper
         </checkBox>
     </table>

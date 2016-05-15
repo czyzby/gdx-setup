@@ -11,6 +11,8 @@ import com.github.czyzby.setup.views.ProjectTemplate
 @ProjectTemplate(official = true)
 class ApplicationAdapterTemplate : Template {
     override val id = "applicationAdapter"
+    override val description: String
+        get() = "Project template included simple launchers and an empty `ApplicationAdapter` extension."
 
     override fun getApplicationListenerContent(project: Project): String = """package ${project.basic.rootPackage};
 

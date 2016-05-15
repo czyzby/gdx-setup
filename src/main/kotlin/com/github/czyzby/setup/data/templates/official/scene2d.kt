@@ -11,6 +11,8 @@ import com.github.czyzby.setup.views.ProjectTemplate
 @ProjectTemplate(official = true)
 class Scene2DTemplate : Template {
     override val id = "scene2dTemplate"
+    override val description: String
+        get() = "Project template included simple launchers and an `ApplicationAdapter` extension that draws a simple GUI stage on the screen."
 
     override fun apply(project: Project) {
         super.apply(project)

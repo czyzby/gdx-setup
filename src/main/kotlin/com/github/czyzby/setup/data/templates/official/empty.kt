@@ -11,6 +11,8 @@ import com.github.czyzby.setup.views.ProjectTemplate
 @ProjectTemplate(official = true)
 class EmptyTemplate : Template {
     override val id = "emptyTemplate"
+    override val description: String
+        get() = "No sources were generated."
 
     override fun apply(project: Project) {
         // Does nothing.

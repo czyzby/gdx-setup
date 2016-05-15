@@ -41,6 +41,10 @@ interface Platform {
         val originalFile = arrayOf("generator", id) + file
         project.files.add(CopiedFile(projectName = id, original = path(*originalFile), path = path(*file)))
     }
+
+    fun addGradleTaskDescription(project: Project, task: String, description: String) {
+        project.addGradleTaskDescription(id + ":" + task, description);
+    }
 }
 
 // TODO JGLFW, LWJGL3?

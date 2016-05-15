@@ -13,6 +13,8 @@ import com.github.czyzby.setup.views.ProjectTemplate
 @ProjectTemplate
 class WebSocketBasicTemplate : Template {
     override val id = "webSocketBasicTemplate"
+    override val description: String
+        get() = "Project template included launchers initiating web sockets module and an `ApplicationAdapter` extension (with GUI created using [VisUI](https://github.com/kotcrab/VisEditor/wiki/VisUI) library), which allows to connect to an external web sockets server thanks to [gdx-websocket](https://github.com/czyzby/gdx-lml/tree/master/websocket) extension."
 
     override fun apply(project: Project) {
         super.apply(project)

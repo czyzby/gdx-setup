@@ -24,5 +24,6 @@ class Kotlin : Language {
             val gradleFile = project.getGradleFile(Android.ID) as AndroidGradleFile
             gradleFile.plugins.add("kotlin-android")
         }
+        addDependency(project, "org.jetbrains.kotlin:kotlin-stdlib:\$kotlinVersion")
     }
 }

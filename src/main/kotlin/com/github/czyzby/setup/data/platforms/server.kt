@@ -21,6 +21,8 @@ class Server : Platform {
 
     override fun initiate(project: Project) {
         // Server project has no additional dependencies.
+
+        addGradleTaskDescription(project, "run", "runs the ${id} application.")
     }
 }
 

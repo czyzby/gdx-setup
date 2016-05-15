@@ -18,6 +18,8 @@ class SquidLibBasicTemplate : Template {
     override val id = "squidLibBasicTemplate"
     override val width = "80 * 11"
     override val height = "(24 + 8) * 22"
+    override val description: String
+        get() = "Project template included simple launchers and an `ApplicationAdapter` extension showing usage of [SquidLib](https://github.com/SquidPony/SquidLib) extension."
 
     override fun apply(project: Project) {
         super.apply(project)

@@ -20,6 +20,9 @@ class Desktop : Platform {
 
     override fun initiate(project: Project) {
         // Desktop platform requires no additional dependencies.
+
+        addGradleTaskDescription(project, "run", "starts the application.")
+        addGradleTaskDescription(project, "jar", "builds application's runnable jar, which can be found at `${id}/build/libs`.")
     }
 }
 

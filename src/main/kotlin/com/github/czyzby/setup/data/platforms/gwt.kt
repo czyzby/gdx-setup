@@ -32,6 +32,9 @@ class GWT : Platform {
     override fun createGradleFile(project: Project): GradleFile = GWTGradleFile(project)
 
     override fun initiate(project: Project) {
+        addGradleTaskDescription(project, "superDev", "compiles GWT sources and runs the application in SuperDev mode. It will be available at [localhost:8080/${id}](http://localhost:8080/${id}). Use only during development.")
+        addGradleTaskDescription(project, "dist", "compiles GWT sources. The compiled application can be found at `${id}/build/dist`: you can use any HTTP server to deploy it.")
+
         project.gwtInherits.add(BASIC_INHERIT)
         project.properties["${id}FrameworkVersion"] = project.advanced.gwtVersion
         project.properties["gwtPluginVersion"] = project.advanced.gwtPluginVersion

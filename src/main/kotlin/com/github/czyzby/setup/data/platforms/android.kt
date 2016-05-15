@@ -20,6 +20,8 @@ class Android : Platform {
         project.rootGradle.buildDependencies.add("\"com.android.tools.build:gradle:\$androidPluginVersion\"")
         project.properties["androidPluginVersion"] = "1.5.0"
 
+        addGradleTaskDescription(project, "lint", "performs Android project validation.")
+
         addCopiedFile(project, "ic_launcher-web.png")
         addCopiedFile(project, "proguard-project.txt")
         addCopiedFile(project, "project.properties")

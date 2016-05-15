@@ -19,6 +19,8 @@ class LmlTemplate : Template {
         get() = mainClass + ".WIDTH"
     override val height: String
         get() = mainClass + ".HEIGHT"
+    override val description: String
+        get() = "Project template included simple launchers and an `AbstractApplicationListener` extension (from [Kiwi](https://github.com/czyzby/gdx-lml/tree/master/kiwi) library) that draws a simple GUI created using [LML](https://github.com/czyzby/gdx-lml/tree/master/lml)."
 
     override fun apply(project: Project) {
         mainClass = project.basic.mainClass

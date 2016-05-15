@@ -57,6 +57,18 @@ open class SourceFile private constructor(val content: String, override val path
                 packageName: String, fileName: String)
     : this(content, toRelativePath(projectName, sourceFolderPath, packageName, fileName))
 
+    /**
+     * @param content content of the source file.
+     * @param projectName name of the project to which the file should be appended. Optional.
+     * @param fileName name of the source file. For example, "Content.java".
+     */
+    constructor(content: String, projectName: String, fileName: String)
+    : this(content, if (projectName.isBlank()) {
+        fileName
+    } else {
+        path(projectName, fileName)
+    })
+
     override fun save(destination: FileHandle) {
         destination.child(path).writeString(content, false, "UTF-8")
     }
