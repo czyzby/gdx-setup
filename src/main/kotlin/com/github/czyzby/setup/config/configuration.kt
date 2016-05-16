@@ -46,7 +46,7 @@ class Configuration {
     fun initiate(skinService: SkinService, interfaceService: InterfaceService, localeService: LocaleService) {
         VisUI.load(Gdx.files.internal("skin/tinted.json"))
         skinService.addSkin("default", VisUI.getSkin())
-        FileChooser.setFavoritesPrefsName(PREFERENCES_PATH)
+        FileChooser.setDefaultPrefsName(PREFERENCES_PATH)
 
         // Adding tags and attributes related to the file chooser:
         ExtendedVisLml.registerFileChooser(syntax)
