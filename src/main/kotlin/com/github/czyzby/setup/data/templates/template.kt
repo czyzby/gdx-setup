@@ -187,5 +187,3 @@ public class ServerLauncher {
         }
     }
 }
-
-// TODO official templates: classic (displays badlogic logo), scene2D (basic Scene2D usage)

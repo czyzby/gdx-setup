@@ -262,7 +262,7 @@ class Noise4J : ThirdPartyExtension() {
  * Version of Czyzby's libraries.
  * @author MJ
  */
-const val AUTUMN_VERSION = "1.6.1.9.2"
+const val AUTUMN_VERSION = "1.6.1.9.3"
 
 /**
  * Guava-inspired LibGDX utilities.
