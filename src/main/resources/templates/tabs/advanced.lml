@@ -27,6 +27,10 @@
         @toolsVersion
         <textField id="toolsVersion" tooltip="@toolsVersionTip" value="$getToolsVersion"
                    onChange="setToolsVersion" row="true" />
+        @androidPluginVersion
+        <textField id="androidPluginVersion" tooltip="@androidPluginVersionTip">1.5.0</textField>
+        @robovmVersion
+        <textField id="robovmVersion" tooltip="@robovmVersionTip" row="true">2.1.0</textField>
         @gwtVersion
         <selectBox id="gwtVersion" tooltip="@gwtVersionTip" value="$getGwtVersion" onChange="setGwtVersion"
                    minWidth="20">

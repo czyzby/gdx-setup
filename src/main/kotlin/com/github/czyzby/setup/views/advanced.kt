@@ -18,6 +18,8 @@ class AdvancedData {
     @LmlActor("javaVersion") private lateinit var javaVersionField: Spinner
     @LmlActor("sdkVersion") private lateinit var sdkVersionField: Spinner
     @LmlActor("toolsVersion") private lateinit var toolsVersionField: VisTextField
+    @LmlActor("androidPluginVersion") private lateinit var androidPluginVersionField: VisTextField
+    @LmlActor("robovmVersion") private lateinit var robovmVersionField: VisTextField
     @LmlActor("gwtVersion") private lateinit var gwtVersionField: VisSelectBox<String>
     @LmlActor("gwtPlugin") private lateinit var gwtPluginVersionField: VisTextField
     @LmlActor("serverJavaVersion") private lateinit var serverJavaVersionField: Spinner
@@ -48,6 +50,12 @@ class AdvancedData {
         set(value) {
             toolsVersionField.text = value
         }
+
+    val androidPluginVersion: String
+        get() = androidPluginVersionField.text
+
+    val robovmVersion: String
+        get() = robovmVersionField.text
 
     val gwtVersion: String
         get() = gwtVersionField.selected

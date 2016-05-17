@@ -18,7 +18,7 @@ class Android : Platform {
     override val id = ID
     override fun initiate(project: Project) {
         project.rootGradle.buildDependencies.add("\"com.android.tools.build:gradle:\$androidPluginVersion\"")
-        project.properties["androidPluginVersion"] = "1.5.0"
+        project.properties["androidPluginVersion"] = project.advanced.androidPluginVersion
 
         addGradleTaskDescription(project, "lint", "performs Android project validation.")
 

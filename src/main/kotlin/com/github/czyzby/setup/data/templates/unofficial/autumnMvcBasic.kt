@@ -22,8 +22,9 @@ open class AutumnMvcBasicTemplate : Template {
         super.apply(project)
         if (generateSkin) project.advanced.forceSkinGeneration()
 
-        // Registering main class in GWT reflection pool:
-        getReflectedClasses(project).forEach { project.reflected.add(it) }
+        // Registering main class in GWT/RoboVM reflection pool:
+        getReflectedClasses(project).forEach { project.reflectedClasses.add(it) }
+        getReflectedPackages(project).forEach { project.reflectedPackages.add(it) }
 
         // Adding Autumn MVC dependency:
         AutumnMVC().initiate(project)
@@ -35,6 +36,8 @@ open class AutumnMvcBasicTemplate : Template {
     protected open fun getReflectedClasses(project: Project): Array<String> =
             arrayOf("${project.basic.rootPackage}.${project.basic.mainClass}")
 
+    protected open fun getReflectedPackages(project: Project): Array<String> =
+            arrayOf<String>()
 
     protected open fun addViews(project: Project) {
         project.files.add(SourceFile(projectName = Assets.ID, sourceFolderPath = "ui", packageName = "templates",
@@ -166,6 +169,35 @@ public class HeadlessLauncher {
         HeadlessApplicationConfiguration configuration = new HeadlessApplicationConfiguration();
         configuration.renderInterval = -1f; // When this value is negative, application is never rendered.
         return configuration;
+    }
+}"""
+
+    override fun getIOSLauncherContent(project: Project): String = """package ${project.basic.rootPackage}.ios;
+
+import org.robovm.apple.foundation.NSAutoreleasePool;
+import org.robovm.apple.uikit.UIApplication;
+
+import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
+import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
+import com.github.czyzby.autumn.mvc.application.AutumnApplication;
+import com.github.czyzby.autumn.scanner.FixedClassScanner;
+import ${project.basic.rootPackage}.${project.basic.mainClass};
+
+/** Launches the iOS (RoboVM) application. */
+public class IOSLauncher extends IOSApplication.Delegate {
+    @Override
+    protected IOSApplication createApplication() {
+        IOSApplicationConfiguration configuration = new IOSApplicationConfiguration();
+        // Note: there is currently no automatic classpath scanning support on iOS. You have to register all component
+        // classes manually with FixedClassScanner. Generated template might not work out of the box because of this.
+        return new IOSApplication(new AutumnApplication(new FixedClassScanner(${project.basic.mainClass}.class),
+                ${project.basic.mainClass}.class), configuration);
+    }
+
+    public static void main(String[] argv) {
+        NSAutoreleasePool pool = new NSAutoreleasePool();
+        UIApplication.main(argv, null, IOSLauncher.class);
+        pool.close();
     }
 }"""
 }

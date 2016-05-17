@@ -21,11 +21,12 @@ class AutumnMvcVisTemplate : AutumnMvcBasicTemplate() {
         get() = "Project template included launchers with [Autumn](https://github.com/czyzby/gdx-lml/tree/master/autumn) class scanners and a basic [Autumn MVC](https://github.com/czyzby/gdx-lml/tree/master/mvc) application."
 
     override fun getReflectedClasses(project: Project): Array<String> =
+            arrayOf("com.github.czyzby.autumn.mvc.component.preferences.dto.AbstractPreference")
+
+    override fun getReflectedPackages(project: Project): Array<String> =
             arrayOf("${project.basic.rootPackage}.configuration",
                     "${project.basic.rootPackage}.controller",
-                    "${project.basic.rootPackage}.service",
-                    "com.github.czyzby.autumn.mvc.component.preferences.dto.AbstractPreference")
-
+                    "${project.basic.rootPackage}.service")
 
     override fun getApplicationListenerContent(project: Project): String = """package ${project.basic.rootPackage};
 

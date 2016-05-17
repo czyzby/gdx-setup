@@ -1,4 +1,5 @@
-<tab text="@extensions" closeable="false" defaultPad="1" tablePadTop="10">
+<tab text="@extensions" closeable="false" defaultPad="1">
+    <:cell colspan="3" expandY="true" row="true"/>
     <:for lib="$officialExtensions" url="$officialExtensionsUrls">
         <checkBox id="{lib}" align="left">@{lib}</checkBox>
         <label style="small" padRight="5">@{lib}Tip</label>

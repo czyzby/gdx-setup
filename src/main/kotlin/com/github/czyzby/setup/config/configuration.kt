@@ -30,7 +30,7 @@ class Configuration {
     companion object {
         const val VERSION = "1.9.2-SNAPSHOT"
         const val WIDTH = 600
-        const val HEIGHT = 640
+        const val HEIGHT = 670
         const val PREFERENCES_PATH = "gdx-setup-prefs"
     }
 

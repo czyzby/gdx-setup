@@ -35,7 +35,9 @@ class Project(val basic: BasicProjectData, val platforms: Map<String, Platform>,
     val postGenerationTasks = mutableListOf<(Project) -> Unit>()
     val gwtInherits = mutableSetOf<String>()
     val androidPermissions = mutableSetOf<String>()
-    val reflected = mutableSetOf<String>()
+
+    val reflectedClasses = mutableSetOf<String>()
+    val reflectedPackages = mutableSetOf<String>()
 
     // README.md:
     var readmeDescription = ""

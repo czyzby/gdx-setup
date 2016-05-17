@@ -15,8 +15,7 @@ abstract class OfficialExtension : Library {
     override val official = true
 }
 
-// TODO iOS extensions, when the new backend becomes stable
-// TODO Dragome extensions, once implemented
+// TODO Dragome extensions, once implemented.
 
 /**
  * Official AI utilities.
@@ -77,6 +76,9 @@ class Box2D : OfficialExtension() {
         addDependency(project, GWT.ID, "com.badlogicgames.gdx:gdx-box2d-gwt:\$gdxVersion")
         addDependency(project, GWT.ID, "com.badlogicgames.gdx:gdx-box2d-gwt:\$gdxVersion:sources")
         addGwtInherit(project, "com.badlogic.gdx.physics.box2d.box2d-gwt")
+
+        addDependency(project, iOS.ID, "com.badlogicgames.gdx:gdx-box2d-platform:\$gdxVersion:natives-ios")
+        addDependency(project, MOE.ID, "com.badlogicgames.gdx:gdx-box2d-platform:\$gdxVersion:natives-ios")
     }
 }
 
@@ -120,6 +122,9 @@ class Bullet : OfficialExtension() {
 
         addDependency(project, Desktop.ID, "com.badlogicgames.gdx:gdx-bullet-platform:\$gdxVersion:natives-desktop")
 
+        addDependency(project, iOS.ID, "com.badlogicgames.gdx:gdx-bullet-platform:\$gdxVersion:natives-ios")
+        addDependency(project, MOE.ID, "com.badlogicgames.gdx:gdx-bullet-platform:\$gdxVersion:natives-ios")
+
         // Other platforms are not officially supported (GWT).
     }
 }
@@ -144,6 +149,8 @@ class Controllers : OfficialExtension() {
         addDependency(project, GWT.ID, "com.badlogicgames.gdx:gdx-controllers-gwt:\$gdxVersion")
         addDependency(project, GWT.ID, "com.badlogicgames.gdx:gdx-controllers-gwt:\$gdxVersion:sources")
         addGwtInherit(project, "com.badlogic.gdx.controllers.controllers-gwt")
+
+        // "Works" on iOS, but does not report any controllers.
     }
 }
 
@@ -165,6 +172,9 @@ class Freetype : OfficialExtension() {
         addNativeAndroidDependency(project, "com.badlogicgames.gdx:gdx-freetype-platform:\$gdxVersion:natives-x86_64")
 
         addDependency(project, Desktop.ID, "com.badlogicgames.gdx:gdx-freetype-platform:\$gdxVersion:natives-desktop")
+
+        addDependency(project, iOS.ID, "com.badlogicgames.gdx:gdx-freetype-platform:\$gdxVersion:natives-ios")
+        addDependency(project, MOE.ID, "com.badlogicgames.gdx:gdx-freetype-platform:\$gdxVersion:natives-ios")
 
         // Other platforms are not officially supported (GWT).
     }

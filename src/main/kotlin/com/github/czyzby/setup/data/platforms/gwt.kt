@@ -45,7 +45,7 @@ class GWT : Platform {
                 fileName = "${project.basic.mainClass}.gwt.xml", content = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit ${project.advanced.gwtVersion}//EN" "https://gwt.googlesource.com/gwt/+/${project.advanced.gwtVersion}/distro-source/core/src/gwt-module.dtd">
 <module>
-    <source path="" />${project.reflected.joinToString(separator = "\n", prefix = "\n") { "    <extend-configuration-property name=\"gdx.reflect.include\" value=\"$it\" />" }}
+    <source path="" />${(project.reflectedClasses + project.reflectedPackages).joinToString(separator = "\n", prefix = "\n") { "    <extend-configuration-property name=\"gdx.reflect.include\" value=\"$it\" />" }}
 </module>"""))
         project.gwtInherits.add("${project.basic.rootPackage}.${project.basic.mainClass}")
 
@@ -83,7 +83,7 @@ ${project.gwtInherits.sortedWith(INHERIT_COMPARATOR).joinToString(separator = "\
     <set-configuration-property name="xsiframe.failIfScriptTag" value="FALSE"/>
 </module>"""))
 
-        // Copying war files:
+        // Copying webapp files:
         addCopiedFile(project, "webapp", "index.html")
         addCopiedFile(project, "webapp", "refresh.png")
         addCopiedFile(project, "webapp", "soundmanager2-jsmin.js")

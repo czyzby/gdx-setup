@@ -33,6 +33,7 @@ interface Template {
         addGwtLauncher(project)
         addHeadlessLauncher(project)
         addIOSLauncher(project)
+        addMOELauncher(project)
         addServerLauncher(project)
         project.readmeDescription = description
     }
@@ -127,10 +128,6 @@ public class AndroidLauncher extends AndroidApplication {
     }
 }"""
 
-    fun addIOSLauncher(project: Project) {
-        // TODO iOS launcher, once stable
-    }
-
     fun addDragomeLauncher(project: Project) {
         // TODO Dragome launcher, once released
     }
@@ -164,6 +161,39 @@ public class HeadlessLauncher {
         return configuration;
     }
 }"""
+
+    fun addIOSLauncher(project: Project) {
+        addSourceFile(project = project, platform = iOS.ID, packageName = "${project.basic.rootPackage}.ios",
+                fileName = "IOSLauncher.java", content = getIOSLauncherContent(project));
+    }
+
+    fun getIOSLauncherContent(project: Project): String = """package ${project.basic.rootPackage}.ios;
+
+import org.robovm.apple.foundation.NSAutoreleasePool;
+import org.robovm.apple.uikit.UIApplication;
+
+import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
+import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
+import ${project.basic.rootPackage}.${project.basic.mainClass};
+
+/** Launches the iOS (RoboVM) application. */
+public class IOSLauncher extends IOSApplication.Delegate {
+    @Override
+    protected IOSApplication createApplication() {
+        IOSApplicationConfiguration configuration = new IOSApplicationConfiguration();
+        return new IOSApplication(new ${project.basic.mainClass}(), configuration);
+    }
+
+    public static void main(String[] argv) {
+        NSAutoreleasePool pool = new NSAutoreleasePool();
+        UIApplication.main(argv, null, IOSLauncher.class);
+        pool.close();
+    }
+}"""
+
+    fun addMOELauncher(project: Project) {
+        // TODO iOS MOE launcher.
+    }
 
     fun addServerLauncher(project: Project) {
         addSourceFile(project = project, platform = Server.ID, packageName = "${project.basic.rootPackage}.server",

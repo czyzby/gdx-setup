@@ -165,6 +165,7 @@ class Facebook : ThirdPartyExtension() {
         addDependency(project, Desktop.ID, "de.tomgrill.gdxfacebook:gdx-facebook-desktop")
 
         addDependency(project, iOS.ID, "de.tomgrill.gdxfacebook:gdx-facebook-ios")
+        addDependency(project, MOE.ID, "de.tomgrill.gdxfacebook:gdx-facebook-ios")
     }
 }
 
@@ -186,6 +187,7 @@ class Dialogs : ThirdPartyExtension() {
         addDependency(project, Desktop.ID, "de.tomgrill.gdxdialogs:gdx-dialogs-desktop")
 
         addDependency(project, iOS.ID, "de.tomgrill.gdxdialogs:gdx-dialogs-ios")
+        addDependency(project, MOE.ID, "de.tomgrill.gdxdialogs:gdx-dialogs-ios")
     }
 }
 
@@ -391,6 +393,7 @@ class Websocket : ThirdPartyExtension() {
         addDependency(project, Desktop.ID, "com.github.czyzby:gdx-websocket-common")
         addDependency(project, Headless.ID, "com.github.czyzby:gdx-websocket-common")
         addDependency(project, iOS.ID, "com.github.czyzby:gdx-websocket-common")
+        addDependency(project, MOE.ID, "com.github.czyzby:gdx-websocket-common")
 
         addDependency(project, Android.ID, "com.github.czyzby:gdx-websocket-common")
         addAndroidPermission(project, "android.permission.INTERNET")
