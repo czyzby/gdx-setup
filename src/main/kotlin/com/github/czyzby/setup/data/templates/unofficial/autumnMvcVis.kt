@@ -73,7 +73,7 @@ import ${project.basic.rootPackage}.service.ScaleService;
 @Component
 public class Configuration {
     /** Name of the application's preferences file. */
-    public static final String PREFERENCES = "testing";
+    public static final String PREFERENCES = "${project.basic.name}";
     /** Path to the internationalization bundle. */
     @I18nBundle private final String bundlePath = "i18n/bundle";
     /** Enabling VisUI usage. */
@@ -86,7 +86,7 @@ public class Configuration {
     @StageViewport private final ObjectProvider<Viewport> viewportProvider = new ObjectProvider<Viewport>() {
         @Override
         public Viewport provide() {
-            return new FitViewport(Root.WIDTH, Root.HEIGHT);
+            return new FitViewport(${project.basic.mainClass}.WIDTH, ${project.basic.mainClass}.HEIGHT);
         }
     };
 
