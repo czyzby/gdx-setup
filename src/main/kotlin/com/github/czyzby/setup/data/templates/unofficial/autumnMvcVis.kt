@@ -40,21 +40,18 @@ public class ${project.basic.mainClass} {
     override fun apply(project: Project) {
         super.apply(project)
 
-        // TODO Remove DEFAULT_VIEW_RESIZER and use Lml.EXTRACT_UANNOTATED_METHODS in Autumn MVC 1.7.
         project.files.add(SourceFile(projectName = Core.ID, packageName = "${project.basic.rootPackage}.configuration",
                 fileName = "Configuration.java", content = """package ${project.basic.rootPackage}.configuration;
 
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.czyzby.autumn.annotation.Component;
 import com.github.czyzby.autumn.annotation.Initiate;
-import com.github.czyzby.autumn.mvc.component.ui.InterfaceService;
 import com.github.czyzby.autumn.mvc.component.ui.SkinService;
-import com.github.czyzby.autumn.mvc.component.ui.controller.ViewResizer;
 import com.github.czyzby.autumn.mvc.stereotype.preference.AvailableLocales;
 import com.github.czyzby.autumn.mvc.stereotype.preference.I18nBundle;
 import com.github.czyzby.autumn.mvc.stereotype.preference.I18nLocale;
+import com.github.czyzby.autumn.mvc.stereotype.preference.LmlMacro;
 import com.github.czyzby.autumn.mvc.stereotype.preference.LmlParserSyntax;
 import com.github.czyzby.autumn.mvc.stereotype.preference.Preference;
 import com.github.czyzby.autumn.mvc.stereotype.preference.StageViewport;
@@ -64,6 +61,7 @@ import com.github.czyzby.autumn.mvc.stereotype.preference.sfx.SoundEnabled;
 import com.github.czyzby.autumn.mvc.stereotype.preference.sfx.SoundVolume;
 import com.github.czyzby.kiwi.util.gdx.asset.lazy.provider.ObjectProvider;
 import com.github.czyzby.lml.parser.LmlSyntax;
+import com.github.czyzby.lml.util.Lml;
 import com.github.czyzby.lml.vis.parser.impl.VisLmlSyntax;
 import com.kotcrab.vis.ui.VisUI;
 import ${project.basic.rootPackage}.${project.basic.mainClass};
@@ -75,18 +73,20 @@ import ${project.basic.rootPackage}.service.ScaleService;
 @Component
 public class Configuration {
     /** Name of the application's preferences file. */
-    public static final String PREFERENCES = "${project.basic.name}";
+    public static final String PREFERENCES = "testing";
     /** Path to the internationalization bundle. */
     @I18nBundle private final String bundlePath = "i18n/bundle";
     /** Enabling VisUI usage. */
     @LmlParserSyntax private final LmlSyntax syntax = new VisLmlSyntax();
+    /** Parsing macros available in all views. */
+    @LmlMacro private final String globalMacro = "ui/templates/macros/global.lml";
     /** Using a custom viewport provider - Autumn MVC defaults to the ScreenViewport, as it is the only viewport that
      * doesn't need to know application's targeted screen size. This provider overrides that by using more sophisticated
      * FitViewport that works on virtual units rather than pixels. */
     @StageViewport private final ObjectProvider<Viewport> viewportProvider = new ObjectProvider<Viewport>() {
         @Override
         public Viewport provide() {
-            return new FitViewport(${project.basic.mainClass}.WIDTH, ${project.basic.mainClass}.HEIGHT);
+            return new FitViewport(Root.WIDTH, Root.HEIGHT);
         }
     };
 
@@ -117,15 +117,9 @@ public class Configuration {
         VisUI.load(scaleService.getScale());
         // Registering VisUI skin with "default" name - this skin will be the default one for all LML widgets:
         skinService.addSkin("default", VisUI.getSkin());
-        // By modifying some of InterfaceService static utility fields, you can change the default behavior of all
-        // views. This is a proof of concept - while Autumn MVC comes with sensible default values, we're changing the
-        // resizer to affect how all views are resized by default:
-        InterfaceService.DEFAULT_VIEW_RESIZER = new ViewResizer() {
-            @Override
-            public void resize(final Stage stage, final int width, final int height) {
-                stage.getViewport().update(width, height);
-            }
-        };
+        // Thanks to this setting, only methods annotated with @LmlAction will be available in views, significantly
+        // speeding up method look-up:
+        Lml.EXTRACT_UNANNOTATED_METHODS = false;
     }
 }"""))
         project.files.add(SourceFile(projectName = Core.ID, packageName = "${project.basic.rootPackage}.configuration.preferences",
@@ -283,7 +277,6 @@ public class SettingsController implements ActionContainer {
     }
 }"""))
 
-        // TODO Use SkinService#clear() in Autumn MVC 1.7.
         project.files.add(SourceFile(projectName = Core.ID, packageName = "${project.basic.rootPackage}.service",
                 fileName = "ScaleService.java", content = """package ${project.basic.rootPackage}.service;
 
@@ -335,6 +328,7 @@ public class ScaleService {
                 // Loading new skin:
                 VisUI.load(scale);
                 // Replacing the previously default skin:
+                skinService.clear();
                 skinService.addSkin("default", VisUI.getSkin());
             }
         });
@@ -374,17 +368,7 @@ public class ScaleService {
 </table>"""))
 
         project.files.add(SourceFile(projectName = Assets.ID, sourceFolderPath = "ui", packageName = "templates",
-                fileName = path("dialogs", "settings.lml"), content = """<!-- This is a custom macro that displays a TabbedPane's tab.
-    - name: becomes the title of the tab. Defaults to empty string. -->
-<:macro alias="setting" replace="content" name="">
-<!-- "name" will be replaced with the value of the passed argument. -->
-<tab title="{name}" closeable="false" oneColumn="true" defaultPad="1" bg="dialogDim">
-    <!-- "content" will be replaced with the data between macro tags. -->
-    {content}
-</tab>
-</:macro>
-
-<dialog id="dialog" title="@settings" style="dialog">
+                fileName = path("dialogs", "settings.lml"), content = """<dialog id="dialog" title="@settings" style="dialog">
     <!-- Note that all values (like width and height) are in viewport units, not pixels.
         Its somewhat safe to use "magic" values. Values in {= } are equations; values
         proceeded with $ reference Java methods. -->
@@ -426,5 +410,16 @@ public class ScaleService {
     <!-- "close" action is defined in Global class. -->
     <textButton onResult="close">@exit</textButton>
 </dialog>"""))
+
+        project.files.add(SourceFile(projectName = Assets.ID, sourceFolderPath = "ui", packageName = "templates",
+                fileName = path("macros", "global.lml"), content = """<!-- This is a custom macro that displays a TabbedPane's tab.
+    - name: becomes the title of the tab. Defaults to empty string. -->
+<:macro alias="setting" replace="content" name="">
+<!-- "name" will be replaced with the value of the passed argument. -->
+<tab title="{name}" closeable="false" oneColumn="true" defaultPad="1" bg="dialogDim">
+    <!-- "content" will be replaced with the data between macro tags. -->
+    {content}
+</tab>
+</:macro>"""))
     }
 }
