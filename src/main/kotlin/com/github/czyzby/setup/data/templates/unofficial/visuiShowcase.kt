@@ -14,9 +14,9 @@ import com.github.czyzby.setup.views.ProjectTemplate
 class VisUIShowcaseTemplate : Template {
     override val id = "visUiShowcaseTemplate"
     override val width: String
-        get() = "1024"
+        get() = "800"
     override val height: String
-        get() = "768"
+        get() = "600"
     override val description: String
         get() = "Project template included simple launchers and an `ApplicationAdapter` extension with showcase of widgets created using [VisUI](https://github.com/kotcrab/VisEditor/wiki/VisUI) library."
 
