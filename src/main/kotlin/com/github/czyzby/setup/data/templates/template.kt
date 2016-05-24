@@ -223,10 +223,35 @@ public class Lwjgl3Launcher {
     }
 }"""
 
-
     fun addJglfwLauncher(project: Project) {
-        // TODO JGLFW launcher.
+        addSourceFile(project = project, platform = JGLFW.ID, packageName = "${project.basic.rootPackage}.jglfw",
+                fileName = "JglfwLauncher.java", content = getJglfwLauncherContent(project));
     }
+
+    fun getJglfwLauncherContent(project: Project): String = """package ${project.basic.rootPackage}.jglfw;
+
+import com.badlogic.gdx.backends.jglfw.JglfwApplication;
+import com.badlogic.gdx.backends.jglfw.JglfwApplicationConfiguration;
+import ${project.basic.rootPackage}.${project.basic.mainClass};
+
+/** Launches the desktop (JGLFW) application. */
+public class JglfwLauncher {
+    public static void main(final String[] args) {
+        createApplication();
+    }
+
+    private static JglfwApplication createApplication() {
+        return new JglfwApplication(new ${project.basic.mainClass}(), getDefaultConfiguration());
+    }
+
+    private static JglfwApplicationConfiguration getDefaultConfiguration() {
+        final JglfwApplicationConfiguration configuration = new JglfwApplicationConfiguration();
+        configuration.title = "${project.basic.name}";
+        configuration.width = ${width};
+        configuration.height = ${height};
+        return configuration;
+    }
+}"""
 
     fun addMOELauncher(project: Project) {
         // TODO iOS MOE launcher.

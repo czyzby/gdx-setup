@@ -53,6 +53,10 @@ jar {
     attributes 'Main-Class': project.mainClassName
   }
 }
+
+run {
+  ignoreExitValue = true
+}
 """
 
 }
