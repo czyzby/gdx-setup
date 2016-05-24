@@ -109,7 +109,9 @@ class MOEGradleFile(val project: Project) : GradleFile(MOE.ID) {
         addDependency("com.badlogicgames.gdx:gdx-platform:\$gdxVersion:natives-ios")
     }
 
-    override fun getContent() = """task copyNatives << {
+    override fun getContent() = """apply plugin: 'moe'
+
+task copyNatives << {
     file("xcode/native/ios/").mkdirs();
     def LD_FLAGS = "LIBGDX_NATIVES = "
     configurations.natives.files.each { jar->
@@ -154,7 +156,7 @@ moe {
     mainClassName 'IOSMoeLauncher'
     xcode {
         mainTarget 'ios-moe'
-        packageName ${project.basic.rootPackage}
+        packageName '${project.basic.rootPackage}'
         deploymentTarget = '9.0'
         xcodeProjectDirPath 'xcode'
         generateProject false
@@ -167,6 +169,8 @@ moeMainReleaseIphonesimulatorXcodeBuild.dependsOn copyNatives
 moeMainDebugIphonesimulatorXcodeBuild.dependsOn copyNatives
 
 dependencies {
+  configurations { natives }
+
 ${joinDependencies(dependencies)}}
 """
 
