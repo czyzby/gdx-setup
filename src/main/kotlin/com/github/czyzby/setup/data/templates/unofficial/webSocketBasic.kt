@@ -269,6 +269,7 @@ public class AndroidLauncher extends AndroidApplication {
 
     override fun getDesktopLauncherContent(project: Project): String = """package ${project.basic.rootPackage}.desktop;
 
+import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.github.czyzby.websocket.CommonWebSockets;
@@ -291,6 +292,37 @@ public class DesktopLauncher {
         configuration.title = "${project.basic.name}";
         configuration.width = ${project.basic.mainClass}.WIDTH;
         configuration.height = ${project.basic.mainClass}.HEIGHT;
+        for (int size : new int[] { 128, 64, 32, 16 }) {
+            configuration.addIcon("libgdx" + size + ".png", FileType.Internal);
+        }
+        return configuration;
+    }
+}"""
+    // TODO JGLFW launcher.
+
+    override fun getLwjgl3LauncherContent(project: Project): String = """package ${project.basic.rootPackage}.lwjgl3;
+
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.github.czyzby.websocket.CommonWebSockets;
+import ${project.basic.rootPackage}.${project.basic.mainClass};
+
+/** Launches the desktop (LWJGL3) application. */
+public class Lwjgl3Launcher {
+    public static void main(final String[] args) {
+        // Initiating web sockets module:
+        CommonWebSockets.initiate();
+        createApplication();
+    }
+
+    private static Lwjgl3Application createApplication() {
+        return new Lwjgl3Application(new ${project.basic.mainClass}(), getDefaultConfiguration());
+    }
+
+    private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
+        final Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
+        configuration.setTitle("${project.basic.name}");
+        configuration.setWindowedMode(${project.basic.mainClass}.WIDTH, ${project.basic.mainClass}.HEIGHT);
         return configuration;
     }
 }"""
@@ -318,4 +350,33 @@ public class GwtLauncher extends GwtApplication {
         return new ${project.basic.mainClass}();
     }
 }"""
+
+    override fun getIOSLauncherContent(project: Project): String = """package ${project.basic.rootPackage}.ios;
+
+import org.robovm.apple.foundation.NSAutoreleasePool;
+import org.robovm.apple.uikit.UIApplication;
+
+import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
+import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
+import com.github.czyzby.websocket.CommonWebSockets;
+import ${project.basic.rootPackage}.${project.basic.mainClass};
+
+/** Launches the iOS (RoboVM) application. */
+public class IOSLauncher extends IOSApplication.Delegate {
+    @Override
+    protected IOSApplication createApplication() {
+        // Initiating web sockets module:
+        CommonWebSockets.initiate();
+        IOSApplicationConfiguration configuration = new IOSApplicationConfiguration();
+        return new IOSApplication(new ${project.basic.mainClass}(), configuration);
+    }
+
+    public static void main(String[] argv) {
+        NSAutoreleasePool pool = new NSAutoreleasePool();
+        UIApplication.main(argv, null, IOSLauncher.class);
+        pool.close();
+    }
+}"""
 }
+
+

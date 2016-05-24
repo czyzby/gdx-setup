@@ -46,5 +46,3 @@ interface Platform {
         project.addGradleTaskDescription(id + ":" + task, description);
     }
 }
-
-// TODO JGLFW, LWJGL3?
