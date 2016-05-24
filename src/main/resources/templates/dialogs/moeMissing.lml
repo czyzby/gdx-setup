@@ -1,0 +1,4 @@
+<dialog title="@warn">
+    <label style="small" color="vis-blue">@moeMissing</label>
+    <textButton onResult="close" growX="true">@ok</textButton>
+</dialog>

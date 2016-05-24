@@ -9,17 +9,19 @@ import com.github.czyzby.setup.data.project.Project
  */
 class RootGradleFile(val project: Project) : GradleFile("") {
     val plugins = mutableSetOf<String>()
+    val buildRepositories = mutableSetOf<String>()
 
     init {
         buildDependencies.add("\"com.badlogicgames.gdx:gdx-tools:\$gdxVersion\"")
+        buildRepositories.add("mavenLocal()")
+        buildRepositories.add("mavenCentral()")
+        buildRepositories.add("jcenter()")
+        buildRepositories.add("maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }")
     }
 
     override fun getContent(): String = """buildscript {
   repositories {
-    mavenLocal()
-    mavenCentral()
-    jcenter()
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+${buildRepositories.joinToString(separator = "\n") { "    $it" }}
   }
   dependencies {
 ${joinDependencies(buildDependencies, type = "classpath", tab = "    ")}  }

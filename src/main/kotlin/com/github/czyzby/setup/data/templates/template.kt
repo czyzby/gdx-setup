@@ -192,8 +192,39 @@ public class IOSLauncher extends IOSApplication.Delegate {
 }"""
 
     fun addMOELauncher(project: Project) {
-        // TODO iOS MOE launcher.
+        addSourceFile(project = project, platform = MOE.ID, packageName = "${project.basic.rootPackage}.moe",
+                fileName = "IOSMoeLauncher.java", content = getMOELauncherContent(project))
     }
+
+    fun getMOELauncherContent(project: Project): String = """package ${project.basic.rootPackage}.moe;
+
+import com.badlogic.gdx.backends.iosmoe.IOSApplication;
+import com.badlogic.gdx.backends.iosmoe.IOSApplicationConfiguration;
+import com.intel.moe.natj.general.Pointer;
+import ${project.basic.rootPackage}.${project.basic.mainClass};
+
+import ios.foundation.NSAutoreleasePool;
+import ios.uikit.c.UIKit;
+
+public class IOSMoeLauncher extends IOSApplication.Delegate {
+
+    protected IOSMoeLauncher(Pointer peer) {
+        super(peer);
+    }
+
+    @Override
+    protected IOSApplication createApplication() {
+        IOSApplicationConfiguration config = new IOSApplicationConfiguration();
+        config.useAccelerometer = false;
+        return new IOSApplication(new ${project.basic.mainClass}(), config);
+    }
+
+    public static void main(String[] argv) {
+        NSAutoreleasePool pool = NSAutoreleasePool.alloc();
+        UIKit.UIApplicationMain(0, null, null, IOSMoeLauncher.class.getName());
+        pool.dealloc();
+    }
+}"""
 
     fun addServerLauncher(project: Project) {
         addSourceFile(project = project, platform = Server.ID, packageName = "${project.basic.rootPackage}.server",
