@@ -149,9 +149,6 @@ task createBuildDir {
     }
 }
 
-sourceSets.main.java.srcDirs = [ "src/" ]
-
-
 moe {
     mainClassName 'IOSMoeLauncher'
     xcode {
