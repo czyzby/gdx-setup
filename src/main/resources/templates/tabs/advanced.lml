@@ -8,7 +8,8 @@
         </:each>
         <label style="small" color="vis-blue" padLeft="20">@localeWarn</label>
     </table>
-    <table growX="true" defaultPad="3">
+    <scrollPane growX="true" expand="true" fadeBars="false" disableX="true" height="160" overscroll="false">
+    <table defaultPad="3">
         <:column column="1" growX="true" minWidth="50"/>
         <:column column="3" growX="true" minWidth="50"/>
         @gdxVersion
@@ -40,6 +41,7 @@
         @gwtPlugin
         <textField id="gwtPlugin" tooltip="@gwtPluginTip" growX="true">0.6</textField>
     </table>
+    </scrollPane>
     <table growX="true" defaultPad="2" defaultSpaceRight="10" defaultSpaceLeft="10">
         <checkBox id="generateSkin" style="small" tooltip="@generateSkinTip">@generateSkin</checkBox>
         <checkBox id="generateReadme" style="small" tooltip="@generateReadmeTip">@generateReadme</checkBox>
