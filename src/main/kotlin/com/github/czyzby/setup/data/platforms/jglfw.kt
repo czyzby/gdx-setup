@@ -1,32 +1,25 @@
 package com.github.czyzby.setup.data.platforms
 
-import com.github.czyzby.setup.data.files.CopiedFile
-import com.github.czyzby.setup.data.files.path
 import com.github.czyzby.setup.data.gradle.GradleFile
 import com.github.czyzby.setup.data.project.Project
 import com.github.czyzby.setup.views.GdxPlatform
 
+
 /**
- * Represents Desktop backend.
+ * Represents alternative desktop platforum using JGLFW.
  * @author MJ
  */
 @GdxPlatform
-class Desktop : Platform {
+class JGLFW : Platform {
     companion object {
-        const val ID = "desktop"
+        const val ID = "jglfw"
     }
 
     override val id = ID
-
-    override fun createGradleFile(project: Project): GradleFile = DesktopGradleFile(project)
-
+    override val isGraphical = false // JGLFW is an alternative to the default desktop project.
+    override fun createGradleFile(project: Project): GradleFile = JglfwGradleFile(project);
     override fun initiate(project: Project) {
-        // Adding game icons:
-        arrayOf(16, 32, 64, 128).forEach {
-            val icon = "libgdx${it}.png"
-            project.files.add(CopiedFile(projectName = ID, path = path("src", "main", "resources", icon),
-                    original = path("icons", icon)))
-        }
+        // JGLFW platform requires no additional dependencies.
 
         addGradleTaskDescription(project, "run", "starts the application.")
         addGradleTaskDescription(project, "jar", "builds application's runnable jar, which can be found at `${id}/build/libs`.")
@@ -34,21 +27,21 @@ class Desktop : Platform {
 }
 
 /**
- * Gradle file of the desktop project.
+ * Gradle file of the JGLFW project.
  * @author MJ
  */
-class DesktopGradleFile(val project: Project) : GradleFile(Desktop.ID) {
+class JglfwGradleFile(val project: Project) : GradleFile(JGLFW.ID) {
     init {
         dependencies.add("project(':${Core.ID}')")
-        addDependency("com.badlogicgames.gdx:gdx-backend-lwjgl:\$gdxVersion")
+        addDependency("com.badlogicgames.gdx:gdx-backend-jglfw:\$gdxVersion")
         addDependency("com.badlogicgames.gdx:gdx-platform:\$gdxVersion:natives-desktop")
     }
 
     override fun getContent(): String = """apply plugin: 'application'
 
 sourceSets.main.resources.srcDirs += [ rootProject.file('assets').absolutePath ]
-mainClassName = '${project.basic.rootPackage}.desktop.DesktopLauncher'
-eclipse.project.name = appName + '-desktop'
+mainClassName = '${project.basic.rootPackage}.jglfw.JglfwLauncher'
+eclipse.project.name = appName + '-jglfw'
 
 dependencies {
 ${joinDependencies(dependencies)}}

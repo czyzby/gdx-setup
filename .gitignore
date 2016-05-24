@@ -53,7 +53,3 @@ build/
 
 ## OS-specific, others
 .DS_Store
-TODO
-
-## Vert.x
-.vertx

@@ -15,8 +15,6 @@ abstract class OfficialExtension : Library {
     override val official = true
 }
 
-// TODO Dragome extensions, once implemented.
-
 /**
  * Official AI utilities.
  */
@@ -70,7 +68,8 @@ class Box2D : OfficialExtension() {
         addNativeAndroidDependency(project, "com.badlogicgames.gdx:gdx-box2d-platform:\$gdxVersion:natives-x86")
         addNativeAndroidDependency(project, "com.badlogicgames.gdx:gdx-box2d-platform:\$gdxVersion:natives-x86_64")
 
-        addDependency(project, Desktop.ID, "com.badlogicgames.gdx:gdx-box2d-platform:\$gdxVersion:natives-desktop")
+        addDesktopDependency(project, "com.badlogicgames.gdx:gdx-box2d-platform:\$gdxVersion:natives-desktop")
+        addDependency(project, Headless.ID, "com.badlogicgames.gdx:gdx-box2d-platform:\$gdxVersion:natives-desktop")
 
         addDependency(project, GWT.ID, "com.badlogicgames.gdx:gdx-box2d:\$gdxVersion:sources")
         addDependency(project, GWT.ID, "com.badlogicgames.gdx:gdx-box2d-gwt:\$gdxVersion")
@@ -120,7 +119,7 @@ class Bullet : OfficialExtension() {
         addNativeAndroidDependency(project, "com.badlogicgames.gdx:gdx-bullet-platform:\$gdxVersion:natives-x86")
         addNativeAndroidDependency(project, "com.badlogicgames.gdx:gdx-bullet-platform:\$gdxVersion:natives-x86_64")
 
-        addDependency(project, Desktop.ID, "com.badlogicgames.gdx:gdx-bullet-platform:\$gdxVersion:natives-desktop")
+        addDesktopDependency(project, "com.badlogicgames.gdx:gdx-bullet-platform:\$gdxVersion:natives-desktop")
 
         addDependency(project, iOS.ID, "com.badlogicgames.gdx:gdx-bullet-platform:\$gdxVersion:natives-ios")
         addDependency(project, MOE.ID, "com.badlogicgames.gdx:gdx-bullet-platform:\$gdxVersion:natives-ios")
@@ -144,6 +143,11 @@ class Controllers : OfficialExtension() {
 
         addDependency(project, Desktop.ID, "com.badlogicgames.gdx:gdx-controllers-desktop:\$gdxVersion")
         addDependency(project, Desktop.ID, "com.badlogicgames.gdx:gdx-controllers-platform:\$gdxVersion:natives-desktop")
+        addDependency(project, JGLFW.ID, "com.badlogicgames.gdx:gdx-controllers-desktop:\$gdxVersion")
+        addDependency(project, JGLFW.ID, "com.badlogicgames.gdx:gdx-controllers-platform:\$gdxVersion:natives-desktop")
+
+        addDependency(project, LWJGL3.ID, "com.badlogicgames.gdx:gdx-controllers-lwjgl3:\$gdxVersion")
+        // addDependency(project, LWJGL3.ID, "com.badlogicgames.gdx:gdx-controllers-platform:\$gdxVersion:natives-desktop")
 
         addDependency(project, GWT.ID, "com.badlogicgames.gdx:gdx-controllers:\$gdxVersion:sources")
         addDependency(project, GWT.ID, "com.badlogicgames.gdx:gdx-controllers-gwt:\$gdxVersion")
@@ -171,7 +175,7 @@ class Freetype : OfficialExtension() {
         addNativeAndroidDependency(project, "com.badlogicgames.gdx:gdx-freetype-platform:\$gdxVersion:natives-x86")
         addNativeAndroidDependency(project, "com.badlogicgames.gdx:gdx-freetype-platform:\$gdxVersion:natives-x86_64")
 
-        addDependency(project, Desktop.ID, "com.badlogicgames.gdx:gdx-freetype-platform:\$gdxVersion:natives-desktop")
+        addDesktopDependency(project, "com.badlogicgames.gdx:gdx-freetype-platform:\$gdxVersion:natives-desktop")
 
         addDependency(project, iOS.ID, "com.badlogicgames.gdx:gdx-freetype-platform:\$gdxVersion:natives-ios")
         addDependency(project, MOE.ID, "com.badlogicgames.gdx:gdx-freetype-platform:\$gdxVersion:natives-ios")
@@ -189,7 +193,7 @@ class Tools : OfficialExtension() {
     override val url = "https://github.com/libgdx/libgdx/wiki/Texture-packer"
 
     override fun initiate(project: Project) {
-        addDependency(project, Desktop.ID, "com.badlogicgames.gdx:gdx-tools:\$gdxVersion")
+        addDesktopDependency(project, "com.badlogicgames.gdx:gdx-tools:\$gdxVersion")
 
         addDependency(project, Headless.ID, "com.badlogicgames.gdx:gdx-tools:\$gdxVersion")
     }

@@ -1,8 +1,6 @@
 package com.github.czyzby.setup.data.libs
 
-import com.github.czyzby.setup.data.platforms.Android
-import com.github.czyzby.setup.data.platforms.AndroidGradleFile
-import com.github.czyzby.setup.data.platforms.GWT
+import com.github.czyzby.setup.data.platforms.*
 import com.github.czyzby.setup.data.project.Project
 
 /**
@@ -24,6 +22,10 @@ interface Library {
         if (project.hasPlatform(platform)) {
             project.getGradleFile(platform).addDependency(dependency)
         }
+    }
+
+    fun addDesktopDependency(project: Project, dependency: String) {
+        arrayOf(Desktop.ID, JGLFW.ID, LWJGL3.ID).forEach { addDependency(project, it, dependency) }
     }
 
     fun addNativeAndroidDependency(project: Project, dependency: String) {

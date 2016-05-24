@@ -29,14 +29,16 @@ interface Template {
         addApplicationListener(project)
         addAndroidLauncher(project)
         addDesktopLauncher(project)
-        addDragomeLauncher(project)
         addGwtLauncher(project)
         addHeadlessLauncher(project)
         addIOSLauncher(project)
+        addJglfwLauncher(project)
+        addLwjgl3Launcher(project)
         addMOELauncher(project)
         addServerLauncher(project)
         project.readmeDescription = description
     }
+
 
     fun addApplicationListener(project: Project) {
         addSourceFile(project = project, platform = Core.ID, packageName = project.basic.rootPackage,
@@ -56,6 +58,7 @@ interface Template {
 
     fun getDesktopLauncherContent(project: Project): String = """package ${project.basic.rootPackage}.desktop;
 
+import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import ${project.basic.rootPackage}.${project.basic.mainClass};
@@ -75,6 +78,9 @@ public class DesktopLauncher {
         configuration.title = "${project.basic.name}";
         configuration.width = ${width};
         configuration.height = ${height};
+        for (int size : new int[] { 128, 64, 32, 16 }) {
+            configuration.addIcon("libgdx" + size + ".png", FileType.Internal);
+        }
         return configuration;
     }
 }"""
@@ -127,10 +133,6 @@ public class AndroidLauncher extends AndroidApplication {
         initialize(new ${project.basic.mainClass}(), configuration);
     }
 }"""
-
-    fun addDragomeLauncher(project: Project) {
-        // TODO Dragome launcher, once released
-    }
 
     fun addHeadlessLauncher(project: Project) {
         addSourceFile(project = project, platform = Headless.ID, packageName = "${project.basic.rootPackage}.headless",
@@ -188,6 +190,66 @@ public class IOSLauncher extends IOSApplication.Delegate {
         NSAutoreleasePool pool = new NSAutoreleasePool();
         UIApplication.main(argv, null, IOSLauncher.class);
         pool.close();
+    }
+}"""
+
+
+    fun addLwjgl3Launcher(project: Project) {
+        addSourceFile(project = project, platform = LWJGL3.ID, packageName = "${project.basic.rootPackage}.lwjgl3",
+                fileName = "Lwjgl3Launcher.java", content = getLwjgl3LauncherContent(project));
+    }
+
+    fun getLwjgl3LauncherContent(project: Project): String = """package ${project.basic.rootPackage}.lwjgl3;
+
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import ${project.basic.rootPackage}.${project.basic.mainClass};
+
+/** Launches the desktop (LWJGL3) application. */
+public class Lwjgl3Launcher {
+    public static void main(String[] args) {
+        createApplication();
+    }
+
+    private static Lwjgl3Application createApplication() {
+        return new Lwjgl3Application(new ${project.basic.mainClass}(), getDefaultConfiguration());
+    }
+
+    private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
+        Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
+        configuration.setTitle("${project.basic.name}");
+        configuration.setWindowedMode(${width}, ${height});
+        return configuration;
+    }
+}"""
+
+    fun addJglfwLauncher(project: Project) {
+        addSourceFile(project = project, platform = JGLFW.ID, packageName = "${project.basic.rootPackage}.jglfw",
+                fileName = "JglfwLauncher.java", content = getJglfwLauncherContent(project));
+    }
+
+    fun getJglfwLauncherContent(project: Project): String = """package ${project.basic.rootPackage}.jglfw;
+
+import com.badlogic.gdx.backends.jglfw.JglfwApplication;
+import com.badlogic.gdx.backends.jglfw.JglfwApplicationConfiguration;
+import ${project.basic.rootPackage}.${project.basic.mainClass};
+
+/** Launches the desktop (JGLFW) application. */
+public class JglfwLauncher {
+    public static void main(final String[] args) {
+        createApplication();
+    }
+
+    private static JglfwApplication createApplication() {
+        return new JglfwApplication(new ${project.basic.mainClass}(), getDefaultConfiguration());
+    }
+
+    private static JglfwApplicationConfiguration getDefaultConfiguration() {
+        final JglfwApplicationConfiguration configuration = new JglfwApplicationConfiguration();
+        configuration.title = "${project.basic.name}";
+        configuration.width = ${width};
+        configuration.height = ${height};
+        return configuration;
     }
 }"""
 

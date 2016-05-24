@@ -75,6 +75,7 @@ public class ${project.basic.mainClass} implements ActionContainer {
 
     override fun getDesktopLauncherContent(project: Project): String = """package ${project.basic.rootPackage}.desktop;
 
+import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.github.czyzby.autumn.fcs.scanner.DesktopClassScanner;
@@ -97,6 +98,65 @@ public class DesktopLauncher {
         configuration.title = "${project.basic.name}";
         configuration.width = ${project.basic.mainClass}.WIDTH;
         configuration.height = ${project.basic.mainClass}.HEIGHT;
+        for (int size : new int[] { 128, 64, 32, 16 }) {
+            configuration.addIcon("libgdx" + size + ".png", FileType.Internal);
+        }
+        return configuration;
+    }
+}"""
+
+    override fun getJglfwLauncherContent(project: Project): String = """package ${project.basic.rootPackage}.jglfw;
+
+import com.badlogic.gdx.backends.jglfw.JglfwApplication;
+import com.badlogic.gdx.backends.jglfw.JglfwApplicationConfiguration;
+import com.github.czyzby.autumn.fcs.scanner.DesktopClassScanner;
+import com.github.czyzby.autumn.mvc.application.AutumnApplication;
+import ${project.basic.rootPackage}.${project.basic.mainClass};
+
+/** Launches the desktop (JGLFW) application. */
+public class JglfwLauncher {
+    public static void main(final String[] args) {
+        createApplication();
+    }
+
+    private static JglfwApplication createApplication() {
+        return new JglfwApplication(new AutumnApplication(new DesktopClassScanner(), ${project.basic.mainClass}.class),
+                getDefaultConfiguration());
+    }
+
+    private static JglfwApplicationConfiguration getDefaultConfiguration() {
+        final JglfwApplicationConfiguration configuration = new JglfwApplicationConfiguration();
+        configuration.title = "${project.basic.name}";
+        configuration.width = ${width};
+        configuration.height = ${height};
+        return configuration;
+    }
+}"""
+
+
+    override fun getLwjgl3LauncherContent(project: Project): String = """package ${project.basic.rootPackage}.lwjgl3;
+
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.github.czyzby.autumn.fcs.scanner.DesktopClassScanner;
+import com.github.czyzby.autumn.mvc.application.AutumnApplication;
+import ${project.basic.rootPackage}.${project.basic.mainClass};
+
+/** Launches the desktop (LWJGL3) application. */
+public class Lwjgl3Launcher {
+    public static void main(String[] args) {
+        createApplication();
+    }
+
+    private static Lwjgl3Application createApplication() {
+        return new Lwjgl3Application(new AutumnApplication(new DesktopClassScanner(), ${project.basic.mainClass}.class),
+                getDefaultConfiguration());
+    }
+
+    private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
+        Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
+        configuration.setTitle("${project.basic.name}");
+        configuration.setWindowedMode(${project.basic.mainClass}.WIDTH, ${project.basic.mainClass}.HEIGHT);
         return configuration;
     }
 }"""

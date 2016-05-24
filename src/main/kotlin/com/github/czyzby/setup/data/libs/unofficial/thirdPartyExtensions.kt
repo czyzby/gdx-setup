@@ -162,7 +162,7 @@ class Facebook : ThirdPartyExtension() {
 
         addDependency(project, Android.ID, "de.tomgrill.gdxfacebook:gdx-facebook-android")
 
-        addDependency(project, Desktop.ID, "de.tomgrill.gdxfacebook:gdx-facebook-desktop")
+        addDesktopDependency(project, "de.tomgrill.gdxfacebook:gdx-facebook-desktop")
 
         addDependency(project, iOS.ID, "de.tomgrill.gdxfacebook:gdx-facebook-ios")
         addDependency(project, MOE.ID, "de.tomgrill.gdxfacebook:gdx-facebook-ios")
@@ -184,7 +184,7 @@ class Dialogs : ThirdPartyExtension() {
 
         addDependency(project, Android.ID, "de.tomgrill.gdxdialogs:gdx-dialogs-android")
 
-        addDependency(project, Desktop.ID, "de.tomgrill.gdxdialogs:gdx-dialogs-desktop")
+        addDesktopDependency(project, "de.tomgrill.gdxdialogs:gdx-dialogs-desktop")
 
         addDependency(project, iOS.ID, "de.tomgrill.gdxdialogs:gdx-dialogs-ios")
         addDependency(project, MOE.ID, "de.tomgrill.gdxdialogs:gdx-dialogs-ios")
@@ -339,7 +339,7 @@ class Autumn : ThirdPartyExtension() {
     override fun initiateDependencies(project: Project) {
         addDependency(project, Core.ID, "com.github.czyzby:gdx-autumn")
 
-        addDependency(project, Desktop.ID, "com.github.czyzby:gdx-autumn-fcs")
+        addDesktopDependency(project, "com.github.czyzby:gdx-autumn-fcs")
 
         addDependency(project, Headless.ID, "com.github.czyzby:gdx-autumn-fcs")
 
@@ -390,7 +390,7 @@ class Websocket : ThirdPartyExtension() {
 
         addDependency(project, Shared.ID, "com.github.czyzby:gdx-websocket")
 
-        addDependency(project, Desktop.ID, "com.github.czyzby:gdx-websocket-common")
+        addDesktopDependency(project, "com.github.czyzby:gdx-websocket-common")
         addDependency(project, Headless.ID, "com.github.czyzby:gdx-websocket-common")
         addDependency(project, iOS.ID, "com.github.czyzby:gdx-websocket-common")
         addDependency(project, MOE.ID, "com.github.czyzby:gdx-websocket-common")
