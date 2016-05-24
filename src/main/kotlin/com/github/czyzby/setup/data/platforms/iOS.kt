@@ -83,8 +83,8 @@ app.name=${project.basic.name}"""))
 
         // Copying data images:
         arrayOf("Default.png", "Default@2x.png", "Default@2x~ipad.png", "Default-375w-667h@2x.png",
-                "Default-414w-736h@3x.png", "Default-568h@2x.png", "Default~ipad.png", "Icon.png",
-                "Icon@2x.png", "Icon-72.png", "Icon-72@2x.png").forEach {
+                "Default-414w-736h@3x.png", "Default-568h@2x.png", "Default-1024w-1366h@2x~ipad.png",
+                "Default~ipad.png", "Icon.png", "Icon@2x.png", "Icon-72.png", "Icon-72@2x.png").forEach {
             project.files.add(CopiedFile(projectName = ID, path = path("data", it),
                     original = path("generator", "ios", "data", it)))
         }
