@@ -24,6 +24,7 @@ class AdvancedData {
     @LmlActor("gwtVersion") private lateinit var gwtVersionField: VisSelectBox<String>
     @LmlActor("gwtPlugin") private lateinit var gwtPluginVersionField: VisTextField
     @LmlActor("serverJavaVersion") private lateinit var serverJavaVersionField: Spinner
+    @LmlActor("desktopJavaVersion") private lateinit var desktopJavaVersionField: Spinner
     @LmlActor("generateSkin") private lateinit var generateSkinButton: Button
     @LmlActor("generateReadme") private lateinit var generateReadmeButton: Button
     @LmlActor("gradleWrapper") private lateinit var gradleWrapperButton: Button
@@ -69,6 +70,9 @@ class AdvancedData {
 
     val serverJavaVersion: String
         get() = serverJavaVersionField.model.text
+
+    val desktopJavaVersion: String
+        get() = desktopJavaVersionField.model.text
 
     val generateSkin: Boolean
         get() = generateSkinButton.isChecked

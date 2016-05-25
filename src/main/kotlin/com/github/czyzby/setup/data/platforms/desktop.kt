@@ -49,6 +49,7 @@ class DesktopGradleFile(val project: Project) : GradleFile(Desktop.ID) {
 sourceSets.main.resources.srcDirs += [ rootProject.file('assets').absolutePath ]
 mainClassName = '${project.basic.rootPackage}.desktop.DesktopLauncher'
 eclipse.project.name = appName + '-desktop'
+sourceCompatibility = ${project.advanced.desktopJavaVersion}
 
 dependencies {
 ${joinDependencies(dependencies)}}

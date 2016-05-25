@@ -9,7 +9,7 @@
         <label style="small" color="vis-blue" padLeft="20">@localeWarn</label>
     </table>
     <scrollPane growX="true" expand="true" fadeBars="false" disableX="true" height="160" overscroll="false">
-    <table defaultPad="3">
+    <table defaultPad="3" tablePadTop="4" tablePadBottom="4" tablePadRight="3">
         <:column column="1" growX="true" minWidth="50"/>
         <:column column="3" growX="true" minWidth="50"/>
         @gdxVersion
@@ -22,16 +22,19 @@
         @serverJavaVersion
         <floatSpinner id="serverJavaVersion" min="1.1" max="1.9" value="1.8" step="0.1" precision="1" row="true"
                       tooltip="@serverJavaVersionTip"/>
+        @androidPluginVersion
+        <textField id="androidPluginVersion" tooltip="@androidPluginVersionTip">1.5.0</textField>
+        @desktopJavaVersion
+        <floatSpinner id="desktopJavaVersion" min="1.5" max="1.9" value="1.7" step="0.1" precision="1" row="true"
+                      tooltip="@desktopJavaVersionTip"/>
         @sdkVersion
         <intSpinner id="sdkVersion" min="8" max="23" value="$getSdkVersion" onChange="setSdkVersion" step="1"
-                    tooltip="@sdkVersionTip" />
+                    tooltip="@sdkVersionTip"/>
         @toolsVersion
         <textField id="toolsVersion" tooltip="@toolsVersionTip" value="$getToolsVersion"
                    onChange="setToolsVersion" row="true" />
-        @androidPluginVersion
-        <textField id="androidPluginVersion" tooltip="@androidPluginVersionTip">1.5.0</textField>
         @robovmVersion
-        <textField id="robovmVersion" tooltip="@robovmVersionTip" row="true">2.1.0</textField>
+        <textField id="robovmVersion" tooltip="@robovmVersionTip">2.1.0</textField>
         @moeVersion
         <textField id="moeVersion" tooltip="@moeVersionTip" row="true">1.1.0.final-1</textField>
         @gwtVersion
