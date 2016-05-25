@@ -268,8 +268,8 @@ import ${project.basic.rootPackage}.${project.basic.mainClass};
 import ios.foundation.NSAutoreleasePool;
 import ios.uikit.c.UIKit;
 
+/** Launches the iOS (MOE) application. */
 public class IOSMoeLauncher extends IOSApplication.Delegate {
-
     protected IOSMoeLauncher(Pointer peer) {
         super(peer);
     }

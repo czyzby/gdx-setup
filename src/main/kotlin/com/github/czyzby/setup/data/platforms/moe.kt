@@ -54,7 +54,7 @@ class MOE : Platform {
 	<key>UIRequiresFullScreen</key>
 	<true/>
 	<key>Intel.MOE.Main.Class</key>
-	<string>${project.basic.rootPackage}.IOSMoeLauncher</string>
+	<string>${project.basic.rootPackage}.moe.IOSMoeLauncher</string>
 	<key>UIApplicationExitsOnSuspend</key>
 	<false/>
 	<key>UIRequiredDeviceCapabilities</key>

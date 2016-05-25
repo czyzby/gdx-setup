@@ -404,6 +404,39 @@ public class IOSLauncher extends IOSApplication.Delegate {
         pool.close();
     }
 }"""
+
+    override fun getMOELauncherContent(project: Project): String = """package ${project.basic.rootPackage}.moe;
+
+import com.badlogic.gdx.backends.iosmoe.IOSApplication;
+import com.badlogic.gdx.backends.iosmoe.IOSApplicationConfiguration;
+import com.intel.moe.natj.general.Pointer;
+import com.github.czyzby.websocket.CommonWebSockets;
+import ${project.basic.rootPackage}.${project.basic.mainClass};
+
+import ios.foundation.NSAutoreleasePool;
+import ios.uikit.c.UIKit;
+
+/** Launches the iOS (MOE) application. */
+public class IOSMoeLauncher extends IOSApplication.Delegate {
+    protected IOSMoeLauncher(Pointer peer) {
+        super(peer);
+    }
+
+    @Override
+    protected IOSApplication createApplication() {
+        // Initiating web sockets module:
+        CommonWebSockets.initiate();
+        IOSApplicationConfiguration config = new IOSApplicationConfiguration();
+        config.useAccelerometer = false;
+        return new IOSApplication(new ${project.basic.mainClass}(), config);
+    }
+
+    public static void main(String[] argv) {
+        NSAutoreleasePool pool = NSAutoreleasePool.alloc();
+        UIKit.UIApplicationMain(0, null, null, IOSMoeLauncher.class.getName());
+        pool.dealloc();
+    }
+}"""
 }
 
 
