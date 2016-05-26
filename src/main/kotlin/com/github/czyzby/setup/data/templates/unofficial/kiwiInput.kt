@@ -57,7 +57,7 @@ public class ${project.basic.mainClass} extends InputAwareApplicationListener {
 
     @Override
     public void initiate() {
-        stage = new Stage(new ScreenViewport());
+        stage = new Stage(new LetterboxingViewport());
         texture = new Texture("badlogic.png");
         image = new Image(texture);
         stage.addActor(image);
