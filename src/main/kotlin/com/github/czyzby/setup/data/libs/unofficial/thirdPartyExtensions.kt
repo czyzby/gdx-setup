@@ -74,7 +74,7 @@ class ArtemisOdb : ThirdPartyExtension() {
 @Extension
 class VisUI : ThirdPartyExtension() {
     override val id = "visUi"
-    override val defaultVersion = "1.1.0"
+    override val defaultVersion = "1.1.1"
     override val url = "https://github.com/kotcrab/VisEditor/wiki/VisUI"
 
     override fun initiateDependencies(project: Project) {
@@ -264,7 +264,7 @@ class Noise4J : ThirdPartyExtension() {
  * Version of Czyzby's libraries.
  * @author MJ
  */
-const val AUTUMN_VERSION = "1.7.1.9.3-b1"
+const val AUTUMN_VERSION = "1.7.1.9.3"
 
 /**
  * Guava-inspired LibGDX utilities.

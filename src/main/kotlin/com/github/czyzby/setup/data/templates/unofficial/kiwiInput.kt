@@ -39,6 +39,8 @@ import com.github.czyzby.kiwi.util.gdx.InputAwareApplicationListener;
 import com.github.czyzby.kiwi.util.gdx.asset.Disposables;
 import com.github.czyzby.kiwi.util.gdx.collection.immutable.ImmutableArray;
 import com.github.czyzby.kiwi.util.gdx.scene2d.Actors;
+import com.github.czyzby.kiwi.util.gdx.viewport.LetterboxingViewport;
+import com.github.czyzby.kiwi.util.gdx.viewport.Viewports;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class ${project.basic.mainClass} extends InputAwareApplicationListener {
@@ -64,7 +66,7 @@ public class ${project.basic.mainClass} extends InputAwareApplicationListener {
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+        Viewports.update(stage);
         Actors.centerActor(image);
     }
 

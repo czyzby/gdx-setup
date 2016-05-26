@@ -36,6 +36,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.github.czyzby.kiwi.util.gdx.AbstractApplicationListener;
 import com.github.czyzby.kiwi.util.gdx.asset.Disposables;
 import com.github.czyzby.kiwi.util.gdx.scene2d.Actors;
+import com.github.czyzby.kiwi.util.gdx.viewport.LetterboxingViewport;
+import com.github.czyzby.kiwi.util.gdx.viewport.Viewports;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class ${project.basic.mainClass} extends AbstractApplicationListener {
@@ -48,7 +50,7 @@ public class ${project.basic.mainClass} extends AbstractApplicationListener {
 
     @Override
     public void create() {
-        stage = new Stage(new ScreenViewport());
+        stage = new Stage(new LetterboxingViewport());
         texture = new Texture("badlogic.png");
         image = new Image(texture);
         stage.addActor(image);
@@ -57,7 +59,7 @@ public class ${project.basic.mainClass} extends AbstractApplicationListener {
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+        Viewports.update(stage);
         Actors.centerActor(image);
     }
 
