@@ -45,14 +45,8 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	button-red: {name: t-base, color: t-warn },
 	button-disabled: {name: t-base, color: t-medium-dark }
 	button-window-bg: {name: t-base, color: t-dark },
-	check-down: {name: t-check-off, color: t-highlight },
-	check-down-on: {name: t-check-on, color: t-highlight },
-	check-off: {name: t-check-off, color: t-medium },
-	check-off-disabled: {name: t-check-off, color: t-medium },
-	check-on: {name: t-check-on, color: t-medium },
-	check-on-disabled: {name: t-check-on, color: t-medium },
-	check-over-off: {name: t-check-off, color: t-light },
-	check-over-on: {name: t-check-on, color: t-light },
+	check-off: {name: t-check, color: t-medium },
+	check-on: {name: t-check, color: t-highlight },
 	default-pane: {name: t-dot, color: t-medium },
 	default-pane-noborder: {name: t-dot, color: t-medium },
 	default-select: {name: t-select, color: t-medium },
@@ -66,14 +60,8 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	progressbar-filled: {name: t-vline, color: t-highlight },
 	progressbar-filled-vertical: {name: t-hline, color: t-highlight },
 	progressbar-vertical: {name: t-hline, color: t-medium },
-	radio-down: {name: t-radio-off, color: t-highlight },
-	radio-down-on: {name: t-radio-on, color: t-highlight },
-	radio-off: {name: t-radio-off, color: t-medium },
-	radio-off-disabled: {name: t-radio-off, color: t-medium-dark },
-	radio-on: {name: t-radio-on, color: t-medium },
-	radio-on-disabled: {name: t-radio-on, color: t-medium-dark },
-	radio-over-off: {name: t-radio-off, color: t-light },
-	radio-over-on: {name: t-radio-on, color: t-light },
+	radio-off: {name: t-radio, color: t-medium },
+	radio-on: {name: t-radio, color: t-highlight },
 	scroll: {name: t-hline, color: t-medium },
 	scroll-horizontal: {name: t-vline, color: t-medium },
 	scroll-knob-horizontal: {name: t-hknob, color: t-dark },
@@ -98,18 +86,29 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	textfield: {name: t-base, color: t-medium },
 	textfield-over: {name: t-base, color: t-medium-dark },
 	tooltip-bg: {name: t-dot, color: t-medium-dark },
-	touchpad-knob: {name: t-radio-off, color: t-highlight },
+	touchpad-knob: {name: t-radio, color: t-highlight },
 	tree-minus: {name: t-tree-minus, color: t-light },
 	tree-over: {name: t-dot, color: t-medium-dark },
 	tree-plus: {name: t-tree-plus, color: t-light },
 	tree-selection: {name: t-dot, color: t-highlight },
 	vis-blue: {name: t-dot, color: t-highlight },
+	vis-check: {name: t-check, color: t-medium },
+	vis-check-down: {name: t-check, color: t-highlight },
+	vis-check-over: {name: t-check, color: t-light },
+	vis-check-tick: {name: t-check-tick, color: t-white },
+	vis-check-tick-disabled: {name: t-check-tick, color: grey },
+	vis-radio: {name: t-radio, color: t-medium },
+	vis-radio-down: {name: t-radio, color: t-highlight },
+	vis-radio-over: {name: t-radio, color: t-light },
+	vis-radio-tick: {name: t-radio-tick, color: t-white },
+	vis-radio-tick-disabled: {name: t-radio-tick, color: grey },
 	vis-red: {name: t-dot, color: t-warn },
 	white: {name: t-dot, color: white },
 	window: {name: t-window, color: t-dark },
 	window-bg: {name: t-dot, color: t-dark },
+	window-border-bg: {name: t-dot, color: t-dark },
 	window-noborder: {name: t-window-border, color: t-dark },
-	window-resizable: {name: t-window-resize, color: t-dark },
+	window-resizable: {name: t-window-resize, color: t-dark }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: {down: button-down, up: button },
@@ -156,10 +155,6 @@ com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	default: {font: default-font, fontColor: white, disabledFontColor: grey, selection: selection, background: textfield, cursor: cursor, messageFont: default-font, messageFontColor: grey },
 	small: {font: small-font, fontColor: white, disabledFontColor: grey, selection: selection, background: textfield, cursor: cursor, messageFont: default-font, messageFontColor: grey }
 },
-com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
-	default: {checkboxOn: check-on, checkboxOff: check-off, font: default-font, fontColor: white, disabledFontColor: grey },
-	radio: {checkboxOn: radio-on, checkboxOff: radio-off, font: default-font, fontColor: white, checkedFontColor: vis-blue, disabledFontColor: grey }
-},
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 	default: {fontColorUnselected: white, selection: padded-list-selection, fontColorSelected: white, font: default-font }
 },
@@ -205,9 +200,9 @@ com.kotcrab.vis.ui.widget.VisImageTextButton$VisImageTextButtonStyle: {
 	menu-bar: {over: button-down, font: default-font, fontColor: white, down: button-down, up: button, disabled: button, disabledFontColor: grey }
 },
 com.kotcrab.vis.ui.widget.VisCheckBox$VisCheckBoxStyle: {
-	default: {checkboxOver: check-over-off, checkboxOnOver: check-over-on, checkboxOffDown: check-down, checkboxOnDown: check-down-on, checkboxOffDisabled: check-off-disabled, checkboxOnDisabled: check-on-disabled, errorBorder: border-error, focusBorder: border, checkboxOn: check-on, checkboxOff: check-off, font: default-font, fontColor: white, disabledFontColor: grey },
-	small: {checkboxOver: check-over-off, checkboxOnOver: check-over-on, checkboxOffDown: check-down, checkboxOnDown: check-down-on, checkboxOffDisabled: check-off-disabled, checkboxOnDisabled: check-on-disabled, errorBorder: border-error, focusBorder: border, checkboxOn: check-on, checkboxOff: check-off, font: small-font, fontColor: white, disabledFontColor: grey },
-	radio: {checkboxOver: radio-over-off, checkboxOnOver: radio-over-on, checkboxOffDown: radio-down, checkboxOnDown: radio-down-on, checkboxOffDisabled: radio-off-disabled, checkboxOnDisabled: radio-on-disabled, errorBorder: border-circle-error, focusBorder: border-circle, checkboxOn: radio-on, checkboxOff: radio-off, font: default-font, fontColor: white, disabledFontColor: grey }
+	default: {checkBackground: vis-check, checkBackgroundOver: vis-check-over, checkBackgroundDown: vis-check-down, tick: vis-check-tick, tickDisabled: vis-check-tick-disabled, focusBorder: border, errorBorder: border-error, font: default-font, fontColor: white, disabledFontColor: grey },
+	small: {checkBackground: vis-check, checkBackgroundOver: vis-check-over, checkBackgroundDown: vis-check-down, tick: vis-check-tick, tickDisabled: vis-check-tick-disabled, focusBorder: border, errorBorder: border-error, font: small-font, fontColor: white, disabledFontColor: grey },
+	radio: {checkBackground: vis-radio, checkBackgroundOver: vis-radio-over, checkBackgroundDown: vis-radio-down, tick: vis-radio-tick, tickDisabled: vis-radio-tick-disabled, focusBorder: border-circle, errorBorder: border-circle-error, font: default-font, fontColor: white, disabledFontColor: grey }
 },
 com.kotcrab.vis.ui.widget.PopupMenu$PopupMenuStyle: {
 	noborder: {background: button },
@@ -247,7 +242,7 @@ com.kotcrab.vis.ui.widget.spinner.Spinner$SpinnerStyle: {
 	default: {down: select-down, up: select-up }
 },
 com.kotcrab.vis.ui.widget.file.FileChooserStyle: {
-	default: {highlight: list-selection, popupMenuStyleName: "default", iconArrowLeft: icon-arrow-left, iconArrowRight: icon-arrow-right, iconFolder: icon-folder, iconFolderParent: icon-folder-parent, iconFolderNew: icon-folder-new, iconDrive: icon-drive, iconFolderStar: icon-folder-star, iconTrash: icon-trash, iconFileText: icon-file-text, iconFileImage: icon-file-image, iconFilePdf: icon-file-pdf, iconFileAudio: icon-file-audio, iconStar: icon-star, iconStarOutline: icon-star-outline, iconRefresh: icon-refresh }
+	default: {highlight: list-selection, popupMenuStyleName: "default", iconArrowLeft: icon-arrow-left, iconArrowRight: icon-arrow-right, iconFolder: icon-folder, iconFolderParent: icon-folder-parent, iconFolderNew: icon-folder-new, iconDrive: icon-drive, iconFolderStar: icon-folder-star, iconTrash: icon-trash, iconStar: icon-star, iconStarOutline: icon-star-outline, iconRefresh: icon-refresh, iconFileText: icon-file-text, iconFileImage: icon-file-image, iconFilePdf: icon-file-pdf, iconFileAudio: icon-file-audio, iconListSettings: icon-list-settings, expandDropdown: select-down }
 },
 com.kotcrab.vis.ui.widget.color.ColorPickerWidgetStyle: {
 	default: {barSelector: color-picker-bar-selector, cross: color-picker-cross, iconArrowRight: icon-arrow-right, verticalSelector: color-picker-selector-vertical, horizontalSelector: color-picker-selector-horizontal }
