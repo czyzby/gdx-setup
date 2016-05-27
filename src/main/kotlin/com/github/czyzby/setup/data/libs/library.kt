@@ -1,6 +1,8 @@
 package com.github.czyzby.setup.data.libs
 
 import com.github.czyzby.setup.data.platforms.*
+import com.github.czyzby.setup.data.platforms.unofficial.JTransc
+import com.github.czyzby.setup.data.platforms.unofficial.JTranscGradleFile
 import com.github.czyzby.setup.data.project.Project
 
 /**
@@ -22,6 +24,14 @@ interface Library {
         if (project.hasPlatform(platform)) {
             project.getGradleFile(platform).addDependency(dependency)
         }
+    }
+
+    fun addJTranscDependency(project: Project, dependency: String) {
+        if (project.hasPlatform(JTransc.ID)) {
+            val gradle = project.getGradleFile(JTransc.ID) as JTranscGradleFile
+            gradle.addJTranscDependency(dependency)
+        }
+
     }
 
     fun addDesktopDependency(project: Project, dependency: String) {

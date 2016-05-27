@@ -74,6 +74,9 @@ class AdvancedData {
     val desktopJavaVersion: String
         get() = desktopJavaVersionField.model.text
 
+    val jtranscVersion: String
+        get() = "0.2.8" // TODO Add JTransc version text field in Advanced tab.
+
     val generateSkin: Boolean
         get() = generateSkinButton.isChecked
 

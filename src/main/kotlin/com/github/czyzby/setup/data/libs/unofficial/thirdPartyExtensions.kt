@@ -2,6 +2,7 @@ package com.github.czyzby.setup.data.libs.unofficial
 
 import com.github.czyzby.setup.data.libs.Library
 import com.github.czyzby.setup.data.platforms.*
+import com.github.czyzby.setup.data.platforms.unofficial.JTransc
 import com.github.czyzby.setup.data.project.Project
 import com.github.czyzby.setup.views.Extension
 
@@ -349,6 +350,8 @@ class Autumn : ThirdPartyExtension() {
         addDependency(project, GWT.ID, "com.github.czyzby:gdx-autumn-gwt")
         addDependency(project, GWT.ID, "com.github.czyzby:gdx-autumn-gwt:sources")
         addGwtInherit(project, "com.github.czyzby.autumn.gwt.GdxAutumnGwt")
+
+        addDependency(project, JTransc.ID, "com.github.czyzby:gdx-autumn-jtransc")
 
         Kiwi().initiate(project)
     }

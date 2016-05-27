@@ -3,6 +3,7 @@ package com.github.czyzby.setup.data.templates
 import com.github.czyzby.setup.data.files.SourceFile
 import com.github.czyzby.setup.data.files.path
 import com.github.czyzby.setup.data.platforms.*
+import com.github.czyzby.setup.data.platforms.unofficial.JTransc
 import com.github.czyzby.setup.data.project.Project
 
 /**
@@ -36,6 +37,7 @@ interface Template {
         addLwjgl3Launcher(project)
         addMOELauncher(project)
         addServerLauncher(project)
+        addJTranscLauncher(project)
         project.readmeDescription = description
     }
 
@@ -309,4 +311,38 @@ public class ServerLauncher {
                     packageName = packageName, fileName = fileName, content = content))
         }
     }
+
+    fun addJTranscLauncher(project: Project) {
+        addSourceFile(project = project, platform = JTransc.ID, packageName = "${project.basic.rootPackage}.jtransc",
+                fileName = "JTranscLauncher.java", content = getJTranscLauncherContent(project));
+    }
+
+    fun getJTranscLauncherContent(project: Project): String = """package ${project.basic.rootPackage}.jtransc;
+
+import com.badlogic.gdx.Files.FileType;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import ${project.basic.rootPackage}.${project.basic.mainClass};
+
+/** Launches the JTransc application. Compiled into native application on each platform supported by JTransc. */
+public class JTranscLauncher {
+    public static void main(String[] args) {
+        createApplication();
+    }
+
+    private static LwjglApplication createApplication() {
+        return new LwjglApplication(new ${project.basic.mainClass}(), getDefaultConfiguration());
+    }
+
+    private static LwjglApplicationConfiguration getDefaultConfiguration() {
+        LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
+        configuration.title = "${project.basic.name}";
+        configuration.width = ${width};
+        configuration.height = ${height};
+        for (int size : new int[] { 128, 64, 32, 16 }) {
+            configuration.addIcon("libgdx" + size + ".png", FileType.Internal);
+        }
+        return configuration;
+    }
+}"""
 }

@@ -295,4 +295,36 @@ public class IOSMoeLauncher extends IOSApplication.Delegate {
         pool.dealloc();
     }
 }"""
+
+    override fun getJTranscLauncherContent(project: Project): String = """package ${project.basic.rootPackage}.jtransc;
+
+import com.badlogic.gdx.Files.FileType;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.github.czyzby.autumn.jtransc.scanner.JTranscClassScanner;
+import com.github.czyzby.autumn.mvc.application.AutumnApplication;
+import ${project.basic.rootPackage}.${project.basic.mainClass};
+
+/** Launches the JTransc application. Compiled into native application on each platform supported by JTransc. */
+public class JTranscLauncher {
+    public static void main(String[] args) {
+        createApplication();
+    }
+
+    private static LwjglApplication createApplication() {
+        return new LwjglApplication(new AutumnApplication(new JTranscClassScanner(), ${project.basic.mainClass}.class),
+                getDefaultConfiguration());
+    }
+
+    private static LwjglApplicationConfiguration getDefaultConfiguration() {
+        LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
+        configuration.title = "${project.basic.name}";
+        configuration.width = ${width};
+        configuration.height = ${height};
+        for (int size : new int[] { 128, 64, 32, 16 }) {
+            configuration.addIcon("libgdx" + size + ".png", FileType.Internal);
+        }
+        return configuration;
+    }
+}"""
 }

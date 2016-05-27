@@ -3,6 +3,7 @@ package com.github.czyzby.setup.data.libs.official
 import com.badlogic.gdx.Version
 import com.github.czyzby.setup.data.libs.Library
 import com.github.czyzby.setup.data.platforms.*
+import com.github.czyzby.setup.data.platforms.unofficial.JTransc
 import com.github.czyzby.setup.data.project.Project
 import com.github.czyzby.setup.views.Extension
 
@@ -78,6 +79,10 @@ class Box2D : OfficialExtension() {
 
         addDependency(project, iOS.ID, "com.badlogicgames.gdx:gdx-box2d-platform:\$gdxVersion:natives-ios")
         addDependency(project, MOE.ID, "com.badlogicgames.gdx:gdx-box2d-platform:\$gdxVersion:natives-ios")
+
+        // Unofficial backends:
+        addJTranscDependency(project, "com.jtransc.gdx:gdx-box2d-jtransc:\$jtranscVersion")
+        addDependency(project, JTransc.ID, "com.badlogicgames.gdx:gdx-box2d-platform:\$gdxVersion:natives-desktop")
     }
 }
 
@@ -147,7 +152,7 @@ class Controllers : OfficialExtension() {
         addDependency(project, JGLFW.ID, "com.badlogicgames.gdx:gdx-controllers-platform:\$gdxVersion:natives-desktop")
 
         addDependency(project, LWJGL3.ID, "com.badlogicgames.gdx:gdx-controllers-lwjgl3:\$gdxVersion")
-        // addDependency(project, LWJGL3.ID, "com.badlogicgames.gdx:gdx-controllers-platform:\$gdxVersion:natives-desktop")
+        addDependency(project, LWJGL3.ID, "com.badlogicgames.gdx:gdx-controllers-platform:\$gdxVersion:natives-desktop")
 
         addDependency(project, GWT.ID, "com.badlogicgames.gdx:gdx-controllers:\$gdxVersion:sources")
         addDependency(project, GWT.ID, "com.badlogicgames.gdx:gdx-controllers-gwt:\$gdxVersion")
@@ -155,6 +160,11 @@ class Controllers : OfficialExtension() {
         addGwtInherit(project, "com.badlogic.gdx.controllers.controllers-gwt")
 
         // "Works" on iOS, but does not report any controllers.
+
+        // Unofficial backends:
+        addJTranscDependency(project, "com.jtransc.gdx:gdx-controllers-jtransc:\$jtranscVersion")
+        addDependency(project, JTransc.ID, "com.badlogicgames.gdx:gdx-controllers-desktop:\$gdxVersion")
+        addDependency(project, JTransc.ID, "com.badlogicgames.gdx:gdx-controllers-platform:\$gdxVersion:natives-desktop")
     }
 }
 
