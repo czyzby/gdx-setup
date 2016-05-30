@@ -432,7 +432,7 @@ class WebsocketSerialization : ThirdPartyExtension() {
  * Version of SquidLib libraries.
  * @author SquidPony
  */
-const val SQUID_LIB_VERSION = "3.0.0-b5"
+const val SQUID_LIB_VERSION = "3.0.0-b6"
 /**
  * URL of SquidLib libraries.
  * @author SquidPony
@@ -446,7 +446,7 @@ const val SQUID_LIB_URL = "https://github.com/SquidPony/SquidLib"
 @Extension
 class RegExodus : ThirdPartyExtension() {
     override val id = "regExodus"
-    override val defaultVersion = "0.1.3"
+    override val defaultVersion = "0.1.5"
     override val url = "https://github.com/tommyettinger/RegExodus"
 
     override fun initiateDependencies(project: Project) {
