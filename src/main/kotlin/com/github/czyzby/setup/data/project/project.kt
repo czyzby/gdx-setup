@@ -6,6 +6,7 @@ import com.github.czyzby.setup.data.files.*
 import com.github.czyzby.setup.data.gradle.GradleFile
 import com.github.czyzby.setup.data.gradle.RootGradleFile
 import com.github.czyzby.setup.data.langs.Java
+import com.github.czyzby.setup.data.libs.unofficial.USL
 import com.github.czyzby.setup.data.platforms.Android
 import com.github.czyzby.setup.data.platforms.Assets
 import com.github.czyzby.setup.data.platforms.Platform
@@ -130,14 +131,19 @@ class Project(val basic: BasicProjectData, val platforms: Map<String, Platform>,
     }
 
     private fun addSkinAssets() {
-        if (advanced.generateSkin) {
+        if (advanced.generateSkin || advanced.generateUsl) {
             // Adding raw assets directory:
             files.add(SourceDirectory("raw", "ui"))
             // Adding GUI assets directory:
             files.add(SourceDirectory(Assets.ID, "ui"))
-            // Adding JSON file:
-            files.add(CopiedFile(projectName = Assets.ID, path = path("ui", "skin.json"),
-                    original = path("generator", "assets", "ui", "skin.json")))
+        }
+
+        if (advanced.generateSkin) {
+            // Adding JSON only if USL is not checked
+            if (!advanced.generateUsl) {
+                files.add(CopiedFile(projectName = Assets.ID, path = path("ui", "skin.json"),
+                        original = path("generator", "assets", "ui", "skin.json")))
+            }
             // Android does not support classpath fonts loading through skins.
             // Explicitly copying Arial font if Android platform is included:
             if (hasPlatform(Android.ID)) {
@@ -174,6 +180,37 @@ task pack << {
     'skin'              // Name of the generated atlas (without extension).
   )
 }""", true, "UTF-8");
+            })
+        }
+
+        if (advanced.generateUsl) {
+            // Make sure USL extension is added
+            USL().initiate(this)
+            // Copy USL file:
+            files.add(CopiedFile(projectName = "raw", path = path("ui", "skin.usl"),
+                    original = path("generator", "raw", "ui", "skin.usl")))
+
+            // Add "compileSkin" task to root Gradle file:
+            postGenerationTasks.add({
+                basic.destination.child(rootGradle.path).writeString("""
+// Run `gradle compileSkin` task to generate skin.json at assets/ui.
+task compileSkin << {
+  // Convert USL skin file into JSON
+  String[] uslArgs = [
+    projectDir.path + '/raw/ui/skin.usl',     // Input USL file
+    projectDir.path + '/assets/ui/skin.json'  // Output JSON file
+  ]
+  com.kotcrab.vis.usl.Main.main(uslArgs)
+}""", true, "UTF-8");
+            })
+        }
+
+        if (advanced.generateSkin && advanced.generateUsl) {
+            // Add "packAndCompileSkin" task to root Gradle file:
+            postGenerationTasks.add({
+                basic.destination.child(rootGradle.path).writeString("""
+// Run `gradle packAndCompileSkin` to generate skin atlas and compile USL into JSON
+task packAndCompileSkin(dependsOn: [pack, compileSkin])""", true, "UTF-8");
             })
         }
     }
