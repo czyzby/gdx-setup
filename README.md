@@ -14,9 +14,6 @@ Additionally to supporting most official `gdx-setup` features, you might want to
 - Gradle wrapper and running Gradle tasks after generation is entirely optional. This can significantly speed up the generation process and limit the project size if you'd prefer to use a globally installed Gradle application.
 - There are no major *structural differences* between any generated projects, regardless of the platforms you initially used. Official `gdx-setup` puts assets in `android` or - if Android platform is not supported - `core` folders. If you don't start with the Android platform, adding it to an existing project would require a lot of moving around and modifying Gradle scripts. Usually you'd be better off just generating a new project and moving the code. On contrary, this application puts `assets` in the *root* folder - adding a new platform to an existing application *never* requires you to modify any of the other platforms, you just have to add the new project to `settings.gradle` and create its directory.
 
-Currently missing:
-- iOS MOE platform support. iOS RoboVM platform is supported, though.
-
 ### Running the application
 
 You can download the latest runnable jar [here](https://dl.kotcrab.com/libgdx/gdx-setup-latest.jar). Stable application versions are uploaded to the [releases section](https://github.com/czyzby/gdx-setup/releases).
