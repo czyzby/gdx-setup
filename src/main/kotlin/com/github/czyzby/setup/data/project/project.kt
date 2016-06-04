@@ -190,6 +190,8 @@ task pack << {
             files.add(CopiedFile(projectName = "raw", path = path("ui", "skin.usl"),
                     original = path("generator", "raw", "ui", "skin.usl")))
 
+            gradleTaskDescriptions["compileSkin"] = "compiles USL skin from `raw/ui`. Saves the result json file at `assets/ui`."
+
             // Add "compileSkin" task to root Gradle file:
             postGenerationTasks.add({
                 basic.destination.child(rootGradle.path).writeString("""
@@ -206,6 +208,8 @@ task compileSkin << {
         }
 
         if (advanced.generateSkin && advanced.generateUsl) {
+            gradleTaskDescriptions["packAndCompileSkin"] = "pack GUI assets and compiles USL skin from `raw/ui`. Saves the result files at `assets/ui`."
+
             // Add "packAndCompileSkin" task to root Gradle file:
             postGenerationTasks.add({
                 basic.destination.child(rootGradle.path).writeString("""
