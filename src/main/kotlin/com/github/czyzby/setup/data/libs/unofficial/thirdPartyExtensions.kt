@@ -171,7 +171,7 @@ class LibgdxUtilsBox2D : ThirdPartyExtension() {
 @Extension
 class Facebook : ThirdPartyExtension() {
     override val id = "facebook"
-    override val defaultVersion = "1.1.1"
+    override val defaultVersion = "1.2.0"
     override val url = "https://github.com/TomGrill/gdx-facebook"
 
     override fun initiateDependencies(project: Project) {
@@ -183,6 +183,11 @@ class Facebook : ThirdPartyExtension() {
 
         addDependency(project, iOS.ID, "de.tomgrill.gdxfacebook:gdx-facebook-ios")
         addDependency(project, MOE.ID, "de.tomgrill.gdxfacebook:gdx-facebook-ios")
+
+        addDependency(project, GWT.ID, "de.tomgrill.gdxfacebook:gdx-facebook-core:sources")
+        addDependency(project, GWT.ID, "de.tomgrill.gdxfacebook:gdx-facebook-html")
+        addDependency(project, GWT.ID, "de.tomgrill.gdxfacebook:gdx-facebook-html:sources")
+        // TODO GWT inherit. Currently gdx-facebook-html has no GWT module.
     }
 }
 
