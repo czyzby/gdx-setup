@@ -92,7 +92,7 @@ class VisUI : ThirdPartyExtension() {
 @Extension
 class VisRuntime : ThirdPartyExtension() {
     override val id = "visRuntime"
-    override val defaultVersion = "0.3.1"
+    override val defaultVersion = "0.3.2"
     override val url = "https://vis.kotcrab.com"
 
     override fun initiateDependencies(project: Project) {
