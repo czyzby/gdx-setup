@@ -220,7 +220,7 @@ class Dialogs : ThirdPartyExtension() {
 @Extension
 class InGameConsole : ThirdPartyExtension() {
     override val id = "inGameConsole"
-    override val defaultVersion = "0.3.3"
+    override val defaultVersion = "0.4.0"
     override val url = "https://github.com/StrongJoshua/libgdx-inGameConsole"
 
     override fun initiateDependencies(project: Project) {
