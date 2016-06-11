@@ -33,6 +33,7 @@ interface Template {
         addHeadlessLauncher(project)
         addIOSLauncher(project)
         addJglfwLauncher(project)
+        addJogAmpLauncher(project)
         addLwjgl3Launcher(project)
         addMOELauncher(project)
         addServerLauncher(project)
@@ -299,6 +300,35 @@ public class IOSMoeLauncher extends IOSApplication.Delegate {
 public class ServerLauncher {
     public static void main(String[] args) {
         // TODO Implement server application.
+    }
+}"""
+    fun addJogAmpLauncher(project: Project) {
+        addSourceFile(project = project, platform = JogAmp.ID, packageName = "${project.basic.rootPackage}.jogamp",
+                fileName = "JogAmpLauncher.java", content = getJogAmpLauncherContent(project));
+    }
+
+    fun getJogAmpLauncherContent(project: Project): String = """package ${project.basic.rootPackage}.jogamp;
+
+import com.badlogic.gdx.backends.jogamp.JoglNewtApplication;
+import com.badlogic.gdx.backends.jogamp.JoglNewtApplicationConfiguration;
+import ${project.basic.rootPackage}.${project.basic.mainClass};
+
+public class JogAmpLauncher {
+    public static void main(final String[] args) {
+        createApplication();
+    }
+
+    private static JoglNewtApplication createApplication() {
+        return new JoglNewtApplication(new ${project.basic.mainClass}(), getDefaultConfiguration());
+    }
+
+    private static JoglNewtApplicationConfiguration getDefaultConfiguration() {
+        final JoglNewtApplicationConfiguration configuration = new JoglNewtApplicationConfiguration();
+        configuration.title = "${project.basic.name}";
+        configuration.width = ${width};
+        configuration.height = ${height};
+        configuration.undecorated = false;
+        return configuration;
     }
 }"""
 
