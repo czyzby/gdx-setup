@@ -74,7 +74,7 @@ class ArtemisOdb : ThirdPartyExtension() {
 @Extension
 class VisUI : ThirdPartyExtension() {
     override val id = "visUi"
-    override val defaultVersion = "1.1.1"
+    override val defaultVersion = "1.1.4"
     override val url = "https://github.com/kotcrab/VisEditor/wiki/VisUI"
 
     override fun initiateDependencies(project: Project) {
@@ -92,7 +92,7 @@ class VisUI : ThirdPartyExtension() {
 @Extension
 class VisRuntime : ThirdPartyExtension() {
     override val id = "visRuntime"
-    override val defaultVersion = "0.3.2"
+    override val defaultVersion = "0.3.3"
     override val url = "https://vis.kotcrab.com"
 
     override fun initiateDependencies(project: Project) {

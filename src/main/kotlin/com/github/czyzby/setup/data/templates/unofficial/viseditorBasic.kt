@@ -49,7 +49,6 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
 
 		// allows to change default runtime settings
 		RuntimeConfiguration configuration = new RuntimeConfiguration();
-		configuration.removeAssetsComponentAfterInflating = false;
 		manager.getSceneLoader().setRuntimeConfig(configuration);
 
 		// SceneParameter allows to add custom systems into artemis-odb
