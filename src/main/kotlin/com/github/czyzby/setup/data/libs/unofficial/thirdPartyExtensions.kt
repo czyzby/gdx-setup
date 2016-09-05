@@ -54,7 +54,7 @@ class Overlap2D : ThirdPartyExtension() {
 @Extension
 class ArtemisOdb : ThirdPartyExtension() {
     override val id = "artemisOdb"
-    override val defaultVersion = "1.4.0"
+    override val defaultVersion = "2.0.0"
     override val url = "https://github.com/junkdog/artemis-odb"
 
     override fun initiateDependencies(project: Project) {
@@ -74,7 +74,7 @@ class ArtemisOdb : ThirdPartyExtension() {
 @Extension
 class VisUI : ThirdPartyExtension() {
     override val id = "visUi"
-    override val defaultVersion = "1.1.4"
+    override val defaultVersion = "1.2.1"
     override val url = "https://github.com/kotcrab/VisEditor/wiki/VisUI"
 
     override fun initiateDependencies(project: Project) {
@@ -286,7 +286,7 @@ class Noise4J : ThirdPartyExtension() {
  * Version of Czyzby's libraries.
  * @author MJ
  */
-const val AUTUMN_VERSION = "1.7.1.9.3"
+const val AUTUMN_VERSION = "1.8.1.9.4-b1"
 
 /**
  * Guava-inspired LibGDX utilities.
