@@ -42,7 +42,7 @@ class Ashley : OfficialExtension() {
     override val url = "https://github.com/libgdx/ashley"
 
     override fun initiate(project: Project) {
-        project.properties[id + "Version"] = "1.7.2"
+        project.properties[id + "Version"] = "1.7.3"
 
         addDependency(project, Core.ID, "com.badlogicgames.ashley:ashley:\$ashleyVersion")
 

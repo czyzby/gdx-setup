@@ -74,7 +74,7 @@ class ArtemisOdb : ThirdPartyExtension() {
 @Extension
 class VisUI : ThirdPartyExtension() {
     override val id = "visUi"
-    override val defaultVersion = "1.2.1"
+    override val defaultVersion = "1.2.2"
     override val url = "https://github.com/kotcrab/VisEditor/wiki/VisUI"
 
     override fun initiateDependencies(project: Project) {
@@ -171,7 +171,7 @@ class LibgdxUtilsBox2D : ThirdPartyExtension() {
 @Extension
 class Facebook : ThirdPartyExtension() {
     override val id = "facebook"
-    override val defaultVersion = "1.2.1"
+    override val defaultVersion = "1.2.4"
     override val url = "https://github.com/TomGrill/gdx-facebook"
 
     override fun initiateDependencies(project: Project) {
@@ -198,7 +198,7 @@ class Facebook : ThirdPartyExtension() {
 @Extension
 class Dialogs : ThirdPartyExtension() {
     override val id = "dialogs"
-    override val defaultVersion = "1.0.0"
+    override val defaultVersion = "1.1.1"
     override val url = "https://github.com/TomGrill/gdx-dialogs"
 
     override fun initiateDependencies(project: Project) {
@@ -220,7 +220,7 @@ class Dialogs : ThirdPartyExtension() {
 @Extension
 class InGameConsole : ThirdPartyExtension() {
     override val id = "inGameConsole"
-    override val defaultVersion = "0.4.0"
+    override val defaultVersion = "0.5.1"
     override val url = "https://github.com/StrongJoshua/libgdx-inGameConsole"
 
     override fun initiateDependencies(project: Project) {
@@ -468,7 +468,7 @@ const val SQUID_LIB_URL = "https://github.com/SquidPony/SquidLib"
 @Extension
 class RegExodus : ThirdPartyExtension() {
     override val id = "regExodus"
-    override val defaultVersion = "0.1.5"
+    override val defaultVersion = "0.1.7"
     override val url = "https://github.com/tommyettinger/RegExodus"
 
     override fun initiateDependencies(project: Project) {
