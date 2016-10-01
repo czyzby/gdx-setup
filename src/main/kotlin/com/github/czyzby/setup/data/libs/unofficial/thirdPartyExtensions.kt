@@ -518,3 +518,18 @@ class SquidLib : ThirdPartyExtension() {
         SquidLibUtil().initiate(project)
     }
 }
+
+/**
+ * Java implementation of Ink language: a scripting language for writing interactive narrative.
+ * @author bladecoder
+ */
+@Extension
+class BladeInk : ThirdPartyExtension() {
+    override val id = "bladeInk"
+    override val defaultVersion = "0.2.0"
+    override val url = "https://github.com/bladecoder/blade-ink"
+
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.bladecoder.ink:blade-ink")
+    }
+}
