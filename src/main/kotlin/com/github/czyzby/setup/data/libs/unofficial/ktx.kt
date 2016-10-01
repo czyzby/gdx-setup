@@ -17,13 +17,13 @@ const val KTX_VERSION = "1.9.4-b1"
  */
 @Extension
 class KtxActors : ThirdPartyExtension() {
-  override val id = "ktxActors"
-  override val defaultVersion = KTX_VERSION
-  override val url = "https://github.com/czyzby/ktx/tree/master/actors"
+    override val id = "ktxActors"
+    override val defaultVersion = KTX_VERSION
+    override val url = "https://github.com/czyzby/ktx/tree/master/actors"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:ktx-actors")
-  }
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:ktx-actors")
+    }
 }
 
 /**
@@ -32,13 +32,13 @@ class KtxActors : ThirdPartyExtension() {
  */
 @Extension
 class KtxAssets : ThirdPartyExtension() {
-  override val id = "ktxAssets"
-  override val defaultVersion = KTX_VERSION
-  override val url = "https://github.com/czyzby/ktx/tree/master/assets"
+    override val id = "ktxAssets"
+    override val defaultVersion = KTX_VERSION
+    override val url = "https://github.com/czyzby/ktx/tree/master/assets"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:ktx-assets")
-  }
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:ktx-assets")
+    }
 }
 
 /**
@@ -47,13 +47,13 @@ class KtxAssets : ThirdPartyExtension() {
  */
 @Extension
 class KtxCollections : ThirdPartyExtension() {
-  override val id = "ktxCollections"
-  override val defaultVersion = KTX_VERSION
-  override val url = "https://github.com/czyzby/ktx/tree/master/collections"
+    override val id = "ktxCollections"
+    override val defaultVersion = KTX_VERSION
+    override val url = "https://github.com/czyzby/ktx/tree/master/collections"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:ktx-collections")
-  }
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:ktx-collections")
+    }
 }
 
 /**
@@ -62,13 +62,13 @@ class KtxCollections : ThirdPartyExtension() {
  */
 @Extension
 class KtxI18n : ThirdPartyExtension() {
-  override val id = "ktxI18n"
-  override val defaultVersion = KTX_VERSION
-  override val url = "https://github.com/czyzby/ktx/tree/master/i18n"
+    override val id = "ktxI18n"
+    override val defaultVersion = KTX_VERSION
+    override val url = "https://github.com/czyzby/ktx/tree/master/i18n"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:ktx-i18n")
-  }
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:ktx-i18n")
+    }
 }
 
 /**
@@ -77,13 +77,13 @@ class KtxI18n : ThirdPartyExtension() {
  */
 @Extension
 class KtxInject : ThirdPartyExtension() {
-  override val id = "ktxInject"
-  override val defaultVersion = KTX_VERSION
-  override val url = "https://github.com/czyzby/ktx/tree/master/inject"
+    override val id = "ktxInject"
+    override val defaultVersion = KTX_VERSION
+    override val url = "https://github.com/czyzby/ktx/tree/master/inject"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:ktx-inject")
-  }
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:ktx-inject")
+    }
 }
 
 /**
@@ -92,13 +92,13 @@ class KtxInject : ThirdPartyExtension() {
  */
 @Extension
 class KtxLog : ThirdPartyExtension() {
-  override val id = "ktxLog"
-  override val defaultVersion = KTX_VERSION
-  override val url = "https://github.com/czyzby/ktx/tree/master/log"
+    override val id = "ktxLog"
+    override val defaultVersion = KTX_VERSION
+    override val url = "https://github.com/czyzby/ktx/tree/master/log"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:ktx-log")
-  }
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:ktx-log")
+    }
 }
 
 /**
@@ -107,13 +107,13 @@ class KtxLog : ThirdPartyExtension() {
  */
 @Extension
 class KtxMath : ThirdPartyExtension() {
-  override val id = "ktxMath"
-  override val defaultVersion = KTX_VERSION
-  override val url = "https://github.com/czyzby/ktx/tree/master/math"
+    override val id = "ktxMath"
+    override val defaultVersion = KTX_VERSION
+    override val url = "https://github.com/czyzby/ktx/tree/master/math"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:ktx-math")
-  }
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:ktx-math")
+    }
 }
 
 /**
@@ -122,13 +122,13 @@ class KtxMath : ThirdPartyExtension() {
  */
 @Extension
 class KtxScene2D : ThirdPartyExtension() {
-  override val id = "ktxScene2D"
-  override val defaultVersion = KTX_VERSION
-  override val url = "https://github.com/czyzby/ktx/tree/master/scene2d"
+    override val id = "ktxScene2D"
+    override val defaultVersion = KTX_VERSION
+    override val url = "https://github.com/czyzby/ktx/tree/master/scene2d"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:ktx-scene2d")
-  }
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:ktx-scene2d")
+    }
 }
 
 /**
@@ -137,13 +137,13 @@ class KtxScene2D : ThirdPartyExtension() {
  */
 @Extension
 class KtxStyle : ThirdPartyExtension() {
-  override val id = "ktxStyle"
-  override val defaultVersion = KTX_VERSION
-  override val url = "https://github.com/czyzby/ktx/tree/master/style"
+    override val id = "ktxStyle"
+    override val defaultVersion = KTX_VERSION
+    override val url = "https://github.com/czyzby/ktx/tree/master/style"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:ktx-style")
-  }
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:ktx-style")
+    }
 }
 
 /**
@@ -152,13 +152,13 @@ class KtxStyle : ThirdPartyExtension() {
  */
 @Extension
 class KtxVis : ThirdPartyExtension() {
-  override val id = "ktxVis"
-  override val defaultVersion = KTX_VERSION
-  override val url = "https://github.com/czyzby/ktx/tree/master/vis"
+    override val id = "ktxVis"
+    override val defaultVersion = KTX_VERSION
+    override val url = "https://github.com/czyzby/ktx/tree/master/vis"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:ktx-vis")
-  }
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:ktx-vis")
+    }
 }
 
 /**
@@ -168,11 +168,11 @@ class KtxVis : ThirdPartyExtension() {
  */
 @Extension
 class KtxVisStyle : ThirdPartyExtension() {
-  override val id = "ktxVisStyle"
-  override val defaultVersion = KTX_VERSION
-  override val url = "https://github.com/czyzby/ktx/tree/master/vis-style"
+    override val id = "ktxVisStyle"
+    override val defaultVersion = KTX_VERSION
+    override val url = "https://github.com/czyzby/ktx/tree/master/vis-style"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:ktx-vis-style")
-  }
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:ktx-vis-style")
+    }
 }

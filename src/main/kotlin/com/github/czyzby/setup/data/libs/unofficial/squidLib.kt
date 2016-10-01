@@ -23,16 +23,16 @@ const val SQUID_LIB_URL = "https://github.com/SquidPony/SquidLib"
  */
 @Extension
 class RegExodus : ThirdPartyExtension() {
-  override val id = "regExodus"
-  override val defaultVersion = "0.1.7"
-  override val url = "https://github.com/tommyettinger/RegExodus"
+    override val id = "regExodus"
+    override val defaultVersion = "0.1.7"
+    override val url = "https://github.com/tommyettinger/RegExodus"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.tommyettinger:regexodus")
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.tommyettinger:regexodus")
 
-    addDependency(project, GWT.ID, "com.github.tommyettinger:regexodus:sources")
-    addGwtInherit(project, "regexodus")
-  }
+        addDependency(project, GWT.ID, "com.github.tommyettinger:regexodus:sources")
+        addGwtInherit(project, "regexodus")
+    }
 }
 
 /**
@@ -41,18 +41,18 @@ class RegExodus : ThirdPartyExtension() {
  */
 @Extension
 class SquidLibUtil : ThirdPartyExtension() {
-  override val id = "squidLibUtil"
-  override val defaultVersion = SQUID_LIB_VERSION
-  override val url = SQUID_LIB_URL
+    override val id = "squidLibUtil"
+    override val defaultVersion = SQUID_LIB_VERSION
+    override val url = SQUID_LIB_URL
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.squidpony:squidlib-util")
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.squidpony:squidlib-util")
 
-    addDependency(project, GWT.ID, "com.squidpony:squidlib-util:sources")
-    addGwtInherit(project, "squidlib-util")
+        addDependency(project, GWT.ID, "com.squidpony:squidlib-util:sources")
+        addGwtInherit(project, "squidlib-util")
 
-    RegExodus().initiate(project)
-  }
+        RegExodus().initiate(project)
+    }
 }
 
 /**
@@ -61,16 +61,16 @@ class SquidLibUtil : ThirdPartyExtension() {
  */
 @Extension
 class SquidLib : ThirdPartyExtension() {
-  override val id = "squidLib"
-  override val defaultVersion = SQUID_LIB_VERSION
-  override val url = SQUID_LIB_URL
+    override val id = "squidLib"
+    override val defaultVersion = SQUID_LIB_VERSION
+    override val url = SQUID_LIB_URL
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.squidpony:squidlib")
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.squidpony:squidlib")
 
-    addDependency(project, GWT.ID, "com.squidpony:squidlib:sources")
-    addGwtInherit(project, "squidlib")
+        addDependency(project, GWT.ID, "com.squidpony:squidlib:sources")
+        addGwtInherit(project, "squidlib")
 
-    SquidLibUtil().initiate(project)
-  }
+        SquidLibUtil().initiate(project)
+    }
 }

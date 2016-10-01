@@ -16,16 +16,16 @@ const val AUTUMN_VERSION = "1.8.1.9.4-b1"
  */
 @Extension
 class Kiwi : ThirdPartyExtension() {
-  override val id = "kiwi"
-  override val defaultVersion = AUTUMN_VERSION
-  override val url = "https://github.com/czyzby/gdx-lml/tree/master/kiwi"
+    override val id = "kiwi"
+    override val defaultVersion = AUTUMN_VERSION
+    override val url = "https://github.com/czyzby/gdx-lml/tree/master/kiwi"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:gdx-kiwi")
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:gdx-kiwi")
 
-    addDependency(project, GWT.ID, "com.github.czyzby:gdx-kiwi:sources")
-    addGwtInherit(project, "com.github.czyzby.kiwi.GdxKiwi")
-  }
+        addDependency(project, GWT.ID, "com.github.czyzby:gdx-kiwi:sources")
+        addGwtInherit(project, "com.github.czyzby.kiwi.GdxKiwi")
+    }
 }
 
 /**
@@ -34,18 +34,18 @@ class Kiwi : ThirdPartyExtension() {
  */
 @Extension
 class LML : ThirdPartyExtension() {
-  override val id = "lml"
-  override val defaultVersion = AUTUMN_VERSION
-  override val url = "https://github.com/czyzby/gdx-lml/tree/master/lml"
+    override val id = "lml"
+    override val defaultVersion = AUTUMN_VERSION
+    override val url = "https://github.com/czyzby/gdx-lml/tree/master/lml"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:gdx-lml")
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:gdx-lml")
 
-    addDependency(project, GWT.ID, "com.github.czyzby:gdx-lml:sources")
-    addGwtInherit(project, "com.github.czyzby.lml.GdxLml")
+        addDependency(project, GWT.ID, "com.github.czyzby:gdx-lml:sources")
+        addGwtInherit(project, "com.github.czyzby.lml.GdxLml")
 
-    Kiwi().initiate(project)
-  }
+        Kiwi().initiate(project)
+    }
 }
 
 /**
@@ -55,19 +55,19 @@ class LML : ThirdPartyExtension() {
  */
 @Extension
 class LMLVis : ThirdPartyExtension() {
-  override val id = "lmlVis"
-  override val defaultVersion = AUTUMN_VERSION
-  override val url = "https://github.com/czyzby/gdx-lml/tree/master/lml-vis"
+    override val id = "lmlVis"
+    override val defaultVersion = AUTUMN_VERSION
+    override val url = "https://github.com/czyzby/gdx-lml/tree/master/lml-vis"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:gdx-lml-vis")
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:gdx-lml-vis")
 
-    addDependency(project, GWT.ID, "com.github.czyzby:gdx-lml-vis:sources")
-    addGwtInherit(project, "com.github.czyzby.lml.vis.GdxLmlVis")
+        addDependency(project, GWT.ID, "com.github.czyzby:gdx-lml-vis:sources")
+        addGwtInherit(project, "com.github.czyzby.lml.vis.GdxLmlVis")
 
-    LML().initiate(project)
-    VisUI().initiate(project)
-  }
+        LML().initiate(project)
+        VisUI().initiate(project)
+    }
 }
 
 /**
@@ -76,26 +76,26 @@ class LMLVis : ThirdPartyExtension() {
  */
 @Extension
 class Autumn : ThirdPartyExtension() {
-  override val id = "autumn"
-  override val defaultVersion = AUTUMN_VERSION
-  override val url = "https://github.com/czyzby/gdx-lml/tree/master/autumn"
+    override val id = "autumn"
+    override val defaultVersion = AUTUMN_VERSION
+    override val url = "https://github.com/czyzby/gdx-lml/tree/master/autumn"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:gdx-autumn")
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:gdx-autumn")
 
-    addDesktopDependency(project, "com.github.czyzby:gdx-autumn-fcs")
+        addDesktopDependency(project, "com.github.czyzby:gdx-autumn-fcs")
 
-    addDependency(project, Headless.ID, "com.github.czyzby:gdx-autumn-fcs")
+        addDependency(project, Headless.ID, "com.github.czyzby:gdx-autumn-fcs")
 
-    addDependency(project, Android.ID, "com.github.czyzby:gdx-autumn-android")
+        addDependency(project, Android.ID, "com.github.czyzby:gdx-autumn-android")
 
-    addDependency(project, GWT.ID, "com.github.czyzby:gdx-autumn:sources")
-    addDependency(project, GWT.ID, "com.github.czyzby:gdx-autumn-gwt")
-    addDependency(project, GWT.ID, "com.github.czyzby:gdx-autumn-gwt:sources")
-    addGwtInherit(project, "com.github.czyzby.autumn.gwt.GdxAutumnGwt")
+        addDependency(project, GWT.ID, "com.github.czyzby:gdx-autumn:sources")
+        addDependency(project, GWT.ID, "com.github.czyzby:gdx-autumn-gwt")
+        addDependency(project, GWT.ID, "com.github.czyzby:gdx-autumn-gwt:sources")
+        addGwtInherit(project, "com.github.czyzby.autumn.gwt.GdxAutumnGwt")
 
-    Kiwi().initiate(project)
-  }
+        Kiwi().initiate(project)
+    }
 }
 
 /**
@@ -104,19 +104,19 @@ class Autumn : ThirdPartyExtension() {
  */
 @Extension
 class AutumnMVC : ThirdPartyExtension() {
-  override val id = "autumnMvc"
-  override val defaultVersion = AUTUMN_VERSION
-  override val url = "https://github.com/czyzby/gdx-lml/tree/master/mvc"
+    override val id = "autumnMvc"
+    override val defaultVersion = AUTUMN_VERSION
+    override val url = "https://github.com/czyzby/gdx-lml/tree/master/mvc"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:gdx-autumn-mvc")
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:gdx-autumn-mvc")
 
-    addDependency(project, GWT.ID, "com.github.czyzby:gdx-autumn-mvc:sources")
-    addGwtInherit(project, "com.github.czyzby.autumn.mvc.GdxAutumnMvc")
+        addDependency(project, GWT.ID, "com.github.czyzby:gdx-autumn-mvc:sources")
+        addGwtInherit(project, "com.github.czyzby.autumn.mvc.GdxAutumnMvc")
 
-    LML().initiate(project)
-    Autumn().initiate(project)
-  }
+        LML().initiate(project)
+        Autumn().initiate(project)
+    }
 }
 
 /**
@@ -125,28 +125,28 @@ class AutumnMVC : ThirdPartyExtension() {
  */
 @Extension
 class Websocket : ThirdPartyExtension() {
-  override val id = "websocket"
-  override val defaultVersion = AUTUMN_VERSION
-  override val url = "https://github.com/czyzby/gdx-lml/tree/master/websocket"
+    override val id = "websocket"
+    override val defaultVersion = AUTUMN_VERSION
+    override val url = "https://github.com/czyzby/gdx-lml/tree/master/websocket"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:gdx-websocket")
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:gdx-websocket")
 
-    addDependency(project, Shared.ID, "com.github.czyzby:gdx-websocket")
+        addDependency(project, Shared.ID, "com.github.czyzby:gdx-websocket")
 
-    addDesktopDependency(project, "com.github.czyzby:gdx-websocket-common")
-    addDependency(project, Headless.ID, "com.github.czyzby:gdx-websocket-common")
-    addDependency(project, iOS.ID, "com.github.czyzby:gdx-websocket-common")
-    addDependency(project, MOE.ID, "com.github.czyzby:gdx-websocket-common")
+        addDesktopDependency(project, "com.github.czyzby:gdx-websocket-common")
+        addDependency(project, Headless.ID, "com.github.czyzby:gdx-websocket-common")
+        addDependency(project, iOS.ID, "com.github.czyzby:gdx-websocket-common")
+        addDependency(project, MOE.ID, "com.github.czyzby:gdx-websocket-common")
 
-    addDependency(project, Android.ID, "com.github.czyzby:gdx-websocket-common")
-    addAndroidPermission(project, "android.permission.INTERNET")
+        addDependency(project, Android.ID, "com.github.czyzby:gdx-websocket-common")
+        addAndroidPermission(project, "android.permission.INTERNET")
 
-    addDependency(project, GWT.ID, "com.github.czyzby:gdx-websocket:sources")
-    addDependency(project, GWT.ID, "com.github.czyzby:gdx-websocket-gwt")
-    addDependency(project, GWT.ID, "com.github.czyzby:gdx-websocket-gwt:sources")
-    addGwtInherit(project, "com.github.czyzby.websocket.GdxWebSocketGwt")
-  }
+        addDependency(project, GWT.ID, "com.github.czyzby:gdx-websocket:sources")
+        addDependency(project, GWT.ID, "com.github.czyzby:gdx-websocket-gwt")
+        addDependency(project, GWT.ID, "com.github.czyzby:gdx-websocket-gwt:sources")
+        addGwtInherit(project, "com.github.czyzby.websocket.GdxWebSocketGwt")
+    }
 }
 
 /**
@@ -155,19 +155,19 @@ class Websocket : ThirdPartyExtension() {
  */
 @Extension
 class WebsocketSerialization : ThirdPartyExtension() {
-  override val id = "websocketSerialization"
-  override val defaultVersion = AUTUMN_VERSION
-  override val url = "https://github.com/czyzby/gdx-lml/tree/master/websocket/natives/serialization"
+    override val id = "websocketSerialization"
+    override val defaultVersion = AUTUMN_VERSION
+    override val url = "https://github.com/czyzby/gdx-lml/tree/master/websocket/natives/serialization"
 
-  override fun initiateDependencies(project: Project) {
-    addDependency(project, Core.ID, "com.github.czyzby:gdx-websocket-serialization")
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:gdx-websocket-serialization")
 
-    addDependency(project, Shared.ID, "com.github.czyzby:gdx-websocket-serialization")
-    addDependency(project, Server.ID, "com.github.czyzby:gdx-websocket-serialization")
+        addDependency(project, Shared.ID, "com.github.czyzby:gdx-websocket-serialization")
+        addDependency(project, Server.ID, "com.github.czyzby:gdx-websocket-serialization")
 
-    addDependency(project, GWT.ID, "com.github.czyzby:gdx-websocket-serialization:sources")
-    addGwtInherit(project, "com.github.czyzby.websocket.GdxWebSocketSerialization")
+        addDependency(project, GWT.ID, "com.github.czyzby:gdx-websocket-serialization:sources")
+        addGwtInherit(project, "com.github.czyzby.websocket.GdxWebSocketSerialization")
 
-    Websocket().initiate(project)
-  }
+        Websocket().initiate(project)
+    }
 }
