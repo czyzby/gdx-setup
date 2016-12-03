@@ -27,6 +27,21 @@ class KtxActors : ThirdPartyExtension() {
 }
 
 /**
+ * General application listener utilities for Kotlin applications.
+ * @author MJ
+ */
+@Extension
+class KtxApp : ThirdPartyExtension() {
+    override val id = "ktxApp"
+    override val defaultVersion = KTX_VERSION
+    override val url = "https://github.com/czyzby/ktx/tree/master/app"
+
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.github.czyzby:ktx-app")
+    }
+}
+
+/**
  * Kotlin utilities for assets management.
  * @author MJ
  */
