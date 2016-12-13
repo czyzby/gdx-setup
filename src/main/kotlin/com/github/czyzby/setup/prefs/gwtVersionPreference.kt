@@ -8,5 +8,5 @@ import com.github.czyzby.autumn.mvc.stereotype.preference.Property
  */
 @Property("GwtVersion")
 class GwtVersionPreference : AbstractStringPreference() {
-    override fun getDefault(): String = "2.6.1"
+    override fun getDefault(): String = "2.8.0"
 }
