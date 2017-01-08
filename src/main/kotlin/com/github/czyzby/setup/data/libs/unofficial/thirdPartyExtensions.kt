@@ -86,7 +86,6 @@ class LibgdxUtils : ThirdPartyExtension() {
 }
 
 /**
- *
  * Box2D LibGDX utilities.
  * @author Dermetfan
  */
@@ -236,5 +235,23 @@ class BladeInk : ThirdPartyExtension() {
 
     override fun initiateDependencies(project: Project) {
         addDependency(project, Core.ID, "com.bladecoder.ink:blade-ink")
+    }
+}
+
+/**
+ * 2D, 3D, 4D and 6D modular noise library written in Java.
+ * @author SudoPlayGames
+ */
+@Extension
+class Joice : ThirdPartyExtension() {
+    override val id = "joise"
+    override val defaultVersion = "1.0.5"
+    override val url = "https://github.com/SudoPlayGames/Joise"
+
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.sudoplay.joise:joise")
+
+        addDependency(project, GWT.ID, "com.sudoplay.joise:joise:sources")
+        addGwtInherit(project, "joise")
     }
 }
