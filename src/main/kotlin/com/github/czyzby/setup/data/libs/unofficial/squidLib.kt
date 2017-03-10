@@ -5,12 +5,12 @@ import com.github.czyzby.setup.data.platforms.GWT
 import com.github.czyzby.setup.data.project.Project
 import com.github.czyzby.setup.views.Extension
 
-
 /**
  * Version of SquidLib libraries.
  * @author SquidPony
  */
-const val SQUID_LIB_VERSION = "3.0.0-b6"
+const val SQUID_LIB_VERSION = "3.0.0-b8"
+
 /**
  * URL of SquidLib libraries.
  * @author SquidPony
@@ -24,7 +24,7 @@ const val SQUID_LIB_URL = "https://github.com/SquidPony/SquidLib"
 @Extension
 class RegExodus : ThirdPartyExtension() {
     override val id = "regExodus"
-    override val defaultVersion = "0.1.7"
+    override val defaultVersion = "0.1.9"
     override val url = "https://github.com/tommyettinger/RegExodus"
 
     override fun initiateDependencies(project: Project) {

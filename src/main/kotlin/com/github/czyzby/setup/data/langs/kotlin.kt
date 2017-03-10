@@ -14,7 +14,7 @@ import com.github.czyzby.setup.views.JvmLanguage
 @JvmLanguage
 class Kotlin : Language {
     override val id = "kotlin"
-    override val version = "1.0.+"
+    override val version = "1.1.+"
 
     override fun initiate(project: Project) {
         project.rootGradle.buildDependencies.add("\"org.jetbrains.kotlin:kotlin-gradle-plugin:\$kotlinVersion\"")

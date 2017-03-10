@@ -54,7 +54,7 @@ class Overlap2D : ThirdPartyExtension() {
 @Extension
 class ArtemisOdb : ThirdPartyExtension() {
     override val id = "artemisOdb"
-    override val defaultVersion = "2.0.0"
+    override val defaultVersion = "2.1.0"
     override val url = "https://github.com/junkdog/artemis-odb"
 
     override fun initiateDependencies(project: Project) {
@@ -74,7 +74,7 @@ class ArtemisOdb : ThirdPartyExtension() {
 @Extension
 class LibgdxUtils : ThirdPartyExtension() {
     override val id = "utils"
-    override val defaultVersion = "0.13.3"
+    override val defaultVersion = "0.13.4"
     override val url = "http://dermetfan.net/libgdx-utils.php"
 
     override fun initiateDependencies(project: Project) {
@@ -92,7 +92,7 @@ class LibgdxUtils : ThirdPartyExtension() {
 @Extension
 class LibgdxUtilsBox2D : ThirdPartyExtension() {
     override val id = "utilsBox2d"
-    override val defaultVersion = "0.13.3"
+    override val defaultVersion = "0.13.4"
     override val url = "http://dermetfan.net/libgdx-utils.php"
 
     override fun initiateDependencies(project: Project) {
@@ -112,7 +112,7 @@ class LibgdxUtilsBox2D : ThirdPartyExtension() {
 @Extension
 class Facebook : ThirdPartyExtension() {
     override val id = "facebook"
-    override val defaultVersion = "1.2.4"
+    override val defaultVersion = "1.3.0"
     override val url = "https://github.com/TomGrill/gdx-facebook"
 
     override fun initiateDependencies(project: Project) {
@@ -123,7 +123,7 @@ class Facebook : ThirdPartyExtension() {
         addDesktopDependency(project, "de.tomgrill.gdxfacebook:gdx-facebook-desktop")
 
         addDependency(project, iOS.ID, "de.tomgrill.gdxfacebook:gdx-facebook-ios")
-        addDependency(project, MOE.ID, "de.tomgrill.gdxfacebook:gdx-facebook-ios")
+        addDependency(project, MOE.ID, "de.tomgrill.gdxfacebook:gdx-facebook-ios-moe")
 
         addDependency(project, GWT.ID, "de.tomgrill.gdxfacebook:gdx-facebook-core:sources")
         addDependency(project, GWT.ID, "de.tomgrill.gdxfacebook:gdx-facebook-html")
@@ -139,7 +139,7 @@ class Facebook : ThirdPartyExtension() {
 @Extension
 class Dialogs : ThirdPartyExtension() {
     override val id = "dialogs"
-    override val defaultVersion = "1.1.1"
+    override val defaultVersion = "1.2.0"
     override val url = "https://github.com/TomGrill/gdx-dialogs"
 
     override fun initiateDependencies(project: Project) {
@@ -150,7 +150,12 @@ class Dialogs : ThirdPartyExtension() {
         addDesktopDependency(project, "de.tomgrill.gdxdialogs:gdx-dialogs-desktop")
 
         addDependency(project, iOS.ID, "de.tomgrill.gdxdialogs:gdx-dialogs-ios")
-        addDependency(project, MOE.ID, "de.tomgrill.gdxdialogs:gdx-dialogs-ios")
+        addDependency(project, MOE.ID, "de.tomgrill.gdxdialogs:gdx-dialogs-ios-moe")
+
+        addDependency(project, GWT.ID, "de.tomgrill.gdxfacebook:gdx-dialogs-core:sources")
+        addDependency(project, GWT.ID, "de.tomgrill.gdxfacebook:gdx-dialogs-html")
+        addDependency(project, GWT.ID, "de.tomgrill.gdxfacebook:gdx-dialogs-html:sources")
+        addGwtInherit(project, "de.tomgrill.gdxfacebook.html.gdx_dialogs_html")
     }
 }
 
@@ -161,7 +166,7 @@ class Dialogs : ThirdPartyExtension() {
 @Extension
 class InGameConsole : ThirdPartyExtension() {
     override val id = "inGameConsole"
-    override val defaultVersion = "0.5.1"
+    override val defaultVersion = "0.5.2"
     override val url = "https://github.com/StrongJoshua/libgdx-inGameConsole"
 
     override fun initiateDependencies(project: Project) {
@@ -230,7 +235,7 @@ class Noise4J : ThirdPartyExtension() {
 @Extension
 class BladeInk : ThirdPartyExtension() {
     override val id = "bladeInk"
-    override val defaultVersion = "0.2.0"
+    override val defaultVersion = "0.4.0"
     override val url = "https://github.com/bladecoder/blade-ink"
 
     override fun initiateDependencies(project: Project) {

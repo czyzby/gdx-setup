@@ -24,7 +24,7 @@ class AI : OfficialExtension() {
     override val url = "https://github.com/libgdx/gdx-ai"
 
     override fun initiate(project: Project) {
-        project.properties["aiVersion"] = "1.8.0"
+        project.properties["aiVersion"] = "1.8.1"
 
         addDependency(project, Core.ID, "com.badlogicgames.gdx:gdx-ai:\$aiVersion")
 
