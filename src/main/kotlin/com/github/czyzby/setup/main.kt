@@ -18,7 +18,7 @@ fun main(args: Array<String>) {
     config.setWindowedMode(Configuration.WIDTH, Configuration.HEIGHT)
     config.disableAudio(true)
     config.setDecorated(false)
-    // arrayOf(128, 64, 32, 16).forEach { config.addIcon("icons/libgdx$it.png", Files.FileType.Classpath) }
+    config.setWindowIcon(*arrayOf(128, 64, 32, 16).map { "icons/libgdx$it.png" }.toTypedArray())
 
     try {
         Lwjgl3Application(object : AutumnApplication(DesktopClassScanner(), Root::class.java) {
