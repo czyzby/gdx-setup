@@ -260,3 +260,18 @@ class Joice : ThirdPartyExtension() {
         addGwtInherit(project, "joise")
     }
 }
+
+/**
+ * An animated Label equivalent that appears as if it was being typed in real time.
+ * @author Rafa Skoberg
+ */
+@Extension
+class TypingLabel : ThirdPartyExtension() {
+    override val id = "typingLabel"
+    override val defaultVersion = "1.0.3"
+    override val url = "https://github.com/rafaskb/typing-label"
+
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "com.rafaskoberg.gdx:typing-label")
+    }
+}
