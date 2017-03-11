@@ -17,7 +17,7 @@ import com.github.czyzby.setup.views.ProjectTemplate
 class SquidLibBasicTemplate : Template {
     override val id = "squidLibBasicTemplate"
     override val width = "80 * 11"
-    override val height = "(24 + 8) * 22"
+    override val height = "30 * 22"
     override val description: String
         get() = "Project template included simple launchers and an `ApplicationAdapter` extension showing usage of [SquidLib](https://github.com/SquidPony/SquidLib) extension."
 
@@ -34,6 +34,7 @@ class SquidLibBasicTemplate : Template {
     }
 
     override fun getApplicationListenerContent(project: Project): String = """package ${project.basic.rootPackage};
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
@@ -44,41 +45,44 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import squidpony.FakeLanguageGen;
-import squidpony.GwtCompatibility;
 import squidpony.squidai.DijkstraMap;
-import squidpony.squidgrid.gui.gdx.*;
+import squidpony.squidgrid.gui.gdx.DefaultResources;
+import squidpony.squidgrid.gui.gdx.SColor;
+import squidpony.squidgrid.gui.gdx.SquidInput;
+import squidpony.squidgrid.gui.gdx.SquidLayers;
+import squidpony.squidgrid.gui.gdx.SquidMouse;
 import squidpony.squidgrid.mapping.DungeonGenerator;
 import squidpony.squidgrid.mapping.DungeonUtility;
 import squidpony.squidmath.Coord;
-import squidpony.squidmath.CoordPacker;
+import squidpony.squidmath.GreasedRegion;
 import squidpony.squidmath.RNG;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * The main class of the game, constructed once in each of the platform-specific Launcher classes. Doesn't use any
  * platform-specific code.
  */
-// In SquidSetup, squidlib-util is always a dependency, and squidlib (the display code that automatically includes
-// libGDX) is checked by default. If you didn't change those dependencies, this class should run out of the box.
+// If this is an example project in gdx-setup, then squidlib-util and the squidlib (the display module) are always
+// dependencies. If you didn't change those dependencies, this class should run out of the box.
 //
-// If you didn't select squidlib as a dependency in SquidSetup, this class will be full of errors. If you don't depend
-// on LibGDX, you'll need to figure out display on your own, and the setup of multiple platform projects is probably
-// useless to you. But, if you do depend on LibGDX, you can make some use of this class. You can remove any imports or
-// usages of classes in the squidpony.squidgrid.gui.gdx package, remove as much of create() as you  want (some of it
-// doesn't use the display classes, so you might want the dungeon generation and such, otherwise just empty out the
-// whole method), remove any SquidLib-specific code in render() and resize(), and probably remove putMap entirely.
+// This class is useful as a starting point, since it has dungeon generation and some of the trickier parts of input
+// handling (using the mouse to get a path for the player) already filled in. You can remove any imports or usages of
+// classes that you don't need.
 
 // A main game class that uses LibGDX to display, which is the default for SquidLib, needs to extend ApplicationAdapter
 // or something related, like Game. Game adds features that SquidLib doesn't currently use, so ApplicationAdapter is
 // perfectly fine for these uses.
 public class ${project.basic.mainClass} extends ApplicationAdapter {
     SpriteBatch batch;
+
     private RNG rng;
     private SquidLayers display;
     private DungeonGenerator dungeonGen;
-    private char[][] decoDungeon, bareDungeon, lineDungeon, spaces;
-    private int[][] colorIndices, bgColorIndices, languageBG, languageFG;
+    private char[][] decoDungeon, bareDungeon, lineDungeon;
+    private int[][] colorIndices, bgColorIndices;
     /** In number of cells */
     private int gridWidth;
     /** In number of cells */
@@ -92,7 +96,7 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
     private Stage stage;
     private DijkstraMap playerToCursor;
     private Coord cursor, player;
-    private ArrayList<Coord> toCursor;
+    private List<Coord> toCursor;
     private ArrayList<Coord> awaitedMoves;
     private float secondsWithoutMoves;
     private String[] lang;
@@ -103,15 +107,14 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
         //pixels, must match the size you specified in the launcher for input to behave.
         //This is one of the more common places a mistake can happen.
         //In our desktop launcher, we gave these arguments to the configuration:
-        //	config.width = 80 * 11;
-        //  config.height = (24 + 8) * 22;
+        // configuration.width = 80 * 11;
+        // configuration.height = 30 * 20;
         //Here, config.height refers to the total number of rows to be displayed on the screen.
-        //We're displaying 24 rows of dungeon, then 8 more rows of text generation to show some tricks with language.
-        //That adds up to 32 total rows of height.
+        //We're displaying 24 rows of dungeon, then 6 more rows of text generation to show some tricks with language.
         //gridHeight is 24 because that variable will be used for generating the dungeon and handling movement within
         //the upper 24 rows. Anything that refers to the full height, which happens rarely and usually for things like
-        //screen resizes, just uses gridHeight + 8. Next to it is gridWidth, which is 50 because we want 50 grid spaces
-        //across the whole screen. cellWidth and cellHeight are 11 and 22, and match the multipliers for config.width
+        //screen resizes, just uses gridHeight + 6. Next to it is gridWidth, which is 80 because we want 80 grid spaces
+        //across the whole screen. cellWidth and cellHeight are 11 and 20, and match the multipliers for config.width
         //and config.height, but in this case don't strictly need to because we soon use a "Stretchable" font. While
         //gridWidth and gridHeight are measured in spaces on the grid, cellWidth and cellHeight are the pixel dimensions
         //of an individual cell. The font will look more crisp if the cell dimensions match the config multipliers
@@ -120,26 +123,18 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
         gridWidth = 80;
         gridHeight = 24;
         cellWidth = 11;
-        cellHeight = 22;
+        cellHeight = 20;
         // gotta have a random number generator. We can seed an RNG with any long we want, or even a String.
         rng = new RNG("SquidLib!");
 
         //Some classes in SquidLib need access to a batch to render certain things, so it's a good idea to have one.
         batch = new SpriteBatch();
         //Here we make sure our Stage, which holds any text-based grids we make, uses our Batch.
-        stage = new Stage(new StretchViewport(gridWidth * cellWidth, (gridHeight + 8) * cellHeight), batch);
-
-        // display is a SquidLayers object, and that class has a very large number of similar methods for placing text
-        // on a grid, with an optional background color and lightness modifier per cell. It also handles animations and
-        // other effects, but you don't need to use them at all. SquidLayers also automatically handles the stretchable
-        // distance field fonts, which are a big improvement over fixed-size bitmap fonts and should probably be
-        // preferred for new games. SquidLayers needs to know what the size of the grid is in columns and rows, how big
-        // an individual cell is in pixel width and height, and lastly how to handle text, which can be a BitmapFont or
-        // a TextCellFactory. Either way, it will use what is given to make its TextCellFactory, and that handles the
-        // layout of text in a cell, among other things. DefaultResources stores pre-configured BitmapFont objects but
-        // also some TextCellFactory objects for distance field fonts; either one can be passed to this constructor.
-        // the font will try to load Inconsolata-LGC-Square as a bitmap font with a distance field effect.
-        display = new SquidLayers(gridWidth, gridHeight + 8, cellWidth, cellHeight, DefaultResources.getStretchableFont());
+        stage = new Stage(new StretchViewport(gridWidth * cellWidth, (gridHeight + 6) * cellHeight), batch);
+        // the font will try to load Inconsolata-LGC (custom) as an embedded bitmap font with a distance field effect.
+        // this font is covered under the SIL Open Font License (fully free), so there's no reason it can't be used.
+        display = new SquidLayers(gridWidth, gridHeight + 6, cellWidth, cellHeight,
+                DefaultResources.getStretchableFont());
         // a bit of a hack to increase the text height slightly without changing the size of the cells they're in.
         // this causes a tiny bit of overlap between cells, which gets rid of an annoying gap between vertical lines.
         // if you use '#' for walls instead of box drawing chars, you don't need this.
@@ -160,86 +155,73 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
         //decoDungeon is given the dungeon with any decorations we specified. (Here, we didn't, unless you chose to add
         //water to the dungeon. In that case, decoDungeon will have different contents than bareDungeon, next.)
         decoDungeon = dungeonGen.generate();
-        //There are lots of options for dungeon generation in SquidLib; you can pass a TilesetType enum to generate()
-        //as shown on the following lines to change the style of dungeon generated from ruined areas, which are made
-        //when no argument is passed to generate or when TilesetType.DEFAULT_DUNGEON is, to caves or other styles.
-        //decoDungeon = dungeonGen.generate(TilesetType.REFERENCE_CAVES); // generate caves
-        //decoDungeon = dungeonGen.generate(TilesetType.ROUND_ROOMS_DIAGONAL_CORRIDORS); // generate large round rooms
-        //There are many more options for dungeon generation in SquidLib; most of these involve generating a bare,
-        //non-validated map as a char[][], then passing it as an argument to the generate() method of DungeonGenerator
-        //or SectionDungeonGenerator, which should remove unreachable areas and allows you to add dungeon features.
-        //Other demos will showcase dungeon generation in a more complete way.
-
         //getBareDungeon provides the simplest representation of the generated dungeon -- '#' for walls, '.' for floors.
         bareDungeon = dungeonGen.getBareDungeon();
         //When we draw, we may want to use a nicer representation of walls. DungeonUtility has lots of useful methods
-        //for modifying char[][] dungeon grids, and this one takes each '#' and replaces it with a box-drawing character
-        //or a blank space if it's never visible.
+        //for modifying char[][] dungeon grids, and this one takes each '#' and replaces it with a box-drawing character.
         lineDungeon = DungeonUtility.hashesToLines(decoDungeon);
         //Coord is the type we use as a general 2D point, usually in a dungeon.
-        //Because we know dungeons won't be huge, Coord is optimized for x and y values between -3 and 255, inclusive.
+        //Because we know dungeons won't be incredibly huge, Coord performs best for x and y values less than 256, but
+        // by default it can also handle some negative x and y values (-3 is the lowest it can efficiently store). You
+        // can call Coord.expandPool() or Coord.expandPoolTo() if you need larger maps to be just as fast.
         cursor = Coord.get(-1, -1);
-        // it's more efficient to get random floors from a packed set containing only (compressed) floor positions.
-        // CoordPacker is a deep and involved class, but when other classes request packed data, you usually just need
-        // to give them a short array representing a region, as produced by CoordPacker.pack().
-        short[] placement = CoordPacker.pack(bareDungeon, '.');
-        //player is, here, just a Coord that stores his position. In a real game, you would probably have a class for
-        //creatures, and possibly a subclass for the player.
-        player = dungeonGen.utility.randomCell(placement);
-        //In games where you actually have monsters, you don't want to put two monsters in the same position, or put
-        //them on top of the player! In that case, you can alter placement with CoordPacker.removePacked() or
-        //CoordPacker.removeSeveralPacked(), then when you get another random cell from placement later, it can't
-        //overlap with an already-chosen position.
-        //You can use the next line instead of the above code that creates placement and assigns player, if you want a
-        //simple way to find a random floor tile in the dungeon.
-        //player = dungeonGen.utility.randomFloor(bareDungeon);
-        //There are other ways to get random cells, like DungeonUtility.randomMatchingTile(), which always gets a cell
-        //that contains a specific char, if such a cell exists. If you had uncommented dungeonGen.addWater(15) earlier,
-        //then you could start the player in deep water every time with:
-        //player = dungeonGen.utility.randomMatchingTile(decoDungeon, '~');
-        //You should check that player isn't null here; if there are no matching tiles, then player will be null.
+        // here, we need to get a random floor cell to place the player upon, without the possibility of putting him
+        // inside a wall. There are a few ways to do this in SquidLib. The most straightforward way is to randomly
+        // choose x and y positions until a floor is found, but particularly on dungeons with few floor cells, this can
+        // have serious problems -- if it takes too long to find a floor cell, either it needs to be able to figure out
+        // that random choice isn't working and instead choose the first it finds in simple iteration, or potentially
+        // keep trying forever on an all-wall map. There are better ways! These involve using a kind of specific storage
+        // for points or regions, getting that to store only floors, and finding a random cell from that collection of
+        // floors. The two kinds of such storage used commonly in SquidLib are the "packed data" as short[] produced by
+        // CoordPacker (which use very little memory, but can be slow, and are treated as unchanging by CoordPacker so
+        // any change makes a new array), and GreasedRegion objects (which use slightly more memory, tend to be faster
+        // on almost all operations compared to the same operations with CoordPacker, and default to changing the
+        // GreasedRegion object when you call a method on it instead of making a new one). Even though CoordPacker
+        // sometimes has better documentation, GreasedRegion is generally a better choice; it was added to address
+        // shortcomings in CoordPacker, particularly for speed, and the worst-case scenarios for data in CoordPacker are
+        // no problem whatsoever for GreasedRegion. CoordPacker is called that because it compresses the information
+        // for nearby Coords into a smaller amount of memory. GreasedRegion is called that because it encodes regions,
+        // but is "greasy" both in the fatty-food sense of using more space, and in the "greased lightning" sense of
+        // being especially fast. Both of them can be seen as storing regions of points in 2D space as "on" and "off."
 
+        // Here we fill a GreasedRegion so it stores the cells that contain a floor, the '.' char, as "on."
+        GreasedRegion placement = new GreasedRegion(bareDungeon, '.');
+        //player is, here, just a Coord that stores his position. In a real game, you would probably have a class for
+        //creatures, and possibly a subclass for the player. The singleRandom() method on GreasedRegion finds one Coord
+        // in that region that is "on," or -1,-1 if there are no such cells. It takes an RNG object as a parameter, and
+        // if you gave a seed to the RNG constructor, then the cell this chooses will be reliable for testing. If you
+        // don't seed the RNG, any valid cell should be possible.
+        player = placement.singleRandom(rng);
         //This is used to allow clicks or taps to take the player to the desired area.
-        toCursor = new ArrayList<Coord>(100);
-        awaitedMoves = new ArrayList<Coord>(100);
+        toCursor = new ArrayList<Coord>(200);
+        //When a path is confirmed by clicking, we draw from this List to find which cell is next to move into.
+        awaitedMoves = new ArrayList<Coord>(200);
         //DijkstraMap is the pathfinding swiss-army knife we use here to find a path to the latest cursor position.
-        //It can find a path to the closest of multiple goals, find an effective path to flee a target (not just running
-        //into a corner!) and do even more elaborate pathfinding to find the best spot to attack at range. It's also
-        //fast! SquidLib's DijkstraMap class is currently much faster than its A* pathfinder, plus it has more features,
-        //so it's worth it to explore what you can do with DijkstraMap.
+        //DijkstraMap.Measurement is an enum that determines the possibility or preference to enter diagonals. Here, the
+        // MANHATTAN value is used, which means 4-way movement only, no diagonals possible. Alternatives are CHEBYSHEV,
+        // which allows 8 directions of movement at the same cost for all directions, and EUCLIDEAN, which allows 8
+        // directions, but will prefer orthogonal moves unless diagonal ones are clearly closer "as the crow flies."
         playerToCursor = new DijkstraMap(decoDungeon, DijkstraMap.Measurement.MANHATTAN);
-        //SColor has many predefined colors, with JavaDocs that show the color in the preview.
+        //These next two lines mark the player as something we want paths to go to or from, and get the distances to the
+        // player from all walkable cells in the dungeon.
+        playerToCursor.setGoal(player);
+        playerToCursor.scan(null);
+
+        //The next three lines set the background color for anything we don't draw on, but also create 2D arrays of the
+        //same size as decoDungeon that store simple indexes into a common list of colors, using the colors that looks
+        // up as the colors for the cell with the same x and y.
         bgColor = SColor.DARK_SLATE_GRAY;
-        // DungeonUtility provides various ways to get default colors or other information from a dungeon char 2D array.
         colorIndices = DungeonUtility.generatePaletteIndices(decoDungeon);
         bgColorIndices = DungeonUtility.generateBGPaletteIndices(decoDungeon);
-        // Here, we're preparing some 2D arrays so they don't get created during rendering.
-        // Creating new arrays or objects during rendering can put lots of pressure on Java's garbage collector,
-        // and Android's garbage collector can be very slow, especially when compared to desktop.
-        // These methods are in GwtCompatibility not because GWT has some flaw with array creation (it has different
-        // array problems than this solves) but because Java in general is missing methods for dealing with 2D arrays.
-        // So, you can think of the class more like "Gwt, and also Compatibility".
-        // fill2D constructs a 2D array filled with one item. Other methods can insert a
-        // 2D array into a differently-sized 2D array, or copy a 2D array of various types.
-        spaces = GwtCompatibility.fill2D(' ', gridWidth, 6);
-        languageBG = GwtCompatibility.fill2D(1, gridWidth, 6);
-        languageFG = GwtCompatibility.fill2D(0, gridWidth, 6);
-
         // this creates an array of sentences, where each imitates a different sort of language or mix of languages.
         // this serves to demonstrate the large amount of glyphs SquidLib supports.
-        // FakeLanguageGen doesn't attempt to produce legible text, so any of the arguments given to these method calls
-        // can be changed in a trial-and-error way to find the subjectively best output. The arguments to sentence()
-        // are the minimum words, maximum words, between-word punctuation, sentence-ending punctuation, chance out of
-        // 0.0 to 1.0 of putting between-word punctuation after a word, and lastly the max characters per sentence.
-        // It is recommended that you don't increase the max characters per sentence much more, since it's already very
-        // close to touching the edges of the message box it's in. The sentence() method can optionally take an RNG as
-        // its first parameter, but omitting that means we'll get random sentences every time we run the game.
-        lang = new String[] {
-                        FakeLanguageGen.FANTASY_NAME.mix(FakeLanguageGen.SWAHILI, 0.55).mix(FakeLanguageGen.FRENCH, 0.35)
-                                .mix(FakeLanguageGen.RUSSIAN_ROMANIZED, 0.25).mix(FakeLanguageGen.GREEK_ROMANIZED, 0.2).mix(FakeLanguageGen.ENGLISH, 0.15)
-                                .mix(FakeLanguageGen.HINDI_ROMANIZED, 0.13).mix(FakeLanguageGen.SOMALI, 0.1).addAccents(0.2, 0)
-                                .sentence(5, 10, new String[]{",", ",", ",", ";"},
-                                new String[]{".", ".", ".", "!", "?", "..."}, 0.2, gridWidth - 4),
+        // there's no need to put much effort into understanding this section yet, and many games won't use the language
+        // generation code at all. If you want to know what this does, the parameters are:
+        // minimum words in a sentence, maximum words in a sentence, "mid" punctuation that can be after a word (like a
+        // comma), "end" punctuation that can be at the end of a sentence, frequency of "mid" punctuation (the chance in
+        // 1.0 that a word will have something like a comma appended after it), and the limit on how many chars to use.
+        lang = new String[]
+                {
                         FakeLanguageGen.ENGLISH.sentence(5, 10, new String[]{",", ",", ",", ";"},
                                 new String[]{".", ".", ".", "!", "?", "..."}, 0.17, gridWidth - 4),
                         FakeLanguageGen.GREEK_AUTHENTIC.sentence(5, 11, new String[]{",", ",", ";"},
@@ -258,23 +240,43 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
                                 new String[]{".", ".", ".", "!", "?", "...", "..."}, 0.12, gridWidth - 4),
                         FakeLanguageGen.SWAHILI.sentence(4, 9, new String[]{",", ",", ",", ";", ";"},
                                 new String[]{".", ".", ".", "!", "?"}, 0.12, gridWidth - 4),
-                        FakeLanguageGen.SOMALI.sentence(3, 8, new String[]{",", ",", ",", ";", ";"},
-                                new String[]{".", ".", ".", "!", "!", "...", "?"}, 0.1, gridWidth - 4),
-                        FakeLanguageGen.HINDI_ROMANIZED.sentence(3, 7, new String[]{",", ",", ",", ";", ";"},
-                                new String[]{".", ".", ".", "!", "?", "?", "..."}, 0.22, gridWidth - 4),
+                        FakeLanguageGen.SOMALI.sentence(4, 9, new String[]{",", ",", ",", ";", ";"},
+                                new String[]{".", ".", ".", "!", "?"}, 0.12, gridWidth - 4),
+                        FakeLanguageGen.HINDI_ROMANIZED.sentence(4, 9, new String[]{",", ",", ",", ";", ";"},
+                                new String[]{".", ".", ".", "!", "?"}, 0.12, gridWidth - 4),
+                        FakeLanguageGen.ARABIC_ROMANIZED.sentence(4, 9, new String[]{",", ",", ",", ";", ";"},
+                                new String[]{".", ".", ".", "!", "?"}, 0.12, gridWidth - 4),
+                        FakeLanguageGen.NORSE.addModifiers(FakeLanguageGen.Modifier.SIMPLIFY_NORSE).sentence(4, 9, new String[]{",", ",", ",", ";", ";"},
+                                new String[]{".", ".", ".", "!", "?"}, 0.12, gridWidth - 4),
+                        FakeLanguageGen.INUKTITUT.sentence(4, 9, new String[]{",", ",", ",", ";", ";"},
+                                new String[]{".", ".", ".", "!", "?"}, 0.12, gridWidth - 4),
+                        FakeLanguageGen.NAHUATL.sentence(4, 9, new String[]{",", ",", ",", ";", ";"},
+                                new String[]{".", ".", ".", "!", "?"}, 0.12, gridWidth - 4),
                         FakeLanguageGen.FANTASY_NAME.sentence(4, 8, new String[]{",", ",", ",", ";", ";"},
                                 new String[]{".", ".", ".", "!", "?", "..."}, 0.22, gridWidth - 4),
                         FakeLanguageGen.FANCY_FANTASY_NAME.sentence(4, 8, new String[]{",", ",", ",", ";", ";"},
                                 new String[]{".", ".", ".", "!", "?", "..."}, 0.22, gridWidth - 4),
+                        FakeLanguageGen.GOBLIN.sentence(4, 8, new String[]{",", ",", ",", ";", ";"},
+                                new String[]{".", ".", ".", "?", "...", "..."}, 0.12, gridWidth - 4),
+                        FakeLanguageGen.ELF.sentence(4, 8, new String[]{",", ",", ",", ";", ";"},
+                                new String[]{".", ".", ".", "?", "..."}, 0.22, gridWidth - 4),
+                        FakeLanguageGen.DEMONIC.sentence(4, 8, new String[]{",", ",", ",", ";", ";"},
+                                new String[]{".", ".", ".", "!", "!", "..."}, 0.1, gridWidth - 4),
+                        FakeLanguageGen.INFERNAL.sentence(4, 8, new String[]{",", ",", ",", ";", ";"},
+                                new String[]{".", ".", ".", "?", "?", "..."}, 0.22, gridWidth - 4),
                         FakeLanguageGen.FRENCH.mix(FakeLanguageGen.JAPANESE_ROMANIZED, 0.65).sentence(5, 9, new String[]{",", ",", ",", ";"},
                                 new String[]{".", ".", ".", "!", "?", "?", "..."}, 0.14, gridWidth - 4),
                         FakeLanguageGen.ENGLISH.addAccents(0.5, 0.15).sentence(5, 10, new String[]{",", ",", ",", ";"},
                                 new String[]{".", ".", ".", "!", "?", "..."}, 0.17, gridWidth - 4),
-                        FakeLanguageGen.FRENCH.mix(FakeLanguageGen.HINDI_ROMANIZED, 0.55).addModifiers(FakeLanguageGen.modifier("[sśŝşšș]+h?", "th"))
-                                .sentence(5, 9, new String[]{",", ",", ",", ";"},
-                                new String[]{".", ".", ".", "!", "?", "?", "..."}, 0.14, gridWidth - 4),
+                        // mixAll is useful when mixing many languages; it takes alternating languages and weights for
+                        // the preceding language, and doesn't care what order the pairs are given in (the mix method
+                        // does care, which can be confusing when more than two languages are mixed).
+                        FakeLanguageGen.mixAll(FakeLanguageGen.SWAHILI, 1.0, FakeLanguageGen.JAPANESE_ROMANIZED, 1.0, FakeLanguageGen.FRENCH, 1.0,
+                                FakeLanguageGen.RUSSIAN_ROMANIZED, 1.0, FakeLanguageGen.GREEK_ROMANIZED, 1.0, FakeLanguageGen.ENGLISH, 1.2,
+                                FakeLanguageGen.ELF, 1.0, FakeLanguageGen.LOVECRAFT, 0.75)
+                                .sentence(5, 10, new String[]{",", ",", ",", ";"},
+                                new String[]{".", ".", ".", "!", "?", "..."}, 0.2, gridWidth - 4),
                 };
-
 
         // this is a big one.
         // SquidInput can be constructed with a KeyHandler (which just processes specific keypresses), a SquidMouse
@@ -290,12 +292,14 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
         input = new SquidInput(new SquidInput.KeyHandler() {
             @Override
             public void handle(char key, boolean alt, boolean ctrl, boolean shift) {
-                switch (key) {
+                switch (key)
+                {
                     case SquidInput.UP_ARROW:
                     case 'k':
                     case 'w':
                     case 'K':
-                    case 'W': {
+                    case 'W':
+                    {
                         //-1 is up on the screen
                         move(0, -1);
                         break;
@@ -304,7 +308,8 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
                     case 'j':
                     case 's':
                     case 'J':
-                    case 'S': {
+                    case 'S':
+                    {
                         //+1 is down on the screen
                         move(0, 1);
                         break;
@@ -313,7 +318,8 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
                     case 'h':
                     case 'a':
                     case 'H':
-                    case 'A': {
+                    case 'A':
+                    {
                         move(-1, 0);
                         break;
                     }
@@ -321,13 +327,15 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
                     case 'l':
                     case 'd':
                     case 'L':
-                    case 'D': {
+                    case 'D':
+                    {
                         move(1, 0);
                         break;
                     }
                     case 'Q':
                     case 'q':
-                    case SquidInput.ESCAPE: {
+                    case SquidInput.ESCAPE:
+                    {
                         Gdx.app.exit();
                         break;
                     }
@@ -347,13 +355,21 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
                         if(awaitedMoves.isEmpty()) {
                             if (toCursor.isEmpty()) {
                                 cursor = Coord.get(screenX, screenY);
-                                //This uses DijkstraMap.findPath to get a possibly long path from the current player position
-                                //to the position the user clicked on.
-                                toCursor = playerToCursor.findPath(100, null, null, player, cursor);
+                                //This uses DijkstraMap.findPathPreScannned() to get a path as a List of Coord from the current
+                                // player position to the position the user clicked on. The "PreScanned" part is an optimization
+                                // that's special to DijkstraMap; because the whole map has already been fully analyzed by the
+                                // DijkstraMap.scan() method at the start of the program, and re-calculated whenever the player
+                                // moves, we only need to do a fraction of the work to find the best path with that info.
+                                toCursor = playerToCursor.findPathPreScanned(cursor);
+                                //findPathPreScanned includes the current cell (goal) by default, which is helpful when
+                                // you're finding a path to a monster or loot, and want to bump into it, but here can be
+                                // confusing because you would "move into yourself" as your first move without this.
+                                if(!toCursor.isEmpty())
+                                    toCursor = toCursor.subList(1, toCursor.size());
                             }
-                            awaitedMoves = new ArrayList<Coord>(toCursor);
+                            awaitedMoves.addAll(toCursor);
                         }
-                        return false;
+                        return true;
                     }
 
                     @Override
@@ -361,8 +377,8 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
                         return mouseMoved(screenX, screenY);
                     }
 
-                    // causes the path to the mouse position to become highlighted (toCursor contains a list of points that
-                    // receive highlighting). Uses DijkstraMap.findPath() to find the path, which is surprisingly fast.
+                    // causes the path to the mouse position to become highlighted (toCursor contains a list of Coords that
+                    // receive highlighting). Uses DijkstraMap.findPathPreScanned() to find the path, which is rather fast.
                     @Override
                     public boolean mouseMoved(int screenX, int screenY) {
                         if(!awaitedMoves.isEmpty())
@@ -371,7 +387,19 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
                             return false;
                         }
                         cursor = Coord.get(screenX, screenY);
-                        toCursor = playerToCursor.findPath(100, null, null, player, cursor);
+                        //This uses DijkstraMap.findPathPreScannned() to get a path as a List of Coord from the current
+                        // player position to the position the user clicked on. The "PreScanned" part is an optimization
+                        // that's special to DijkstraMap; because the whole map has already been fully analyzed by the
+                        // DijkstraMap.scan() method at the start of the program, and re-calculated whenever the player
+                        // moves, we only need to do a fraction of the work to find the best path with that info.
+
+                        toCursor = playerToCursor.findPathPreScanned(cursor);
+
+                        //findPathPreScanned includes the current cell (goal) by default, which is helpful when
+                        // you're finding a path to a monster or loot, and want to bump into it, but here can be
+                        // confusing because you would "move into yourself" as your first move without this.
+                        if(!toCursor.isEmpty())
+                            toCursor = toCursor.subList(1, toCursor.size());
                         return false;
                     }
                 }));
@@ -393,6 +421,8 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
         int newX = player.x + xmod, newY = player.y + ymod;
         if (newX >= 0 && newY >= 0 && newX < gridWidth && newY < gridHeight
                 && bareDungeon[newX][newY] != '#') {
+            // changing the player Coord is all we need to do here, because we re-calculate the distances to the player
+            // from all other cells only when we need to, that is, when the movement is finished (see render() ).
             player = player.translate(xmod, ymod);
         }
         // loops through the text snippets displayed whenever the player moves
@@ -413,31 +443,26 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
             // use a brighter light to trace the path to the cursor, from 170 max lightness to 0 min.
             display.highlight(pt.x, pt.y, 100);
         }
-        //places the player as an '@' at his position in orange (6 is an index into SColor.LIMITED_PALETTE).
-        display.put(player.x, player.y, '@', 6);
-        // for clarity, you could replace the above line with the uncommented line below
-        //display.put(player.x, player.y, '@', SColor.INTERNATIONAL_ORANGE);
-        // since this is what 6 refers to, a color constant in a palette where 6 refers to this shade of orange.
-        // You could experiment with different SColors; the JavaDocs for each color show a nice preview.
-        // To view JavaDocs for a field, you can use Ctrl-Q in IntelliJ IDEA and Android Studio, or
-        // just mouse over in Eclipse.
-        // SColor extends libGDX's Color class, so you can use an SColor almost anywhere a Color is expected.
+        //places the player as an '@' at his position in orange.
+        display.put(player.x, player.y, '@', SColor.SAFETY_ORANGE);
+        //this helps compatibility with the HTML target, which doesn't support String.format()
+        char[] spaceArray = new char[gridWidth];
+        Arrays.fill(spaceArray, ' ');
+        String spaces = String.valueOf(spaceArray);
 
-        // The arrays we produced in create() are used here to provide a blank rectangular area behind the text.
-        display.put(0, gridHeight + 1, spaces, languageFG, languageBG);
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 4; i++) {
+            display.putString(0, gridHeight + i + 1, spaces, 0, 1);
             display.putString(2, gridHeight + i + 1, lang[(langIndex + i) % lang.length], 0, 1);
         }
     }
     @Override
     public void render () {
-        // standard clear-the-background routine for libGDX
+        // standard clear the background routine for libGDX
         Gdx.gl.glClearColor(bgColor.r / 255.0f, bgColor.g / 255.0f, bgColor.b / 255.0f, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // need to display the map every frame, since we clear the screen to avoid artifacts.
         putMap();
-
         // if the user clicked, we have a list of moves to perform.
         if(!awaitedMoves.isEmpty()) {
             // this doesn't check for input, but instead processes and removes Coords from awaitedMoves.
@@ -448,17 +473,31 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
                 toCursor.remove(0);
                 move(m.x - player.x, m.y - player.y);
             }
+            // this only happens if we just removed the last Coord from awaitedMoves, and it's only then that we need to
+            // re-calculate the distances from all cells to the player. We don't need to calculate this information on
+            // each part of a many-cell move (just the end), nor do we need to calculate it whenever the mouse moves.
+            if(awaitedMoves.isEmpty()) {
+                // the next two lines remove any lingering data needed for earlier paths
+                playerToCursor.clearGoals();
+                playerToCursor.resetMap();
+                // the next line marks the player as a "goal" cell, which seems counter-intuitive, but it works because all
+                // cells will try to find the distance between themselves and the nearest goal, and once this is found, the
+                // distances don't change as long as the goals don't change. Since the mouse will move and new paths will be
+                // found, but the player doesn't move until a cell is clicked, the "goal" is the non-changing cell, so the
+                // player's position, and the "target" of a pathfinding method like DijkstraMap.findPathPreScanned() is the
+                // currently-moused-over cell, which we only need to set where the mouse is being handled.
+                playerToCursor.setGoal(player);
+                playerToCursor.scan(null);
+            }
         }
         // if we are waiting for the player's input and get input, process it.
         else if(input.hasNext()) {
             input.next();
         }
 
-        //stage has its own batch and must be explicitly told to draw().
+        // stage has its own batch and must be explicitly told to draw().
         stage.draw();
-
-        //You may need to explicitly tell stage to act() if input isn't working.
-        //You can comment out the next line if you experience two actions per input event, but it should be fine.
+        // certain classes that use scene2d.ui widgets need to be told to act() to process input.
         stage.act();
     }
 
@@ -466,14 +505,12 @@ public class ${project.basic.mainClass} extends ApplicationAdapter {
     public void resize(int width, int height) {
         super.resize(width, height);
         //Very important to have the mouse behave correctly if the user fullscreens or resizes the game!
-        //This looks complicated, but all it's doing is changing the number of pixels of screen size each cell
-        //corresponds to when SquidMouse is trying to match mouse coordinates to grid positions.
-        //Since the width parameter to resize() is the new screen width, dividing that by the number of grid cells
-        //gives the actual width of a single cell (the cast to float makes sure  the result isn't truncated).
-        //Similarly, dividing height (the parameter) by (gridHeight + 8) makes the height of a cell accurate for the
-        //whole grid. But the number of cells is gridHeight, not (gridHeight + 8), so the 8 additional cells used for
-        //showing the language generation won't respond to mouse input like the dungeon display section.
-        input.getMouse().reinitialize((float) width / this.gridWidth, (float)height / (this.gridHeight + 8), this.gridWidth, this.gridHeight, 0, 0);
+        // here, the (float)height / (this.gridHeight + 6) refers to the height of a cell using the full area of the
+        // window. Since we have 6 rows of generated text but don't want those to be considered by the mouse, we
+        // give the gridHeight parameter our gridHeight (which includes only the dungeon map), but calculate the cell
+        // height using the height of the window (height) divided by (gridHeight + 6) to consider the 6 extra rows as
+        // contributing to that height, even though they aren't part of the grid.
+        input.getMouse().reinitialize((float) width / this.gridWidth, (float)height / (this.gridHeight + 6), this.gridWidth, this.gridHeight, 0, 0);
     }
 }"""
 
