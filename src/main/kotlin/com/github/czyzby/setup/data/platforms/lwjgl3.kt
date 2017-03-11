@@ -1,5 +1,7 @@
 package com.github.czyzby.setup.data.platforms
 
+import com.github.czyzby.setup.data.files.CopiedFile
+import com.github.czyzby.setup.data.files.path
 import com.github.czyzby.setup.data.gradle.GradleFile
 import com.github.czyzby.setup.data.project.Project
 import com.github.czyzby.setup.views.GdxPlatform
@@ -18,7 +20,13 @@ class LWJGL3 : Platform {
     override val isGraphical = false // LWJGL3 is an alternative to the default desktop project.
     override fun createGradleFile(project: Project): GradleFile = Lwjgl3GradleFile(project);
     override fun initiate(project: Project) {
-        // LWJGL3 platform requires no additional dependencies.
+        // Adding game icons:
+        arrayOf(16, 32, 64, 128)
+            .map { "libgdx${it}.png" }
+            .forEach { icon ->
+                project.files.add(CopiedFile(projectName = LWJGL3.ID, path = path("src", "main", "resources", icon),
+                    original = path("icons", icon)))
+            }
 
         addGradleTaskDescription(project, "run", "starts the application.")
         addGradleTaskDescription(project, "jar", "builds application's runnable jar, which can be found at `${id}/build/libs`.")

@@ -22,11 +22,12 @@ class Desktop : Platform {
 
     override fun initiate(project: Project) {
         // Adding game icons:
-        arrayOf(16, 32, 64, 128).forEach {
-            val icon = "libgdx${it}.png"
-            project.files.add(CopiedFile(projectName = ID, path = path("src", "main", "resources", icon),
+        arrayOf(16, 32, 64, 128)
+            .map { "libgdx${it}.png" }
+            .forEach { icon ->
+                project.files.add(CopiedFile(projectName = ID, path = path("src", "main", "resources", icon),
                     original = path("icons", icon)))
-        }
+            }
 
         addGradleTaskDescription(project, "run", "starts the application.")
         addGradleTaskDescription(project, "jar", "builds application's runnable jar, which can be found at `${id}/build/libs`.")
