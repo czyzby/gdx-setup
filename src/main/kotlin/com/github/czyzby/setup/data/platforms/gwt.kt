@@ -1,6 +1,9 @@
 package com.github.czyzby.setup.data.platforms
 
+import com.github.czyzby.setup.config.LibGdxVersion
+import com.github.czyzby.setup.data.files.CopiedFile
 import com.github.czyzby.setup.data.files.SourceFile
+import com.github.czyzby.setup.data.files.path
 import com.github.czyzby.setup.data.gradle.GradleFile
 import com.github.czyzby.setup.data.project.Project
 import com.github.czyzby.setup.views.GdxPlatform
@@ -69,6 +72,7 @@ class GWT : Platform {
 ${project.gwtInherits.sortedWith(INHERIT_COMPARATOR).joinToString(separator = "\n") { "    <inherits name=\"$it\" />" }}
     <entry-point class="${project.basic.rootPackage}.gwt.GwtLauncher" />
     <set-configuration-property name="gdx.assetpath" value="../assets" />
+    <set-configuration-property name="xsiframe.failIfScriptTag" value="FALSE"/>
 </module>"""))
 
         // Adding SuperDev definition:
@@ -86,10 +90,25 @@ ${project.gwtInherits.sortedWith(INHERIT_COMPARATOR).joinToString(separator = "\
         // Copying webapp files:
         addCopiedFile(project, "webapp", "index.html")
         addCopiedFile(project, "webapp", "refresh.png")
-        addCopiedFile(project, "webapp", "soundmanager2-jsmin.js")
         addCopiedFile(project, "webapp", "soundmanager2-setup.js")
+        addSoundManagerSource(project)
         addCopiedFile(project, "webapp", "styles.css")
         addCopiedFile(project, "webapp", "WEB-INF", "web.xml")
+    }
+
+    private fun addSoundManagerSource(project: Project) {
+        val version = LibGdxVersion.parseLibGdxVersion(project.advanced.gdxVersion)
+        val soundManagerSource = when {
+            // Invalid, user-entered LibGDX version - defaulting to current SoundManager:
+            version == null -> "soundmanager2-jsmin.js"
+            // Pre-1.9.6: using old SoundManager sources:
+            version < LibGdxVersion(major = 1, minor = 9, revision = 6) -> "soundmanager2-jsmin_old.js"
+            // Recent LibGDX version - using latest SoundManager:
+            else -> "soundmanager2-jsmin.js"
+        }
+        project.files.add(CopiedFile(projectName = id,
+                original = path("generator", id, "webapp", soundManagerSource),
+                path = path("webapp", "soundmanager2-jsmin.js")))
     }
 }
 
@@ -119,7 +138,6 @@ gwt {
 
   compiler {
     strict = true
-    enableClosureCompiler = true
     disableCastChecking = true
   }
 }
