@@ -77,7 +77,7 @@ class Box2D : OfficialExtension() {
         addGwtInherit(project, "com.badlogic.gdx.physics.box2d.box2d-gwt")
 
         addDependency(project, iOS.ID, "com.badlogicgames.gdx:gdx-box2d-platform:\$gdxVersion:natives-ios")
-        addDependency(project, MOE.ID, "com.badlogicgames.gdx:gdx-box2d-platform:\$gdxVersion:natives-ios")
+        addNativeMoeDependency(project, "com.badlogicgames.gdx:gdx-box2d-platform:\$gdxVersion:natives-ios")
     }
 }
 
@@ -122,7 +122,7 @@ class Bullet : OfficialExtension() {
         addDesktopDependency(project, "com.badlogicgames.gdx:gdx-bullet-platform:\$gdxVersion:natives-desktop")
 
         addDependency(project, iOS.ID, "com.badlogicgames.gdx:gdx-bullet-platform:\$gdxVersion:natives-ios")
-        addDependency(project, MOE.ID, "com.badlogicgames.gdx:gdx-bullet-platform:\$gdxVersion:natives-ios")
+        addNativeMoeDependency(project, "com.badlogicgames.gdx:gdx-bullet-platform:\$gdxVersion:natives-ios")
 
         // Other platforms are not officially supported (GWT).
     }
@@ -178,7 +178,7 @@ class Freetype : OfficialExtension() {
         addDesktopDependency(project, "com.badlogicgames.gdx:gdx-freetype-platform:\$gdxVersion:natives-desktop")
 
         addDependency(project, iOS.ID, "com.badlogicgames.gdx:gdx-freetype-platform:\$gdxVersion:natives-ios")
-        addDependency(project, MOE.ID, "com.badlogicgames.gdx:gdx-freetype-platform:\$gdxVersion:natives-ios")
+        addNativeMoeDependency(project, "com.badlogicgames.gdx:gdx-freetype-platform:\$gdxVersion:natives-ios")
 
         // Other platforms are not officially supported (GWT).
     }
