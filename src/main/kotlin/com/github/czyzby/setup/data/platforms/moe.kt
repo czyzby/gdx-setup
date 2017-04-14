@@ -54,7 +54,9 @@ class MOEGradleFile(val project: Project) : GradleFile(MOE.ID) {
         addDependency("com.badlogicgames.gdx:gdx-platform:\$gdxVersion:natives-ios")
     }
 
-    override fun getContent() = """// Exclude all files from Gradle's test runner
+    override fun getContent() = """apply plugin: 'moe'
+
+// Exclude all files from Gradle's test runner
 test { exclude '**' }
 
 task copyNatives << {
