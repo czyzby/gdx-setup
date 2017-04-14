@@ -1,5 +1,0 @@
-<dialog title="@warn">
-    <label style="small" row="true">@moeMissing</label>
-    <linkLabel url="https://software.intel.com/en-us/multi-os-engine">@moePrompt</linkLabel>
-    <textButton onResult="close" growX="true">@ok</textButton>
-</dialog>

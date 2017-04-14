@@ -26,11 +26,9 @@ import com.github.czyzby.lml.parser.action.ActionContainer
 import com.github.czyzby.lml.vis.ui.VisFormTable
 import com.github.czyzby.setup.config.Configuration
 import com.github.czyzby.setup.data.platforms.Android
-import com.github.czyzby.setup.data.platforms.MOE
 import com.github.czyzby.setup.data.project.Project
 import com.github.czyzby.setup.prefs.SdkVersionPreference
 import com.github.czyzby.setup.prefs.ToolsVersionPreference
-import com.github.czyzby.setup.views.dialogs.MoeMissingPrompt
 import com.kotcrab.vis.ui.util.ToastManager
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane
 import com.kotcrab.vis.ui.widget.toast.ToastTable
@@ -78,13 +76,6 @@ class MainView : ActionContainer {
         if (button.name == Android.ID) {
             platformsData.toggleAndroidPlatform(button.isChecked)
             revalidateForm()
-        }
-
-        if (button.name == MOE.ID && button.isChecked) {
-            if (System.getenv("INTEL_MULTI_OS_ENGINE_HOME") == null) {
-                button.isChecked = false;
-                interfaceService.showDialog(MoeMissingPrompt::class.java)
-            }
         }
     }
 
