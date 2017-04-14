@@ -13,7 +13,7 @@ import com.github.czyzby.setup.views.Extension
 @Extension
 class VisUI : ThirdPartyExtension() {
     override val id = "visUi"
-    override val defaultVersion = "1.2.5"
+    override val defaultVersion = "1.3.0"
     override val url = "https://github.com/kotcrab/VisEditor/wiki/VisUI"
 
     override fun initiateDependencies(project: Project) {
