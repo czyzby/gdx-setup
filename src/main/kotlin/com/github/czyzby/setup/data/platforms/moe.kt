@@ -48,11 +48,18 @@ class MOE : Platform {
 }
 
 class MOEGradleFile(val project: Project) : GradleFile(MOE.ID) {
+    val nativeDependencies = mutableSetOf<String>()
+
     init {
         dependencies.add("project(':${Core.ID}')")
         addDependency("com.badlogicgames.gdx:gdx-backend-moe:\$gdxVersion")
-        addDependency("com.badlogicgames.gdx:gdx-platform:\$gdxVersion:natives-ios")
+        addNativeDependency("com.badlogicgames.gdx:gdx-platform:\$gdxVersion:natives-ios")
     }
+
+    /**
+     * @param dependency will be added as "natives" dependency, quoted.
+     */
+    fun addNativeDependency(dependency: String) = nativeDependencies.add("\"$dependency\"")
 
     override fun getContent() = """apply plugin: 'moe'
 
@@ -89,7 +96,6 @@ task copyNatives << {
     }
 }
 
-sourceSets.main.java.srcDirs = [ "src/" ]
 sourceSets.main.resources.srcDirs = [ file("../assets") ]
 
 // Setup Multi-OS Engine
@@ -117,7 +123,7 @@ eclipse {
 dependencies {
   configurations { natives }
 
-${joinDependencies(dependencies)}}
+${joinDependencies(dependencies)}${joinDependencies(nativeDependencies, "natives")}}
 """
 
 }
