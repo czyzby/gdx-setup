@@ -1,5 +1,6 @@
 package com.github.czyzby.setup.data.libs.unofficial
 
+import com.github.czyzby.setup.data.libs.official.Box2D
 import com.github.czyzby.setup.data.platforms.Core
 import com.github.czyzby.setup.data.project.Project
 import com.github.czyzby.setup.views.Extension
@@ -8,7 +9,7 @@ import com.github.czyzby.setup.views.Extension
  * Current version of KTX libraries.
  * @author MJ
  */
-const val KTX_VERSION = "1.9.6-b2"
+const val KTX_VERSION = "1.9.6-b3"
 
 /**
  * Kotlin utilities for Scene2D actors API.
@@ -67,6 +68,23 @@ class KtxAsync : ThirdPartyExtension() {
 
     override fun initiateDependencies(project: Project) {
         addDependency(project, Core.ID, "io.github.libktx:ktx-async")
+    }
+}
+
+/**
+ * Kotlin Box2D utilities and type-safe builders
+ * @author MJ
+ */
+@Extension
+class KtxBox2D : ThirdPartyExtension() {
+    override val id = "ktxBox2d"
+    override val defaultVersion = KTX_VERSION
+    override val url = "https://github.com/libktx/ktx/tree/master/box2d"
+
+    override fun initiateDependencies(project: Project) {
+        Box2D().initiate(project)
+
+        addDependency(project, Core.ID, "io.github.libktx:ktx-box2d")
     }
 }
 
