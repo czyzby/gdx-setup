@@ -179,14 +179,14 @@ task run(type: Exec) {
     if (sdkDir) {
       path = sdkDir
     } else {
-      path = '${'$'}System.env.ANDROID_HOME'
+      path = "${'$'}System.env.ANDROID_HOME"
     }
   } else {
-    path = '${'$'}System.env.ANDROID_HOME'
+    path = "${'$'}System.env.ANDROID_HOME"
   }
 
   def adb = path + "/platform-tools/adb"
-  commandLine '${'$'}adb', 'shell', 'am', 'start', '-n', '${project.basic.rootPackage}/${project.basic.rootPackage}.android.AndroidLauncher'
+  commandLine "${'$'}adb", 'shell', 'am', 'start', '-n', '${project.basic.rootPackage}/${project.basic.rootPackage}.android.AndroidLauncher'
 }
 
 // Sets up the Android Eclipse project using the old Ant based build.
