@@ -32,12 +32,11 @@ fun main(args: Array<String>) {
         if (OsUtils.isMac() && error.cause is IllegalStateException) {
             if (error.stackTraceToString().contains("XstartOnFirstThread")) {
                 println("Application was not launched on first thread. Restarting with -XstartOnFirstThread. " +
-                        "Add VM argument -XstartOnFirstThread to avoid this.");
-                Application.startNewInstance();
+                        "Add VM argument -XstartOnFirstThread to avoid this.")
+                Application.startNewInstance()
             }
         }
-
-        throw error;
+        throw error
     }
 }
 
