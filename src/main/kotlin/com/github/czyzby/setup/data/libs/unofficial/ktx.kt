@@ -1,5 +1,6 @@
 package com.github.czyzby.setup.data.libs.unofficial
 
+import com.github.czyzby.setup.data.libs.official.Ashley
 import com.github.czyzby.setup.data.libs.official.Box2D
 import com.github.czyzby.setup.data.platforms.Core
 import com.github.czyzby.setup.data.project.Project
@@ -38,6 +39,23 @@ class KtxApp : ThirdPartyExtension() {
 
     override fun initiateDependencies(project: Project) {
         addDependency(project, Core.ID, "io.github.libktx:ktx-app")
+    }
+}
+
+/**
+ * Utilities for Ashley entity component system.
+ * @author Jkly
+ */
+@Extension
+class KtxAshley : ThirdPartyExtension() {
+    override val id = "ktxAshley"
+    override val defaultVersion = KTX_VERSION
+    override val url = "https://github.com/libktx/ktx/tree/master/ashley"
+
+    override fun initiateDependencies(project: Project) {
+        Ashley().initiate(project)
+
+        addDependency(project, Core.ID, "io.github.libktx:ktx-ashley")
     }
 }
 
