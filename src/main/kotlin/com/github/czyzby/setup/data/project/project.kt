@@ -6,10 +6,13 @@ import com.github.czyzby.setup.data.files.*
 import com.github.czyzby.setup.data.gradle.GradleFile
 import com.github.czyzby.setup.data.gradle.RootGradleFile
 import com.github.czyzby.setup.data.langs.Java
+import com.github.czyzby.setup.data.langs.Kotlin
+import com.github.czyzby.setup.data.libs.unofficial.KTX_VERSION
 import com.github.czyzby.setup.data.libs.unofficial.USL
 import com.github.czyzby.setup.data.platforms.Android
 import com.github.czyzby.setup.data.platforms.Assets
 import com.github.czyzby.setup.data.platforms.Platform
+import com.github.czyzby.setup.data.templates.KtxTemplate
 import com.github.czyzby.setup.data.templates.Template
 import com.github.czyzby.setup.views.AdvancedData
 import com.github.czyzby.setup.views.BasicProjectData
@@ -101,6 +104,11 @@ class Project(val basic: BasicProjectData, val platforms: Map<String, Platform>,
 
     private fun addJvmLanguagesSupport() {
         Java().initiate(this) // Java is supported by default.
+        // If Ktx template, add Kotlin by default
+        if (template.isKtxTemplate) {
+            languages.addKotlin()
+        }
+
         languages.getSelectedLanguages().forEach {
             it.initiate(this)
             properties[it.id + "Version"] = languages.getVersion(it.id)
@@ -127,6 +135,10 @@ class Project(val basic: BasicProjectData, val platforms: Map<String, Platform>,
     private fun saveProperties() {
         // Adding LibGDX version property:
         properties["gdxVersion"] = advanced.gdxVersion
+        // Add Ktx version property if the template is a kotlin project
+        if (template.isKtxTemplate) {
+            properties["ktxVersion"] = KTX_VERSION
+        }
         PropertiesFile(properties).save(basic.destination)
     }
 
