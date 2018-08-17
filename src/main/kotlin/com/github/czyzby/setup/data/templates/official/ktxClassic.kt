@@ -2,6 +2,8 @@ package com.github.czyzby.setup.data.templates.official
 
 import com.github.czyzby.setup.data.files.CopiedFile
 import com.github.czyzby.setup.data.files.path
+import com.github.czyzby.setup.data.libs.unofficial.KtxApp
+import com.github.czyzby.setup.data.libs.unofficial.KtxGraphics
 import com.github.czyzby.setup.data.platforms.Assets
 import com.github.czyzby.setup.data.project.Project
 import com.github.czyzby.setup.data.templates.KtxTemplate
@@ -20,6 +22,8 @@ open class KtxClassicTemplate : KtxTemplate {
 
     override fun apply(project: Project) {
         super.apply(project)
+        KtxApp().initiate(project)
+        KtxGraphics().initiate(project)
         project.files.add(CopiedFile(projectName = Assets.ID, original = path("generator", "templates", "ktxClassic",
                 "ktx-logo.png"), path = "ktx-logo.png"))
     }

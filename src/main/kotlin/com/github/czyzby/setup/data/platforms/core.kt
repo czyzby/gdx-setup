@@ -17,7 +17,7 @@ class Core : Platform {
     override val id = ID
     override val isGraphical = false
     override fun createGradleFile(project: Project): GradleFile {
-        return CoreGradleFile(project.template.isKtxTemplate)
+        return CoreGradleFile()
     }
 
     override fun initiate(project: Project) {
@@ -29,12 +29,8 @@ class Core : Platform {
  * Gradle file of the core project. Should contain all multi-platform dependencies, like "gdx" itself.
  * @author MJ
  */
-class CoreGradleFile(addKtx: Boolean) : GradleFile(Core.ID) {
+class CoreGradleFile : GradleFile(Core.ID) {
     init {
-        if (addKtx) {
-            addDependency("io.github.libktx:ktx-app:\$ktxVersion")
-            addDependency("io.github.libktx:ktx-graphics:\$ktxVersion")
-        }
         addDependency("com.badlogicgames.gdx:gdx:\$gdxVersion")
     }
 

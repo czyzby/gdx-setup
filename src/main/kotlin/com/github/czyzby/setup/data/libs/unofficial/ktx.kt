@@ -241,3 +241,19 @@ class KtxVisStyle : ThirdPartyExtension() {
         addDependency(project, Core.ID, "io.github.libktx:ktx-vis-style")
     }
 }
+
+/**
+ * Kotlin utilities for the LibGDX Graphics library.
+ * @author MJ
+ */
+@Extension
+class KtxGraphics : ThirdPartyExtension() {
+    override val id = "ktxGraphics"
+    override val defaultVersion = KTX_VERSION
+    override val url = "https://github.com/libktx/ktx/tree/master/style"
+
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "io.github.libktx:ktx-graphics")
+    }
+}
+

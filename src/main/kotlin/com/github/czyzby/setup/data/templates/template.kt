@@ -16,9 +16,6 @@ interface Template {
         get() = "640"
     val height: String
         get() = "480"
-    // checks if a template is a Ktx template
-    val isKtxTemplate: Boolean
-        get() = false
     /**
      * Used as project description in README file. Optional.
      */

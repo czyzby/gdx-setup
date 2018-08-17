@@ -6,8 +6,6 @@ import com.github.czyzby.setup.data.platforms.Desktop
 import com.github.czyzby.setup.data.project.Project
 
 interface KtxTemplate : Template {
-    override val isKtxTemplate: Boolean
-        get() = true
 
     override fun addApplicationListener(project: Project) {
         addSourceFile(project = project, platform = Core.ID, packageName = project.basic.rootPackage,
