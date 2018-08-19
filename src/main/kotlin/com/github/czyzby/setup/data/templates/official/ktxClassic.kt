@@ -2,6 +2,7 @@ package com.github.czyzby.setup.data.templates.official
 
 import com.github.czyzby.setup.data.files.CopiedFile
 import com.github.czyzby.setup.data.files.path
+import com.github.czyzby.setup.data.langs.Kotlin
 import com.github.czyzby.setup.data.libs.unofficial.KtxApp
 import com.github.czyzby.setup.data.libs.unofficial.KtxGraphics
 import com.github.czyzby.setup.data.platforms.Assets
@@ -11,7 +12,7 @@ import com.github.czyzby.setup.views.ProjectTemplate
 
 /**
  * Draws Ktx logo at the center of the screen.
- * @author MJ
+ * @author David Partouche
  * @author Original gdx-setup maintainers
  */
 @ProjectTemplate(official = true)
@@ -24,6 +25,7 @@ open class KtxClassicTemplate : KtxTemplate {
         super.apply(project)
         KtxApp().initiate(project)
         KtxGraphics().initiate(project)
+        project.languages.selectLanguage<Kotlin>()
         project.files.add(CopiedFile(projectName = Assets.ID, original = path("generator", "templates", "ktxClassic",
                 "ktx-logo.png"), path = "ktx-logo.png"))
     }
@@ -37,7 +39,7 @@ import ktx.app.KtxScreen
 import ktx.app.clearScreen
 import ktx.graphics.use
 
-class Screen : KtxScreen {
+class FirstScreen : KtxScreen {
     private val image = Texture("ktx-logo.png")
     private val batch = SpriteBatch()
 
@@ -56,8 +58,8 @@ class Screen : KtxScreen {
 
 class ${project.basic.mainClass} : KtxGame<KtxScreen>() {
     override fun create() {
-        addScreen(Screen())
-        setScreen<Screen>()
+        addScreen(FirstScreen())
+        setScreen<FirstScreen>()
     }
 }
 """

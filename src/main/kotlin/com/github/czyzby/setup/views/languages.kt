@@ -20,7 +20,7 @@ import com.kotcrab.vis.ui.widget.VisTextField
  */
 @Processor
 class LanguagesData : AbstractAnnotationProcessor<JvmLanguage>() {
-    private val jvmLanguages = mutableMapOf<String, Language>()
+    protected val jvmLanguages = mutableMapOf<String, Language>()
 
     @LmlActor("\$jvmLanguages")
     lateinit var languageButtons: ObjectSet<Button>
@@ -59,9 +59,12 @@ class LanguagesData : AbstractAnnotationProcessor<JvmLanguage>() {
         jvmLanguages[language.id] = language
     }
 
-    // Add Kotlin to the list of buttons programmatically if a Ktx template is chosen
-    fun addKotlin() {
-        languageButtons.find { it.name == "kotlin" }?.isChecked = true
+    inline fun <reified Lang : Language> selectLanguage() {
+        jvmLanguages
+                .filter { it.value is Lang }
+                .forEach { language ->
+                    languageButtons.first { it.name == language.key }.isChecked = true
+                }
     }
 }
 

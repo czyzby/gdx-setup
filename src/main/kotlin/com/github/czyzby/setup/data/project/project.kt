@@ -50,9 +50,6 @@ class Project(val basic: BasicProjectData, val platforms: Map<String, Platform>,
         rootGradle = RootGradleFile(this)
         platforms.forEach { gradleFiles[it.key] = it.value.createGradleFile(this) }
         addBasicGradleTasksDescriptions()
-        if (template is KtxTemplate) {
-            languages.addKotlin()
-        }
     }
 
     private fun addBasicGradleTasksDescriptions() {
@@ -84,9 +81,9 @@ class Project(val basic: BasicProjectData, val platforms: Map<String, Platform>,
 
     fun generate() {
         addBasicFiles()
-        addJvmLanguagesSupport()
-        addExtensions()
         template.apply(this)
+        addExtensions()
+        addJvmLanguagesSupport()
         addPlatforms()
         addSkinAssets()
         addReadmeFile()
