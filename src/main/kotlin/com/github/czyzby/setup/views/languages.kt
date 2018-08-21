@@ -20,9 +20,10 @@ import com.kotcrab.vis.ui.widget.VisTextField
  */
 @Processor
 class LanguagesData : AbstractAnnotationProcessor<JvmLanguage>() {
-    private val jvmLanguages = mutableMapOf<String, Language>()
+    protected val jvmLanguages = mutableMapOf<String, Language>()
 
-    @LmlActor("\$jvmLanguages") lateinit var languageButtons: ObjectSet<Button>
+    @LmlActor("\$jvmLanguages")
+    lateinit var languageButtons: ObjectSet<Button>
     val languageVersions = ObjectMap<String, VisTextField>()
 
     val languages: Array<String>
@@ -56,6 +57,14 @@ class LanguagesData : AbstractAnnotationProcessor<JvmLanguage>() {
                              initializer: ContextInitializer, contextDestroyer: ContextDestroyer) {
         val language = component as Language
         jvmLanguages[language.id] = language
+    }
+
+    inline fun <reified Lang : Language> selectLanguage() {
+        jvmLanguages
+                .filter { it.value is Lang }
+                .forEach { language ->
+                    languageButtons.first { it.name == language.key }.isChecked = true
+                }
     }
 }
 

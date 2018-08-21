@@ -10,7 +10,7 @@ import com.github.czyzby.setup.views.Extension
  * Current version of KTX libraries.
  * @author MJ
  */
-const val KTX_VERSION = "1.9.6-b7"
+const val KTX_VERSION = "1.9.8-b4"
 
 /**
  * Kotlin utilities for Scene2D actors API.
@@ -241,3 +241,19 @@ class KtxVisStyle : ThirdPartyExtension() {
         addDependency(project, Core.ID, "io.github.libktx:ktx-vis-style")
     }
 }
+
+/**
+ * Kotlin utilities for the LibGDX Graphics library.
+ * @author MJ
+ */
+@Extension
+class KtxGraphics : ThirdPartyExtension() {
+    override val id = "ktxGraphics"
+    override val defaultVersion = KTX_VERSION
+    override val url = "https://github.com/libktx/ktx/tree/master/style"
+
+    override fun initiateDependencies(project: Project) {
+        addDependency(project, Core.ID, "io.github.libktx:ktx-graphics")
+    }
+}
+

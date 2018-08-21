@@ -10,6 +10,7 @@ import com.github.czyzby.setup.data.libs.unofficial.USL
 import com.github.czyzby.setup.data.platforms.Android
 import com.github.czyzby.setup.data.platforms.Assets
 import com.github.czyzby.setup.data.platforms.Platform
+import com.github.czyzby.setup.data.templates.KtxTemplate
 import com.github.czyzby.setup.data.templates.Template
 import com.github.czyzby.setup.views.AdvancedData
 import com.github.czyzby.setup.views.BasicProjectData
@@ -80,9 +81,9 @@ class Project(val basic: BasicProjectData, val platforms: Map<String, Platform>,
 
     fun generate() {
         addBasicFiles()
-        addJvmLanguagesSupport()
-        addExtensions()
         template.apply(this)
+        addExtensions()
+        addJvmLanguagesSupport()
         addPlatforms()
         addSkinAssets()
         addReadmeFile()
