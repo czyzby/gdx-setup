@@ -8,4 +8,5 @@ import com.github.czyzby.autumn.mvc.stereotype.preference.Property
  */
 @Property("AndroidSdk")
 class AndroidSdkPreference : AbstractStringPreference() {
+    override fun getDefault(): String = System.getenv("ANDROID_HOME").orEmpty()
 }
