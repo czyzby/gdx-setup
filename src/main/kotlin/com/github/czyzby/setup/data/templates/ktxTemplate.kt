@@ -24,7 +24,7 @@ import com.badlogic.gdx.Files
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
 
-import ${project.basic.rootPackage}.${project.basic.mainClass};
+import ${project.basic.rootPackage}.${project.basic.mainClass}
 
 /** Launches the desktop (LWJGL) application. */
 fun main(args: Array<String>) {

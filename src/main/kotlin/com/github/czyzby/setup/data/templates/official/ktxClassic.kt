@@ -30,7 +30,7 @@ open class KtxClassicTemplate : KtxTemplate {
                 "ktx-logo.png"), path = "ktx-logo.png"))
     }
 
-    override fun getApplicationListenerContent(project: Project): String = """package ${project.basic.rootPackage};
+    override fun getApplicationListenerContent(project: Project): String = """package ${project.basic.rootPackage}
 
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
