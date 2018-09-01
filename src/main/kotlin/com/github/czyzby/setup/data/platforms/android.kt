@@ -45,7 +45,6 @@ class Android : Platform {
     package="${project.basic.rootPackage}"
     android:versionCode="1"
     android:versionName="1.0" >
-    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="${project.advanced.androidSdkVersion}" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -87,7 +86,7 @@ class AndroidGradleFile(val project: Project) : GradleFile(Android.ID) {
         addNativeDependency("com.badlogicgames.gdx:gdx-platform:\$gdxVersion:natives-arm64-v8a")
         addNativeDependency("com.badlogicgames.gdx:gdx-platform:\$gdxVersion:natives-x86")
         addNativeDependency("com.badlogicgames.gdx:gdx-platform:\$gdxVersion:natives-x86_64")
-        plugins.add("android")
+        plugins.add("com.android.application")
     }
 
     /**
@@ -130,7 +129,7 @@ android {
   }
   defaultConfig {
     applicationId '${project.basic.rootPackage}'
-    minSdkVersion 8
+    minSdkVersion 14
     targetSdkVersion ${project.advanced.androidSdkVersion}
   }
 }
@@ -144,11 +143,11 @@ ${joinDependencies(dependencies)}${joinDependencies(nativeDependencies, "natives
 // the natives configuration, and extracts them to the proper libs/ folders
 // so they get packed with the APK.
 task copyAndroidNatives() {
-  file("libs/armeabi/").mkdirs();
-  file("libs/armeabi-v7a/").mkdirs();
-  file("libs/arm64-v8a/").mkdirs();
-  file("libs/x86_64/").mkdirs();
-  file("libs/x86/").mkdirs();
+  file("libs/armeabi/").mkdirs()
+  file("libs/armeabi-v7a/").mkdirs()
+  file("libs/arm64-v8a/").mkdirs()
+  file("libs/x86_64/").mkdirs()
+  file("libs/x86/").mkdirs()
 
   configurations.natives.files.each { jar ->
     def outputDir = null
@@ -212,7 +211,7 @@ eclipse {
   project {
     name = appName + "-android"
     natures 'com.android.ide.eclipse.adt.AndroidNature'
-    buildCommands.clear();
+    buildCommands.clear()
     buildCommand "com.android.ide.eclipse.adt.ResourceManagerBuilder"
     buildCommand "com.android.ide.eclipse.adt.PreCompilerBuilder"
     buildCommand "org.eclipse.jdt.core.javabuilder"
@@ -223,13 +222,13 @@ eclipse {
 // Sets up the Android Idea project using the old Ant based build.
 idea {
   module {
-    sourceDirs += file("src/main/java");
+    sourceDirs += file("src/main/java")
     scopes = [ COMPILE: [plus:[project.configurations.compile]]]
     iml {
       withXml {
         def node = it.asNode()
-        def builder = NodeBuilder.newInstance();
-        builder.current = node;
+        def builder = NodeBuilder.newInstance()
+        builder.current = node
         builder.component(name: "FacetManager") {
           facet(type: "android", name: "Android") {
             configuration {
