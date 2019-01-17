@@ -250,7 +250,7 @@ class KtxVisStyle : ThirdPartyExtension() {
 class KtxGraphics : ThirdPartyExtension() {
     override val id = "ktxGraphics"
     override val defaultVersion = KTX_VERSION
-    override val url = "https://github.com/libktx/ktx/tree/master/style"
+    override val url = "https://github.com/libktx/ktx/tree/master/graphics"
 
     override fun initiateDependencies(project: Project) {
         addDependency(project, Core.ID, "io.github.libktx:ktx-graphics")
