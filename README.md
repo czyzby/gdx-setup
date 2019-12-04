@@ -1,3 +1,7 @@
+# Disclaimer
+
+This project is no longer actively maintained. Pull requests will be reviewed, but new feature requests will not be implemented. Please use [gdx-liftoff](https://github.com/tommyettinger/gdx-liftoff) instead, which is an updated fork of this project.
+
 # gdx-setup
 
 This project is meant to be a replacement for the current `gdx-setup` application, which... well, has its flaws.
@@ -29,9 +33,7 @@ the new project to `settings.gradle` and create its directory.
 
 ### Running the application
 
-You can download the latest runnable jar [HERE](https://dl.kotcrab.com/libgdx/gdx-setup-latest.jar). The latest version
-usually contains up-to-date third-party library versions. Stable application versions are uploaded to the
-[releases section](https://github.com/czyzby/gdx-setup/releases).
+Stable application versions are uploaded to the [releases section](https://github.com/czyzby/gdx-setup/releases).
 
 *Pro tip*: check the `Generate skin assets` option in `Advanced` tab and `Desktop` in `Platforms` tab.
 Enter `pack desktop:run --daemon` Gradle tasks in `Advanced` tab. Delete project directory with the trash icon
