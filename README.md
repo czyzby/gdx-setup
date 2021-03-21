@@ -1,11 +1,32 @@
+```
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+```
+
 # Disclaimer
 
-This project is no longer actively maintained. Pull requests will be reviewed, but new feature requests will not be implemented. Please use [gdx-liftoff](https://github.com/tommyettinger/gdx-liftoff) instead, which is an updated fork of this project.
+This project is no longer maintained. Please use the official LibGDX setup tool or the [gdx-liftoff](https://github.com/tommyettinger/gdx-liftoff) application instead, which is an updated fork of this project.
+
+```
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+```
 
 # gdx-setup
 
-This project is meant to be a replacement for the current `gdx-setup` application, which... well, has its flaws.
-The biggest of which is *Swing* usage.
+This project was meant to be a replacement for the official `gdx-setup` application.
 
 Additionally to supporting most official `gdx-setup` features, you might want to consider switching because of:
 - Project templates. You can choose the initial generated sources of the project - you're no longer forced to use
@@ -19,7 +40,7 @@ the desktop project.
 - More third-party extensions. Much, much more.
 - Preferences, favorites. Basic data of your application is saved, so you don't have to fill it each time
 you generate a project. File chooser allows you to add your "favorite" workspace folders.
-- Internationalization! The application can be translated to different languages. It's currently available
+- Internationalization. The application can be translated to different languages. It's currently available
 in English and Polish.
 - Gradle wrapper and running Gradle tasks after generation is entirely optional. This can significantly speed up
 the generation process and limit the project size if you'd prefer to use a globally installed Gradle application.
@@ -48,9 +69,3 @@ git clone https://github.com/czyzby/gdx-setup.git
 cd gdx-setup
 gradle run
 ```
-
-## Contributing
-
-You can start with creating an issue: if that's something trivial like adding a new extension or updating some version,
-it will most likely be quickly resolved. If you want to modify the sources and pull a request, check out the
-[contribution guide](CONTRIBUTING.md).
